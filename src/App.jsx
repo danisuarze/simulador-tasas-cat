@@ -1,11 +1,11 @@
-import NavbarC from "./components/navbar/NavbarC"
+import ViviendaUnifamiliarC from "./components/viviendaUnifamiliar/ViviendaUnifamiliarC"
 
 const App = () => {
 
   
   return (
     <>
-    <NavbarC />
+    <ViviendaUnifamiliarC />
     </>
   )
 
