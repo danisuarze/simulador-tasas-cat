@@ -1,11 +1,13 @@
-import ViviendaUnifamiliarC from "./components/viviendaUnifamiliar/ViviendaUnifamiliarC"
+import AcordeonC from "./components/acordeon/AcordeonC"
+import JumbotronC from "./components/jumbotron/JumbotronC"
 
-const App = () => {
+const App = () => { 
 
   
   return (
     <>
-    <ViviendaUnifamiliarC />
+    <JumbotronC />
+    <AcordeonC />
     </>
   )
 

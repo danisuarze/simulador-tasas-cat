@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './ViviendaUnifamiliar.css';
+import React, { useState } from 'react';
+import './EdificiosAlturaC.css';
 
-const ViviendaUnifamiliarC = () => {
+const EdificiosAlturaC = () => {
   // Constantes
   const VPTR = 950;
   const TASA_MINIMA = 20 * VPTR; // $19,000
@@ -25,24 +25,24 @@ const ViviendaUnifamiliarC = () => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
   };
 
-  // Función para calcular el valor según los tramos de m2
+  // Función para calcular el valor según los tramos de m2 específicos para edificios en altura
   const calcularPorTramos = (m2) => {
     let total = 0;
     
-    // Primeros 200m² al 100%
-    const tramo1 = Math.min(m2, 200);
-    total += tramo1 * VPTR;
+    // Primeros 2000m² al 80%
+    const tramo1 = Math.min(m2, 2000);
+    total += tramo1 * VPTR * 0.8;
     
-    // Siguientes 200m² al 80%
-    if (m2 > 200) {
-      const tramo2 = Math.min(m2 - 200, 200);
-      total += tramo2 * VPTR * 0.8;
+    // Segundos 2000m² al 60%
+    if (m2 > 2000) {
+      const tramo2 = Math.min(m2 - 2000, 2000);
+      total += tramo2 * VPTR * 0.6;
     }
     
-    // Resto al 100%
-    if (m2 > 400) {
-      const tramo3 = m2 - 400;
-      total += tramo3 * VPTR;
+    // Resto al 45%
+    if (m2 > 4000) {
+      const tramo3 = m2 - 4000;
+      total += tramo3 * VPTR * 0.45;
     }
     
     return total;
@@ -520,7 +520,7 @@ const ViviendaUnifamiliarC = () => {
           <div className="col-lg-6">
             <div className="card">
               <div className="card-header">
-                <h5 className="mb-0">Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Edificios en Altura</h5>
               </div>
               <div className="card-body">
                 <div className="mb-3">
@@ -668,7 +668,7 @@ const ViviendaUnifamiliarC = () => {
                   </div>
                 )}
                 
-                {/* Selección de tareas para Obra Nueva и Ampliación */}
+                {/* Selección de tareas para Obra Nueva y Ampliación */}
                 {mostrarTareasField && (
                   <div className="mb-3 dynamic-field" id="tareasViviendaField">
                     <label className="form-label">Seleccione las tareas:</label>
@@ -676,7 +676,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vAnteproyecto" 
                         value="Anteproyecto" 
                         checked={tareaSeleccionada === "Anteproyecto"}
@@ -688,7 +688,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vProyecto" 
                         value="Proyecto" 
                         checked={tareaSeleccionada === "Proyecto"}
@@ -700,7 +700,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vDireccion" 
                         value="Dirección Técnica" 
                         checked={tareaSeleccionada === "Dirección Técnica"}
@@ -712,7 +712,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vAnteproyectoProyecto" 
                         value="Anteproyecto y Proyecto" 
                         checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
@@ -724,7 +724,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vProyectoDireccion" 
                         value="Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
@@ -736,7 +736,7 @@ const ViviendaUnifamiliarC = () => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vCompleto" 
                         value="Anteproyecto, Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
@@ -790,7 +790,7 @@ const ViviendaUnifamiliarC = () => {
           <div className="col-lg-6">
             <div className="card result-card">
               <div className="card-header">
-                <h5 className="mb-0">Resultados - Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Resultados - Edificios en Altura</h5>
               </div>
               <div className="card-body">
                 {resultados ? (
@@ -826,14 +826,14 @@ const ViviendaUnifamiliarC = () => {
         {/* Sección de información sobre el cálculo eliminada del frontend */}
       </div>
 
-      {/* <footer>
+      <footer>
         <div className="container">
           <small>Los valores calculados son referenciales y están sujetos a verificación por el Departamento de Ejercicio Profesional del CAT</small>
           <p className="mb-0">© 2025 Desarrollado por: DOS Diseño Web – danisuarze@gmail.com - Todos los derechos reservados</p>
         </div>
-      </footer> */}
+      </footer>
     </div>
   );
 };
 
-export default ViviendaUnifamiliarC;
+export default EdificiosAlturaC;
