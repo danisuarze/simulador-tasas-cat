@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import './ViviendaUnifamiliar.css';
+import './EdificiosAlturaC.css';
 
-const ViviendaUnifamiliarC = ({ onBack }) => {
+const EdificiosAlturaC = ({ onBack }) => {
   // Constantes
   const VPTR = 950;
   const TASA_MINIMA = 20 * VPTR; // $19,000
@@ -26,24 +26,24 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
   };
 
-  // Función para calcular el valor según los tramos de m2
+  // Función para calcular el valor según los tramos de m2 específicos para edificios en altura
   const calcularPorTramos = (m2) => {
     let total = 0;
     
-    // Primeros 200m² al 100%
-    const tramo1 = Math.min(m2, 200);
-    total += tramo1 * VPTR;
+    // Primeros 2000m² al 80%
+    const tramo1 = Math.min(m2, 2000);
+    total += tramo1 * VPTR * 0.8;
     
-    // Siguientes 200m² al 80%
-    if (m2 > 200) {
-      const tramo2 = Math.min(m2 - 200, 200);
-      total += tramo2 * VPTR * 0.8;
+    // Segundos 2000m² al 60%
+    if (m2 > 2000) {
+      const tramo2 = Math.min(m2 - 2000, 2000);
+      total += tramo2 * VPTR * 0.6;
     }
     
-    // Resto al 100%
-    if (m2 > 400) {
-      const tramo3 = m2 - 400;
-      total += tramo3 * VPTR;
+    // Resto al 45%
+    if (m2 > 4000) {
+      const tramo3 = m2 - 4000;
+      total += tramo3 * VPTR * 0.45;
     }
     
     return total;
@@ -161,7 +161,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         if (m2Relevamiento < 0) {
           detallesCalculo.push({
             tipo: "info",
-            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) is mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
+            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) es mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
           });
           tasaRetributiva = TASA_MINIMA;
           descripcionServicio = "Relevamiento (tasa mínima aplicada)";
@@ -524,7 +524,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
               <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
               <p className="mb-0">Luego seleccione la tarea a realizar y presione calcular</p>
             </div>
-          </div>  
+          </div>
         </div>
       </div>
 
@@ -533,7 +533,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
           <div className="col-lg-6">
             <div className="card">
               <div className="card-header">
-                <h5 className="mb-0">Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Edificios en Altura</h5>
               </div>
               <div className="card-body">
                 <div className="mb-3">
@@ -689,7 +689,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vAnteproyecto" 
                         value="Anteproyecto" 
                         checked={tareaSeleccionada === "Anteproyecto"}
@@ -701,7 +701,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vProyecto" 
                         value="Proyecto" 
                         checked={tareaSeleccionada === "Proyecto"}
@@ -713,7 +713,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vDireccion" 
                         value="Dirección Técnica" 
                         checked={tareaSeleccionada === "Dirección Técnica"}
@@ -725,7 +725,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vAnteproyectoProyecto" 
                         value="Anteproyecto y Proyecto" 
                         checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
@@ -737,7 +737,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vProyectoDireccion" 
                         value="Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
@@ -749,7 +749,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
+                        name="tareaEdificioAltura" 
                         id="vCompleto" 
                         value="Anteproyecto, Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
@@ -803,7 +803,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
           <div className="col-lg-6">
             <div className="card result-card">
               <div className="card-header">
-                <h5 className="mb-0">Resultados - Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Resultados - Edificios en Altura</h5>
               </div>
               <div className="card-body">
                 {resultados ? (
@@ -842,4 +842,4 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
   );
 };
 
-export default ViviendaUnifamiliarC;
+export default EdificiosAlturaC;

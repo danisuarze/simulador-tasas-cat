@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
-import './ViviendaUnifamiliar.css';
+import './EdificiosEspecialesC.css';
 
-const ViviendaUnifamiliarC = ({ onBack }) => {
+const EdificiosEspecialesC = ({ onBack }) => {
   // Constantes
   const VPTR = 950;
   const TASA_MINIMA = 20 * VPTR; // $19,000
 
   // Estados
   const [tipoObra, setTipoObra] = useState('nueva');
-  const [m2Vivienda, setM2Vivienda] = useState('');
+  const [m2Edificio, setM2Edificio] = useState('');
   const [m2Construida, setM2Construida] = useState('');
   const [m2Ampliacion, setM2Ampliacion] = useState('');
   const [m2AntecedenteAmpliacion, setM2AntecedenteAmpliacion] = useState('');
@@ -18,7 +18,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
   const [montoRefaccionAmpliacion, setMontoRefaccionAmpliacion] = useState('');
   const [m2AmpliacionRefaccion, setM2AmpliacionRefaccion] = useState('');
   const [tareaSeleccionada, setTareaSeleccionada] = useState('Anteproyecto');
-  const [avanceVivienda, setAvanceVivienda] = useState('');
+  const [avanceEdificio, setAvanceEdificio] = useState('');
   const [resultados, setResultados] = useState(null);
 
   // Función para formatear números como moneda
@@ -26,33 +26,33 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
   };
 
-  // Función para calcular el valor según los tramos de m2
+  // Función para calcular el valor según los tramos de m2 específicos para edificios especiales
   const calcularPorTramos = (m2) => {
     let total = 0;
     
-    // Primeros 200m² al 100%
-    const tramo1 = Math.min(m2, 200);
-    total += tramo1 * VPTR;
+    // Primeros 1000m² al 100%
+    const tramo1 = Math.min(m2, 1000);
+    total += tramo1 * VPTR * 1.0;
     
-    // Siguientes 200m² al 80%
-    if (m2 > 200) {
-      const tramo2 = Math.min(m2 - 200, 200);
+    // Segundos 1000m² al 80%
+    if (m2 > 1000) {
+      const tramo2 = Math.min(m2 - 1000, 1000);
       total += tramo2 * VPTR * 0.8;
     }
     
-    // Resto al 100%
-    if (m2 > 400) {
-      const tramo3 = m2 - 400;
-      total += tramo3 * VPTR;
+    // Resto al 60%
+    if (m2 > 2000) {
+      const tramo3 = m2 - 2000;
+      total += tramo3 * VPTR * 0.6;
     }
     
     return total;
   };
 
   // Función para calcular resultados
-  const calcularVivienda = () => {
+  const calcularEdificio = () => {
     let m2 = 0;
-    let avance = parseFloat(avanceVivienda) || 0;
+    let avance = parseFloat(avanceEdificio) || 0;
     
     // Validaciones según el tipo de obra
     if (tipoObra === 'ampliacion') {
@@ -98,7 +98,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         return;
       }
     } else {
-      m2 = parseFloat(m2Vivienda) || 0;
+      m2 = parseFloat(m2Edificio) || 0;
       
       if (m2 <= 0) {
         setResultados({
@@ -161,7 +161,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         if (m2Relevamiento < 0) {
           detallesCalculo.push({
             tipo: "info",
-            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) is mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
+            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) es mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
           });
           tasaRetributiva = TASA_MINIMA;
           descripcionServicio = "Relevamiento (tasa mínima aplicada)";
@@ -524,7 +524,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
               <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
               <p className="mb-0">Luego seleccione la tarea a realizar y presione calcular</p>
             </div>
-          </div>  
+          </div>
         </div>
       </div>
 
@@ -533,14 +533,14 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
           <div className="col-lg-6">
             <div className="card">
               <div className="card-header">
-                <h5 className="mb-0">Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Edificios Especiales</h5>
               </div>
               <div className="card-body">
                 <div className="mb-3">
-                  <label htmlFor="tipoObraVivienda" className="form-label">Tipo de Obra</label>
+                  <label htmlFor="tipoObraEdificio" className="form-label">Tipo de Obra</label>
                   <select 
                     className="form-select" 
-                    id="tipoObraVivienda" 
+                    id="tipoObraEdificio" 
                     value={tipoObra}
                     onChange={(e) => setTipoObra(e.target.value)}
                   >
@@ -555,15 +555,15 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 {/* Campos para Obra Nueva y Obra Construida */}
                 {mostrarCamposBasicos && (
                   <div className="mb-3" id="m2BasicoField">
-                    <label htmlFor="m2Vivienda" className="form-label">Metros cuadrados (m²)</label>
+                    <label htmlFor="m2Edificio" className="form-label">Metros cuadrados (m²)</label>
                     <input 
                       type="number" 
                       className="form-control" 
-                      id="m2Vivienda" 
+                      id="m2Edificio" 
                       placeholder="Ingrese los m² de construcción" 
                       min="0"
-                      value={m2Vivienda}
-                      onChange={(e) => setM2Vivienda(e.target.value)}
+                      value={m2Edificio}
+                      onChange={(e) => setM2Edificio(e.target.value)}
                     />
                   </div>
                 )}
@@ -683,79 +683,79 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 
                 {/* Selección de tareas para Obra Nueva y Ampliación */}
                 {mostrarTareasField && (
-                  <div className="mb-3 dynamic-field" id="tareasViviendaField">
+                  <div className="mb-3 dynamic-field" id="tareasEdificioField">
                     <label className="form-label">Seleccione las tareas:</label>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vAnteproyecto" 
+                        name="tareaEdificioEspecial" 
+                        id="eAnteproyecto" 
                         value="Anteproyecto" 
                         checked={tareaSeleccionada === "Anteproyecto"}
                         onChange={() => setTareaSeleccionada("Anteproyecto")}
                       />
-                      <label className="form-check-label" htmlFor="vAnteproyecto">Anteproyecto</label>
+                      <label className="form-check-label" htmlFor="eAnteproyecto">Anteproyecto</label>
                     </div>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vProyecto" 
+                        name="tareaEdificioEspecial" 
+                        id="eProyecto" 
                         value="Proyecto" 
                         checked={tareaSeleccionada === "Proyecto"}
                         onChange={() => setTareaSeleccionada("Proyecto")}
                       />
-                      <label className="form-check-label" htmlFor="vProyecto">Proyecto</label>
+                      <label className="form-check-label" htmlFor="eProyecto">Proyecto</label>
                     </div>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vDireccion" 
+                        name="tareaEdificioEspecial" 
+                        id="eDireccion" 
                         value="Dirección Técnica" 
                         checked={tareaSeleccionada === "Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Dirección Técnica")}
                       />
-                      <label className="form-check-label" htmlFor="vDireccion">Dirección Técnica</label>
+                      <label className="form-check-label" htmlFor="eDireccion">Dirección Técnica</label>
                     </div>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vAnteproyectoProyecto" 
+                        name="tareaEdificioEspecial" 
+                        id="eAnteproyectoProyecto" 
                         value="Anteproyecto y Proyecto" 
                         checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
                         onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
                       />
-                      <label className="form-check-label" htmlFor="vAnteproyectoProyecto">Anteproyecto y Proyecto</label>
+                      <label className="form-check-label" htmlFor="eAnteproyectoProyecto">Anteproyecto y Proyecto</label>
                     </div>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vProyectoDireccion" 
+                        name="tareaEdificioEspecial" 
+                        id="eProyectoDireccion" 
                         value="Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
                       />
-                      <label className="form-check-label" htmlFor="vProyectoDireccion">Proyecto y Dirección Técnica</label>
+                      <label className="form-check-label" htmlFor="eProyectoDireccion">Proyecto y Dirección Técnica</label>
                     </div>
                     <div className="form-check task-item">
                       <input 
                         className="form-check-input" 
                         type="radio" 
-                        name="tareaVivienda" 
-                        id="vCompleto" 
+                        name="tareaEdificioEspecial" 
+                        id="eCompleto" 
                         value="Anteproyecto, Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
                       />
-                      <label className="form-check-label" htmlFor="vCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
+                      <label className="form-check-label" htmlFor="eCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
                     </div>
                   </div>
                 )}
@@ -776,23 +776,23 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 
                 {mostrarAvanceField && (
                   <div className="mb-3" id="avanceField">
-                    <label htmlFor="avanceVivienda" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
+                    <label htmlFor="avanceEdificio" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
                     <input 
                       type="number" 
                       className="form-control" 
-                      id="avanceVivienda" 
+                      id="avanceEdificio" 
                       placeholder="Sin avance de obra (0%)" 
                       min="0" 
                       max="100"
-                      value={avanceVivienda}
-                      onChange={(e) => setAvanceVivienda(e.target.value)}
+                      value={avanceEdificio}
+                      onChange={(e) => setAvanceEdificio(e.target.value)}
                     />
                     <div className="form-text">Ingrese 0 si no hay avance de obra. Este valor solo afecta al cálculo de Dirección Técnica.</div>
                   </div>
                 )}
                 
                 <div className="d-grid">
-                  <button className="btn btn-primary" onClick={calcularVivienda}>
+                  <button className="btn btn-primary" onClick={calcularEdificio}>
                     <i className="bi bi-calculator"></i> Calcular
                   </button>
                 </div>
@@ -803,7 +803,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
           <div className="col-lg-6">
             <div className="card result-card">
               <div className="card-header">
-                <h5 className="mb-0">Resultados - Vivienda Unifamiliar</h5>
+                <h5 className="mb-0">Resultados - Edificios Especiales</h5>
               </div>
               <div className="card-body">
                 {resultados ? (
@@ -812,7 +812,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                       {resultados.error}
                     </div>
                   ) : (
-                    <div id="resultadosVivienda">
+                    <div id="resultadosEdificio">
                       {resultados.html.map((item, index) => (
                         <div key={index} className="result-item">
                           <strong>{item.label}:</strong> {item.value}
@@ -835,11 +835,9 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
             </div>
           </div>
         </div>
-
-        {/* Sección de información sobre el cálculo eliminada del frontend */}
       </div>
     </div>
   );
 };
 
-export default ViviendaUnifamiliarC;
+export default EdificiosEspecialesC;
