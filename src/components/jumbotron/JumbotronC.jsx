@@ -10,8 +10,8 @@ const JumbotronC = () => {
         className="final-logo"
       />
       <div className="final-text">
-        <span className="final-title">SIMULADOR DE TASAS</span>
-        <span className="final-paragraph">Valores referenciales sujetos al control del Dpto. Ejercicio Profesional del CAT</span>
+        <span className="final-title">Colegio de Arquitectos de Tucumán</span>
+        <span className="final-paragraph">Ley 5.994 |  Modif. Ley 8.863</span>
       </div>
     </div>
   );

@@ -1,0 +1,175 @@
+.cards-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-title {
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+.card-hover {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #e3f2fd;
+  color: #1A286F;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover .icon-wrapper {
+  background-color: #1A286F !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+.card-title {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: #7f8c8d;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.card-button {
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-weight: 500;
+  border-width: 2px;
+  border-color: #1A286F;
+  color: #1A286F;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #1A286F;
+  border-color: #1A286F;
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 1.8rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* CardsC.css */
+
+.cards-container {
+  padding: 20px;
+}
+
+.main-title {
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 12px;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.card-text {
+  color: #666;
+  font-size: 0.95rem;
+  flex-grow: 1;
+}
+
+/* Estilos para el botón Calcular */
+.card-button {
+  background-color: transparent !important;
+  color: #1A286F !important;
+  border: 2px solid #1A286F !important;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #1A286F !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(26, 40, 111, 0.2);
+}
+
+.card-button:active,
+.card-button:focus {
+  background-color: #1A286F !important;
+  color: white !important;
+  border-color: #1A286F !important;
+  box-shadow: 0 2px 4px rgba(26, 40, 111, 0.3) !important;
+}

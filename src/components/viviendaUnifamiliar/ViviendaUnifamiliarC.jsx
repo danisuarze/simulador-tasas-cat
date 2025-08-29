@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import './ViviendaUnifamiliar.css';
 
-const ViviendaUnifamiliarC = () => {
+const ViviendaUnifamiliarC = ({ onBack }) => {
   // Constantes
   const VPTR = 950;
   const TASA_MINIMA = 20 * VPTR; // $19,000
@@ -160,7 +161,7 @@ const ViviendaUnifamiliarC = () => {
         if (m2Relevamiento < 0) {
           detallesCalculo.push({
             tipo: "info",
-            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) es mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
+            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) is mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
           });
           tasaRetributiva = TASA_MINIMA;
           descripcionServicio = "Relevamiento (tasa mínima aplicada)";
@@ -504,14 +505,26 @@ const ViviendaUnifamiliarC = () => {
 
   return (
     <div>
+      {/* Botón Volver al Home */}
+      <div className="container mt-3 mb-4">
+        <button 
+          className="btn back-home-btn"
+          onClick={onBack}
+          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+        >
+          <FaArrowLeft className="me-2" />
+          Volver al Home
+        </button>
+      </div>
+
       <div className="header">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
-              <h1 className="h3 mb-1">Complete el tipo de obra y cargue la/s superficie/s</h1>
+              <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
               <p className="mb-0">Luego seleccione la tarea a realizar y presione calcular</p>
             </div>
-          </div>
+          </div>  
         </div>
       </div>
 
@@ -668,7 +681,7 @@ const ViviendaUnifamiliarC = () => {
                   </div>
                 )}
                 
-                {/* Selección de tareas para Obra Nueva и Ampliación */}
+                {/* Selección de tareas para Obra Nueva y Ampliación */}
                 {mostrarTareasField && (
                   <div className="mb-3 dynamic-field" id="tareasViviendaField">
                     <label className="form-label">Seleccione las tareas:</label>
@@ -825,13 +838,6 @@ const ViviendaUnifamiliarC = () => {
 
         {/* Sección de información sobre el cálculo eliminada del frontend */}
       </div>
-
-      {/* <footer>
-        <div className="container">
-          <small>Los valores calculados son referenciales y están sujetos a verificación por el Departamento de Ejercicio Profesional del CAT</small>
-          <p className="mb-0">© 2025 Desarrollado por: DOS Diseño Web – danisuarze@gmail.com - Todos los derechos reservados</p>
-        </div>
-      </footer> */}
     </div>
   );
 };

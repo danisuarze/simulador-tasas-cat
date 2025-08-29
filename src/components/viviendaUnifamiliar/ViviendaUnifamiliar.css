@@ -51,6 +51,11 @@ body {
   border-color: #6b8a5c;
 }
 
+.btn btn-calcula {
+  background-color: #6b8a5c
+
+}
+
 .result-card {
   background-color: white;
 }
@@ -170,21 +175,4 @@ body {
   border-radius: 5px;
   margin: 10px 0;
   border-left: 3px solid var(--color-secondary);
-}
-
-footer {
-  margin-top: 2rem;
-  padding: 1.5rem 0;
-  background-color: var(--color-primary);
-  color: white;
-  text-align: center;
-}
-
-footer p {
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
-
-footer small {
-  color: rgba(255, 255, 255, 0.8);
 }

@@ -1,4 +1,5 @@
-import AcordeonC from "./components/acordeon/AcordeonC"
+import CardsC from "./components/cards/CardsC"
+import FooterC from "./components/footer/FooterC"
 import JumbotronC from "./components/jumbotron/JumbotronC"
 
 const App = () => { 
@@ -7,7 +8,8 @@ const App = () => {
   return (
     <>
     <JumbotronC />
-    <AcordeonC />
+    <CardsC />
+    <FooterC />
     </>
   )
 

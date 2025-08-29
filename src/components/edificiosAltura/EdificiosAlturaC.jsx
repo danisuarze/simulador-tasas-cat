@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import './EdificiosAlturaC.css';
 
-const EdificiosAlturaC = () => {
+const EdificiosAlturaC = ({ onBack }) => {
   // Constantes
   const VPTR = 950;
   const TASA_MINIMA = 20 * VPTR; // $19,000
@@ -504,11 +505,23 @@ const EdificiosAlturaC = () => {
 
   return (
     <div>
+      {/* Botón Volver al Home */}
+      <div className="container mt-3 mb-4">
+        <button 
+          className="btn back-home-btn"
+          onClick={onBack}
+          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+        >
+          <FaArrowLeft className="me-2" />
+          Volver al Home
+        </button>
+      </div>
+
       <div className="header">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
-              <h1 className="h3 mb-1">Complete el tipo de obra y cargue la/s superficie/s</h1>
+              <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
               <p className="mb-0">Luego seleccione la tarea a realizar y presione calcular</p>
             </div>
           </div>
@@ -825,13 +838,6 @@ const EdificiosAlturaC = () => {
 
         {/* Sección de información sobre el cálculo eliminada del frontend */}
       </div>
-
-      <footer>
-        <div className="container">
-          <small>Los valores calculados son referenciales y están sujetos a verificación por el Departamento de Ejercicio Profesional del CAT</small>
-          <p className="mb-0">© 2025 Desarrollado por: DOS Diseño Web – danisuarze@gmail.com - Todos los derechos reservados</p>
-        </div>
-      </footer>
     </div>
   );
 };
