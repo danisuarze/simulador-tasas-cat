@@ -21,6 +21,8 @@ import {
 import ViviendaUnifamiliarC from '../viviendaUnifamiliar/ViviendaUnifamiliarC';
 import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
 import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
+import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC';
+import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiertosC';
 import './CardsC.css';
 
 const CardsC = () => {
@@ -33,9 +35,12 @@ const CardsC = () => {
     } else if (title === "Edificios en Altura") {
       setActiveComponent("EdificiosAltura");
     } else if (title === "Edificios Especiales") {
-      setActiveComponent("EdificiosEspeciales"); // Nuevo caso para Edificios Especiales
+      setActiveComponent("EdificiosEspeciales");
+    } else if (title === "Edificios Industriales") {
+      setActiveComponent("EdificiosIndustriales");
+    } else if (title === "Exteriores no cubiertos") {
+      setActiveComponent("ExterioresNoCubiertos"); // CORRECCIÓN: debe coincidir con el texto de la card
     }
-    // Aquí puedes agregar más condiciones para otros componentes
   };
 
   // Función para volver al menú principal
@@ -49,7 +54,11 @@ const CardsC = () => {
   } else if (activeComponent === "EdificiosAltura") {
     return <EdificiosAlturaC onBack={handleBack} />;
   } else if (activeComponent === "EdificiosEspeciales") {
-    return <EdificiosEspecialesC onBack={handleBack} />; // Renderizar EdificiosEspecialesC
+    return <EdificiosEspecialesC onBack={handleBack} />;
+  } else if (activeComponent === "EdificiosIndustriales") {
+    return <EdificiosIndustrialesC onBack={handleBack} />;
+  } else if (activeComponent === "ExterioresNoCubiertos") {
+    return <ExterioresNoCubiertosC onBack={handleBack} />;
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -87,7 +96,7 @@ const CardsC = () => {
       title: "Exteriores no cubiertos",
       text: "Diseño de áreas exteriores, plazas, parques y espacios abiertos con enfoque estético y funcional.",
       icon: <FaTree size={30} />,
-      component: "ExterioresC"
+      component: "ExterioresNoCubiertosC"
     },
     {
       id: 6,
