@@ -21,6 +21,7 @@ import {
 import ViviendaUnifamiliarC from '../viviendaUnifamiliar/ViviendaUnifamiliarC';
 import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
 import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
+import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC'; // Importar el nuevo componente
 import './CardsC.css';
 
 const CardsC = () => {
@@ -33,7 +34,9 @@ const CardsC = () => {
     } else if (title === "Edificios en Altura") {
       setActiveComponent("EdificiosAltura");
     } else if (title === "Edificios Especiales") {
-      setActiveComponent("EdificiosEspeciales"); // Nuevo caso para Edificios Especiales
+      setActiveComponent("EdificiosEspeciales");
+    } else if (title === "Edificios Industriales") {
+      setActiveComponent("EdificiosIndustriales"); // Nuevo caso para Edificios Industriales
     }
     // Aquí puedes agregar más condiciones para otros componentes
   };
@@ -49,7 +52,9 @@ const CardsC = () => {
   } else if (activeComponent === "EdificiosAltura") {
     return <EdificiosAlturaC onBack={handleBack} />;
   } else if (activeComponent === "EdificiosEspeciales") {
-    return <EdificiosEspecialesC onBack={handleBack} />; // Renderizar EdificiosEspecialesC
+    return <EdificiosEspecialesC onBack={handleBack} />;
+  } else if (activeComponent === "EdificiosIndustriales") {
+    return <EdificiosIndustrialesC onBack={handleBack} />; // Renderizar EdificiosIndustrialesC
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
