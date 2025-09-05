@@ -14,9 +14,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
   const [m2Ampliacion, setM2Ampliacion] = useState('');
   const [m2AntecedenteAmpliacion, setM2AntecedenteAmpliacion] = useState('');
   const [m2AntecedenteConstruida, setM2AntecedenteConstruida] = useState('');
-  const [montoRefaccion, setMontoRefaccion] = useState('');
-  const [montoRefaccionAmpliacion, setMontoRefaccionAmpliacion] = useState('');
-  const [m2AmpliacionRefaccion, setM2AmpliacionRefaccion] = useState('');
   const [tareaSeleccionada, setTareaSeleccionada] = useState('Anteproyecto');
   const [avanceEdificio, setAvanceEdificio] = useState('');
   const [resultados, setResultados] = useState(null);
@@ -58,47 +55,10 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     return porcentaje;
   };
 
-  // Función para calcular el valor según los tramos de m2 específicos para exteriores no cubiertos
+  // Función para calcular el valor según los tramos de m2 (Superficie total * VPTR * porcentaje)
   const calcularPorTramos = (m2) => {
-    let total = 0;
-    
-    // Hasta 100m² al 50%
-    if (m2 > 0) {
-      const tramo1 = Math.min(m2, 100);
-      total += tramo1 * VPTR * 0.5;
-    }
-    
-    // De 101m² to 500m² al 30%
-    if (m2 > 100) {
-      const tramo2 = Math.min(m2 - 100, 400);
-      total += tramo2 * VPTR * 0.3;
-    }
-    
-    // De 501m² a 1000m² al 20%
-    if (m2 > 500) {
-      const tramo3 = Math.min(m2 - 500, 500);
-      total += tramo3 * VPTR * 0.2;
-    }
-    
-    // De 1001m² a 5000m² al 10%
-    if (m2 > 1000) {
-      const tramo4 = Math.min(m2 - 1000, 4000);
-      total += tramo4 * VPTR * 0.1;
-    }
-    
-    // De 5001m² a 10000m² al 5%
-    if (m2 > 5000) {
-      const tramo5 = Math.min(m2 - 5000, 5000);
-      total += tramo5 * VPTR * 0.05;
-    }
-    
-    // Desde 10001m² en adelante al 3%
-    if (m2 > 10000) {
-      const tramo6 = m2 - 10000;
-      total += tramo6 * VPTR * 0.03;
-    }
-    
-    return total;
+    const porcentaje = obtenerPorcentajePorTramos(m2);
+    return m2 * VPTR * porcentaje;
   };
 
   // Función para calcular resultados
@@ -128,27 +88,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       }
       
       m2 = construida + ampliacion;
-    } else if (tipoObra === 'refaccion') {
-      // Para refacción, validamos el monto
-      const monto = parseFloat(montoRefaccion) || 0;
-      
-      if (monto <= 0) {
-        setResultados({
-          error: "Por favor, ingrese un monto válido para la refacción."
-        });
-        return;
-      }
-    } else if (tipoObra === 'refaccionAmpliacion') {
-      // Para refacción y ampliación, validamos ambos campos
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
-      
-      if (monto <= 0 || ampliacion <= 0) {
-        setResultados({
-          error: "Por favor, ingrese valores válidos para el monto de refacción y la superficie de ampliación."
-        });
-        return;
-      }
     } else {
       m2 = parseFloat(m2Edificio) || 0;
       
@@ -177,15 +116,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
       html.push({ label: "Metros cuadrados", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
-    } else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
-      html.push({ label: "Monto de Obra", value: formatoMoneda(monto) });
-    } else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
-      
-      html.push({ label: "Monto de Refacción", value: formatoMoneda(monto) });
-      html.push({ label: "Superficie de Ampliación", value: `${ampliacion} m²` });
     } else {
       html.push({ label: "Metros cuadrados", value: `${m2} m²` });
     }
@@ -193,7 +123,7 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     html.push({ label: "VPTR", value: formatoMoneda(VPTR) });
     html.push({ label: "Tasa Mínima", value: formatoMoneda(TASA_MINIMA) });
     
-    if (tipoObra === 'nueva' || tipoObra === 'ampliacion' || tipoObra === 'refaccionAmpliacion') {
+    if (tipoObra === 'nueva' || tipoObra === 'ampliacion') {
       html.push({ label: "% Avance de Obra", value: `${avance}% (solo aplica a Dirección Técnica)` });
     }
     
@@ -279,8 +209,16 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     else if (tipoObra === 'nueva') {
       descripcionServicio = tareaSeleccionada;
       
-      let valorBase = calcularPorTramos(m2);
+      // Calcular valor base: Superficie total * VPTR * porcentaje según tramo
+      const valorBase = calcularPorTramos(m2);
       html.push({ label: "Valor Base", value: formatoMoneda(valorBase) });
+
+      // Mostrar detalles del cálculo del valor base
+      const porcentajeTramos = obtenerPorcentajePorTramos(m2);
+      detallesCalculo.push({
+        tipo: "calculo",
+        contenido: `Valor Base: ${m2} m² × ${formatoMoneda(VPTR)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(valorBase)}`
+      });
 
       // Cálculo específico para cada tipo de tarea
       if (tareaSeleccionada === "Anteproyecto") {
@@ -387,31 +325,78 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
         tasaRelevamiento = TASA_MINIMA;
       }
       
-      // Calcular la parte de obra nueva (ampliación)
-      let valorBaseAmpliacion = calcularPorTramos(ampliacion);
+      // Calcular la parte de obra nueva (ampliación): Superficie ampliación * VPTR * porcentaje según tramo
+      const valorBaseAmpliacion = calcularPorTramos(ampliacion);
       let tasaAmpliacion = 0;
       
+      // Mostrar detalles del cálculo de la ampliación
+      const porcentajeTramosAmpliacion = obtenerPorcentajePorTramos(ampliacion);
+      detallesCalculo.push({
+        tipo: "subcalculo",
+        contenido: `Valor Base Ampliación: ${ampliacion} m² × ${formatoMoneda(VPTR)} × ${(porcentajeTramosAmpliacion * 100).toFixed(0)}% = ${formatoMoneda(valorBaseAmpliacion)}`
+      });
+
       // Cálculo específico para cada tipo de tarea
       if (tareaSeleccionada === "Anteproyecto") {
         tasaAmpliacion = valorBaseAmpliacion * 0.4; // 40%
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "40% para ampliación" });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(tasaAmpliacion)}`
+        });
       }
       else if (tareaSeleccionada === "Proyecto") {
         tasaAmpliacion = valorBaseAmpliacion * 0.6; // 60%
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "60% para ampliación" });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 60% = ${formatoMoneda(tasaAmpliacion)}`
+        });
       }
       else if (tareaSeleccionada === "Dirección Técnica") {
         // Para Dirección Técnica: 40% del valor base, ajustado por el % restante
         const porcentajeRestante = (100 - avance) / 100;
         tasaAmpliacion = valorBaseAmpliacion * 0.4 * porcentajeRestante;
+        
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "40% para ampliación" });
+        if (avance > 0) {
+          detallesCalculo.push({ tipo: "porcentaje-restante", contenido: `% Restante por ejecutar: ${(100 - avance).toFixed(0)}%` });
+          detallesCalculo.push({
+            tipo: "calculo",
+            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaAmpliacion)}`
+          });
+        } else {
+          detallesCalculo.push({ tipo: "info", contenido: "Sin avance de obra: Se aplica el 100% de la dirección técnica" });
+          detallesCalculo.push({
+            tipo: "calculo",
+            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(tasaAmpliacion)}`
+          });
+        }
       }
       else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
         tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% para ampliación" });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+        });
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
         // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
         tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% (60% Proyecto + 40% Dirección) para ampliación" });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+        });
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto and Dirección Técnea") {
         tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% para ampliación" });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+        });
       }
 
       // Aplicar tasa mínima a la ampliación si corresponde (solo para tareas individuales)
@@ -437,119 +422,9 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       });
       
       detallesCalculo.push({
-        tipo: "subcalculo",
-        contenido: `Cálculo de Ampliación (${tareaSeleccionada}): ${formatoMoneda(valorBaseAmpliacion)} × porcentaje correspondiente = ${formatoMoneda(tasaAmpliacion)}`
-      });
-      
-      html.push({ label: "Valor Base Ampliación", value: formatoMoneda(valorBaseAmpliacion) });
-      detallesCalculo.push({
         tipo: "total",
         contenido: `${formatoMoneda(tasaRelevamiento)} + ${formatoMoneda(tasaAmpliacion)} = ${formatoMoneda(tasaRetributiva)}`
       });
-    }
-    // Para obra de refacción
-    else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
-      
-      // Calcular el 1% del monto de obra
-      tasaRetributiva = monto * 0.01;
-      descripcionServicio = "Anteproyecto, Proyecto y Dirección Técnica por monto de obra";
-      
-      // Mostrar detalles del cálculo
-      detallesCalculo.push({
-        tipo: "formula",
-        contenido: "1% del monto de obra"
-      });
-      detallesCalculo.push({
-        tipo: "calculo",
-        contenido: `${formatoMoneda(monto)} × 1% = ${formatoMoneda(tasaRetributiva)}`
-      });
-      
-      // Aplicar tasa mínima si corresponde
-      if (tasaRetributiva < TASA_MINIMA) {
-        detallesCalculo.push({
-          tipo: "info",
-          contenido: `Aplicación de Tasa Mínima: El cálculo inicial (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
-        });
-        tasaRetributiva = TASA_MINIMA;
-      }
-    }
-    // Para obra de refacción y ampliación
-    else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
-      
-      // Calcular la parte de refacción (1% del monto)
-      const tasaRefaccion = monto * 0.01;
-      
-      // Calcular la parte de ampliación (como obra nueva)
-      let valorBaseAmpliacion = calcularPorTramos(ampliacion);
-      let tasaAmpliacion = 0;
-      
-      // Cálculo específico para cada tipo de tarea
-      if (tareaSeleccionada === "Anteproyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.4; // 40%
-      }
-      else if (tareaSeleccionada === "Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6; // 60%
-      }
-      else if (tareaSeleccionada === "Dirección Técnica") {
-        // Para Dirección Técnica: 40% del valor base, ajustado por el % restante
-        const porcentajeRestante = (100 - avance) / 100;
-        tasaAmpliacion = valorBaseAmpliacion * 0.4 * porcentajeRestante;
-      }
-      else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
-      }
-      else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
-      }
-      else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
-      }
-
-      // Aplicar tasa mínima a la ampliación si corresponde (solo para tareas individuales)
-      const esTareaIndividual = !tareaSeleccionada.includes("y") && !tareaSeleccionada.includes(",");
-      const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
-      
-      if (esTareaIndividual && tasaAmpliacion < TASA_MINIMA && !esDireccionSinAvance) {
-        detallesCalculo.push({
-          tipo: "info",
-          contenido: `Aplicación de Tasa Mínima en Ampliación: El cálculo inicial (${formatoMoneda(tasaAmpliacion)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
-        });
-        tasaAmpliacion = TASA_MINIMA;
-      }
-      
-      // Calcular la tasa total
-      tasaRetributiva = tasaRefaccion + tasaAmpliacion;
-      descripcionServicio = "Refacción + Ampliación (" + tareaSeleccionada + ")";
-      
-      // Mostrar detalles de los cálculos
-      detallesCalculo.push({
-        tipo: "subcalculo",
-        contenido: `Cálculo de Refacción: ${formatoMoneda(monto)} × 1% = ${formatoMoneda(tasaRefaccion)}`
-      });
-      
-      detallesCalculo.push({
-        tipo: "subcalculo",
-        contenido: `Cálculo de Ampliación (${tareaSeleccionada}): ${formatoMoneda(valorBaseAmpliacion)} × porcentaje correspondiente = ${formatoMoneda(tasaAmpliacion)}`
-      });
-      
-      html.push({ label: "Valor Base Ampliación", value: formatoMoneda(valorBaseAmpliacion) });
-      detallesCalculo.push({
-        tipo: "total",
-        contenido: `${formatoMoneda(tasaRefaccion)} + ${formatoMoneda(tasaAmpliacion)} = ${formatoMoneda(tasaRetributiva)}`
-      });
-      
-      // Aplicar tasa mínima si el total es menor
-      if (tasaRetributiva < TASA_MINIMA) {
-        detallesCalculo.push({
-          tipo: "info",
-          contenido: `Aplicación de Tasa Mínima: El cálculo total (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
-        });
-        tasaRetributiva = TASA_MINIMA;
-      }
     }
 
     setResultados({
@@ -564,12 +439,8 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
   const mostrarCamposBasicos = tipoObra === 'nueva' || tipoObra === 'construida';
   const mostrarAmpliacionFields = tipoObra === 'ampliacion';
   const mostrarAntecedenteFields = tipoObra === 'construida';
-  const mostrarRefaccionFields = tipoObra === 'refaccion';
-  const mostrarRefaccionAmpliacionFields = tipoObra === 'refaccionAmpliacion';
-  const mostrarTareasField = tipoObra === 'nueva' || tipoObra === 'ampliacion' || tipoObra === 'refaccionAmpliacion';
-  const mostrarAvanceField = tipoObra === 'nueva' || tipoObra === 'ampliacion' || tipoObra === 'refaccionAmpliacion';
-  const mostrarInfoRefaccion = tipoObra === 'refaccion';
-  const mostrarInfoRefaccionAmpliacion = tipoObra === 'refaccionAmpliacion';
+  const mostrarTareasField = tipoObra === 'nueva' || tipoObra === 'ampliacion';
+  const mostrarAvanceField = tipoObra === 'nueva' || tipoObra === 'ampliacion';
 
   return (
     <div>
@@ -615,8 +486,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                     <option value="nueva">Obra Nueva</option>
                     <option value="construida">Obra Construida</option>
                     <option value="ampliacion">Construida y Ampliación</option>
-                    <option value="refaccion">Refacción</option>
-                    <option value="refaccionAmpliacion">Refacción y Ampliación</option>
                   </select>
                 </div>
                 
@@ -676,7 +545,7 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                         value={m2AntecedenteAmpliacion}
                         onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
                       />
-                      <div className="form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede ser mayor a la superficie construida.</div>
+                      <div className="form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede be mayor a la superficie construida.</div>
                     </div>
                   </div>
                 )}
@@ -696,55 +565,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                         onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
                       />
                       <div className="form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Campos específicos para Refacción */}
-                {mostrarRefaccionFields && (
-                  <div id="refaccionFields" className="refaccion-fields">
-                    <div className="mb-3">
-                      <label htmlFor="montoRefaccion" className="form-label">Monto de Obra en $</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="montoRefaccion" 
-                        placeholder="Ingrese el monto total de la refacción" 
-                        min="0"
-                        value={montoRefaccion}
-                        onChange={(e) => setMontoRefaccion(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                )}
-                
-                {/* Campos específicos para Refacción y Ampliación */}
-                {mostrarRefaccionAmpliacionFields && (
-                  <div id="refaccionAmpliacionFields" className="refaccion-ampliacion-fields">
-                    <div className="mb-3">
-                      <label htmlFor="montoRefaccionAmpliacion" className="form-label">Monto de Refacción en $</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="montoRefaccionAmpliacion" 
-                        placeholder="Ingrese el monto total de la refacción" 
-                        min="0"
-                        value={montoRefaccionAmpliacion}
-                        onChange={(e) => setMontoRefaccionAmpliacion(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="mb-3">
-                      <label htmlFor="m2AmpliacionRefaccion" className="form-label">Superficie de Ampliación (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2AmpliacionRefaccion" 
-                        placeholder="Superficie a ampliar" 
-                        min="0"
-                        value={m2AmpliacionRefaccion}
-                        onChange={(e) => setM2AmpliacionRefaccion(e.target.value)}
-                      />
                     </div>
                   </div>
                 )}
@@ -825,20 +645,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                       />
                       <label className="form-check-label" htmlFor="exCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
                     </div>
-                  </div>
-                )}
-                
-                {/* Información específica para Refacción */}
-                {mostrarInfoRefaccion && (
-                  <div id="infoRefaccion" className="alert alert-info">
-                    <i className="bi bi-info-circle"></i> Para Refacción, la tasa retributiva se calcula como el 1% del monto de obra, aplicándose a la tarea completa de Anteproyecto, Proyecto y Dirección Técnica.
-                  </div>
-                )}
-                
-                {/* Información específica para Refacción y Ampliación */}
-                {mostrarInfoRefaccionAmpliacion && (
-                  <div id="infoRefaccionAmpliacion" className="alert alert-info">
-                    <i className="bi bi-info-circle"></i> Para Refacción y Ampliación, se calcula una tasa parcial por la refacción (1% del monto) y otra por la ampliación (como obra nueva). La tasa total es la suma de ambos.
                   </div>
                 )}
                 
