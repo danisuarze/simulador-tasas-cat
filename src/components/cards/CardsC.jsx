@@ -23,6 +23,7 @@ import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
 import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
 import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC';
 import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiertosC';
+import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC'; // Importar el nuevo componente
 import './CardsC.css';
 
 const CardsC = () => {
@@ -39,7 +40,9 @@ const CardsC = () => {
     } else if (title === "Edificios Industriales") {
       setActiveComponent("EdificiosIndustriales");
     } else if (title === "Exteriores no cubiertos") {
-      setActiveComponent("ExterioresNoCubiertos"); // CORRECCIÓN: debe coincidir con el texto de la card
+      setActiveComponent("ExterioresNoCubiertos");
+    } else if (title === "Instalaciones | Estructuras") {
+      setActiveComponent("InstalacionesEstructuras"); // Nuevo caso para Instalaciones | Estructuras
     }
   };
 
@@ -59,6 +62,8 @@ const CardsC = () => {
     return <EdificiosIndustrialesC onBack={handleBack} />;
   } else if (activeComponent === "ExterioresNoCubiertos") {
     return <ExterioresNoCubiertosC onBack={handleBack} />;
+  } else if (activeComponent === "InstalacionesEstructuras") {
+    return <InstalacionesEstructurasC onBack={handleBack} />; // Renderizar el nuevo componente
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -103,7 +108,7 @@ const CardsC = () => {
       title: "Instalaciones | Estructuras",
       text: "Sistemas estructurales e instalaciones especializadas para todo tipo de construcciones.",
       icon: <FaCogs size={30} />,
-      component: "InstalacionesC"
+      component: "InstalacionesEstructurasC" // Actualizado para coincidir con el nuevo componente
     },
     {
       id: 7,
