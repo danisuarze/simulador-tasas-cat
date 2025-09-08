@@ -23,7 +23,8 @@ import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
 import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
 import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC';
 import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiertosC';
-import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC'; // Importar el nuevo componente
+import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
+import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC'; // Importar el nuevo componente
 import './CardsC.css';
 
 const CardsC = () => {
@@ -42,7 +43,9 @@ const CardsC = () => {
     } else if (title === "Exteriores no cubiertos") {
       setActiveComponent("ExterioresNoCubiertos");
     } else if (title === "Instalaciones | Estructuras") {
-      setActiveComponent("InstalacionesEstructuras"); // Nuevo caso para Instalaciones | Estructuras
+      setActiveComponent("InstalacionesEstructuras");
+    } else if (title === "Estudio de la propuesta") {
+      setActiveComponent("EstudioPropuesta"); // Nuevo caso para Estudio de la Propuesta
     }
   };
 
@@ -63,7 +66,9 @@ const CardsC = () => {
   } else if (activeComponent === "ExterioresNoCubiertos") {
     return <ExterioresNoCubiertosC onBack={handleBack} />;
   } else if (activeComponent === "InstalacionesEstructuras") {
-    return <InstalacionesEstructurasC onBack={handleBack} />; // Renderizar el nuevo componente
+    return <InstalacionesEstructurasC onBack={handleBack} />;
+  } else if (activeComponent === "EstudioPropuesta") {
+    return <EstudioPropuestaC onBack={handleBack} />; // Renderizar el nuevo componente
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -108,35 +113,35 @@ const CardsC = () => {
       title: "Instalaciones | Estructuras",
       text: "Sistemas estructurales e instalaciones especializadas para todo tipo de construcciones.",
       icon: <FaCogs size={30} />,
-      component: "InstalacionesEstructurasC" // Actualizado para coincidir con el nuevo componente
+      component: "InstalacionesEstructurasC"
     },
     {
       id: 7,
-      title: "IPV",
-      text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
-      icon: <FaHouseUser size={30} />,
-      component: "IPVC"
-    },
-    {
-      id: 8,
-      title: "Carteles Publicitarios",
-      text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
-      icon: <FaAd size={30} />,
-      component: "CartelesC"
-    },
-    {
-      id: 9,
       title: "Estudio de la propuesta",
       text: "Análisis detallado de viabilidad y desarrollo conceptual de proyectos arquitectónicos.",
       icon: <FaClipboardCheck size={30} />,
       component: "EstudioPropuestaC"
     },
     {
-      id: 10,
+      id: 8,
       title: "Representación Técnica",
       text: "Elaboración de planos, maquetas y visualizaciones para presentación de proyectos.",
       icon: <FaDraftingCompass size={30} />,
       component: "RepresentacionTecnicaC"
+    },
+    {
+      id: 9,
+      title: "IPV",
+      text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
+      icon: <FaHouseUser size={30} />,
+      component: "IPVC"
+    },
+    {
+      id: 10,
+      title: "Carteles Publicitarios",
+      text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
+      icon: <FaAd size={30} />,
+      component: "CartelesC"
     },
     {
       id: 11,

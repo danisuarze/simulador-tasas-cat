@@ -200,12 +200,12 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         });
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
-        tasaRetributiva = valorConPorcentaje * 1.0; // 100%
-        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% (60% Proyecto + 40% Dirección)" });
+        // CORRECCIÓN: Solo calcular el 60% para Proyecto (no incluir Dirección Técnica)
+        tasaRetributiva = valorConPorcentaje * 0.6; // 60% solo para proyecto
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "60% (solo Proyecto)" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorConPorcentaje)} × 100% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorConPorcentaje)} × 60% = ${formatoMoneda(tasaRetributiva)}`
         });
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
@@ -320,12 +320,12 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         });
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
-        tasaAmpliacion = valorConPorcentajeAmpliacion * 1.0; // 100%
-        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% (60% Proyecto + 40% Dirección) para ampliación" });
+        // CORRECCIÓN: Solo calcular el 60% para Proyecto (no incluir Dirección Técnica)
+        tasaAmpliacion = valorConPorcentajeAmpliacion * 0.6; // 60% solo para proyecto
+        detallesCalculo.push({ tipo: "porcentaje", contenido: "60% (solo Proyecto) para ampliación" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorConPorcentajeAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorConPorcentajeAmpliacion)} × 60% = ${formatoMoneda(tasaAmpliacion)}`
         });
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto and Dirección Técnea") {
@@ -389,11 +389,12 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       {/* Botón Volver al Home */}
       <div className="container mt-3 mb-4">
         <button 
-          className="btn instalaciones-estructuras-back-button"
-          onClick={onBack}
-        >
-          <FaArrowLeft className="me-2" />
-          Volver al Home
+                  className="btn back-home-btn"
+                  onClick={onBack}
+                  style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+                >
+                  <FaArrowLeft className="me-2" />
+                  Volver al Home
         </button>
       </div>
 
@@ -505,7 +506,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value={m2AntecedenteConstruida}
                         onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
                       />
-                      <div className="form-text instalaciones-estructuras-form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
+                      <div className="form-text instalaciones-estructuras-form-text">If no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
                     </div>
                   </div>
                 )}
@@ -607,7 +608,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 )}
                 
                 <div className="d-grid">
-                  <button className="btn instalaciones-estructuras-btn-primary" onClick={calcularInstalaciones}>
+                  <button className="btn btn-primary instalaciones-estructuras-btn-primary" onClick={calcularInstalaciones}>
                     <i className="bi bi-calculator"></i> Calcular
                   </button>
                 </div>
