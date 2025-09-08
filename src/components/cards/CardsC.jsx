@@ -24,7 +24,8 @@ import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
 import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC';
 import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiertosC';
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
-import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC'; // Importar el nuevo componente
+import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
+import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC'; // Importar el nuevo componente
 import './CardsC.css';
 
 const CardsC = () => {
@@ -45,7 +46,9 @@ const CardsC = () => {
     } else if (title === "Instalaciones | Estructuras") {
       setActiveComponent("InstalacionesEstructuras");
     } else if (title === "Estudio de la propuesta") {
-      setActiveComponent("EstudioPropuesta"); // Nuevo caso para Estudio de la Propuesta
+      setActiveComponent("EstudioPropuesta");
+    } else if (title === "Representación Técnica") {
+      setActiveComponent("RepresentacionTecnica"); // Nuevo caso para Representación Técnica
     }
   };
 
@@ -68,7 +71,9 @@ const CardsC = () => {
   } else if (activeComponent === "InstalacionesEstructuras") {
     return <InstalacionesEstructurasC onBack={handleBack} />;
   } else if (activeComponent === "EstudioPropuesta") {
-    return <EstudioPropuestaC onBack={handleBack} />; // Renderizar el nuevo componente
+    return <EstudioPropuestaC onBack={handleBack} />;
+  } else if (activeComponent === "RepresentacionTecnica") {
+    return <RepresentacionTecnicaC onBack={handleBack} />; // Renderizar el nuevo componente
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
