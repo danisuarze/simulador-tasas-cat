@@ -1,0 +1,128 @@
+.cartel-publicitario-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+}
+
+.cartel-publicitario-header {
+  background-color: #6b8a5c;
+  color: white;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+}
+
+.cartel-publicitario-card {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  margin-bottom: 1.5rem;
+}
+
+.cartel-publicitario-card-header {
+  background-color: #6b8a5c;
+  color: white;
+  border-bottom: none;
+  border-radius: 0.5rem 0.5rem 0 0 !important;
+  padding: 1rem 1.25rem;
+}
+
+.cartel-publicitario-form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #495057;
+}
+
+.cartel-publicitario-form-select,
+.cartel-publicitario-form-control {
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ced4da;
+}
+
+.cartel-publicitario-form-select:focus,
+.cartel-publicitario-form-control:focus {
+  border-color: #6b8a5c;
+  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
+}
+
+.cartel-publicitario-btn-primary {
+  background-color: #6b8a5c;
+  border-color: #6b8a5c;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.cartel-publicitario-btn-primary:hover {
+  background-color: #5a7450;
+  border-color: #5a7450;
+}
+
+.cartel-publicitario-result-card {
+  height: 100%;
+}
+
+.cartel-publicitario-result-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+}
+
+.cartel-publicitario-resultado-final {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e9f5e9;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+
+.cartel-publicitario-resultado-final-titulo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2e5d34;
+}
+
+.cartel-publicitario-resultado-final-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2e5d34;
+  margin: 0.5rem 0;
+}
+
+.cartel-publicitario-resultado-final-descripcion {
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.cartel-publicitario-alert {
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.cartel-publicitario-calculo-detalle {
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .cartel-publicitario-header {
+    padding: 1rem 0;
+  }
+  
+  .cartel-publicitario-result-item {
+    flex-direction: column;
+  }
+}

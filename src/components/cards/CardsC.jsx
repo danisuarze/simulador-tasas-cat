@@ -25,7 +25,8 @@ import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrial
 import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiertosC';
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
-import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC'; // Importar el nuevo componente
+import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC'; // Componente corregido
 import './CardsC.css';
 
 const CardsC = () => {
@@ -48,7 +49,9 @@ const CardsC = () => {
     } else if (title === "Estudio de la propuesta") {
       setActiveComponent("EstudioPropuesta");
     } else if (title === "Representación Técnica") {
-      setActiveComponent("RepresentacionTecnica"); // Nuevo caso para Representación Técnica
+      setActiveComponent("RepresentacionTecnica");
+    } else if (title === "Carteles Publicitarios") {
+      setActiveComponent("CartelPublicitario"); // Nombre corregido
     }
   };
 
@@ -73,7 +76,9 @@ const CardsC = () => {
   } else if (activeComponent === "EstudioPropuesta") {
     return <EstudioPropuestaC onBack={handleBack} />;
   } else if (activeComponent === "RepresentacionTecnica") {
-    return <RepresentacionTecnicaC onBack={handleBack} />; // Renderizar el nuevo componente
+    return <RepresentacionTecnicaC onBack={handleBack} />;
+  } else if (activeComponent === "CartelPublicitario") {
+    return <CartelPublicitarioC onBack={handleBack} />; // Componente corregido
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -146,7 +151,7 @@ const CardsC = () => {
       title: "Carteles Publicitarios",
       text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
       icon: <FaAd size={30} />,
-      component: "CartelesC"
+      component: "CartelPublicitarioC" // Nombre corregido
     },
     {
       id: 11,
