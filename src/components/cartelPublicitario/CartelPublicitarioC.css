@@ -1,3 +1,12 @@
+:root {
+  --color-primary: #6b8a5c;
+  --color-primary-dark: #5a7450;
+  --color-secondary: #2e5d34;
+  --color-accent: #495057;
+  --color-light: #f8f9fa;
+  --color-background: #e9f5e9;
+}
+
 .cartel-publicitario-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fa;
@@ -6,10 +15,11 @@
 }
 
 .cartel-publicitario-header {
-  background-color: #6b8a5c;
+  background-color: var(--color-primary);
   color: white;
   padding: 1.5rem 0;
   margin-bottom: 2rem;
+  border-bottom: 3px solid var(--color-primary-dark);
 }
 
 .cartel-publicitario-card {
@@ -17,92 +27,241 @@
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+  background-color: white;
+}
+
+.cartel-publicitario-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .cartel-publicitario-card-header {
-  background-color: #6b8a5c;
+  background-color: var(--color-primary);
   color: white;
   border-bottom: none;
   border-radius: 0.5rem 0.5rem 0 0 !important;
   padding: 1rem 1.25rem;
-}
-
-.cartel-publicitario-form-label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #495057;
-}
-
-.cartel-publicitario-form-select,
-.cartel-publicitario-form-control {
-  border-radius: 0.375rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ced4da;
-}
-
-.cartel-publicitario-form-select:focus,
-.cartel-publicitario-form-control:focus {
-  border-color: #6b8a5c;
-  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
+  border-bottom: 2px solid var(--color-primary-dark);
 }
 
 .cartel-publicitario-btn-primary {
-  background-color: #6b8a5c;
-  border-color: #6b8a5c;
-  padding: 0.5rem 1rem;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
   border-radius: 0.375rem;
-  font-weight: 500;
 }
 
 .cartel-publicitario-btn-primary:hover {
-  background-color: #5a7450;
-  border-color: #5a7450;
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cartel-publicitario-result-card {
+  background-color: white;
+  border-left: 4px solid var(--color-primary);
   height: 100%;
 }
 
 .cartel-publicitario-result-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
-  padding: 0.5rem;
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+  margin-bottom: 0;
 }
 
+.cartel-publicitario-result-item:hover {
+  background-color: #F8F9FA;
+}
+
+.cartel-publicitario-result-item:last-child {
+  border-bottom: none;
+}
+
+.cartel-publicitario-category-title {
+  color: var(--color-primary);
+  border-left: 4px solid var(--color-primary);
+  padding-left: 0.75rem;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.cartel-publicitario-calculation-info {
+  background-color: #e6efe5;
+  border-left: 4px solid var(--color-primary);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 0 5px 5px 0;
+  color: #2e5d34;
+}
+
+.cartel-publicitario-dynamic-field {
+  margin-bottom: 15px;
+}
+
+.cartel-publicitario-task-item {
+  padding: 8px 0;
+  border-bottom: 1px dashed #dee2e6;
+  transition: background-color 0.2s ease;
+}
+
+.cartel-publicitario-task-item:hover {
+  background-color: #e6efe5;
+  border-radius: 4px;
+}
+
+.cartel-publicitario-avance-note {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Estilos para destacar el resultado final */
 .cartel-publicitario-resultado-final {
+  background-color: var(--color-background);
+  border-left: 4px solid var(--color-primary);
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   text-align: center;
-  padding: 1rem;
-  background-color: #e9f5e9;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
 }
 
 .cartel-publicitario-resultado-final-titulo {
-  font-size: 1rem;
+  color: var(--color-secondary);
   font-weight: 600;
-  color: #2e5d34;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
 .cartel-publicitario-resultado-final-valor {
-  font-size: 1.5rem;
+  color: var(--color-secondary);
   font-weight: 700;
-  color: #2e5d34;
+  font-size: 1.5rem;
   margin: 0.5rem 0;
 }
 
 .cartel-publicitario-resultado-final-descripcion {
+  color: var(--color-accent);
   font-size: 0.9rem;
-  color: #495057;
+  margin-top: 0.5rem;
+}
+
+.cartel-publicitario-info-adicional {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  border-left: 3px solid var(--color-primary);
+}
+
+.cartel-publicitario-ampliacion-fields {
+  background-color: #f0f8f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid var(--color-primary);
+}
+
+.cartel-publicitario-antecedente-fields {
+  background-color: #fff8f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #F39C12;
+}
+
+.cartel-publicitario-refaccion-fields {
+  background-color: #fff0f5;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #E74C3C;
+}
+
+.cartel-publicitario-refaccion-ampliacion-fields {
+  background-color: #f0f0ff;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #9B59B6;
+}
+
+.cartel-publicitario-sub-calculo {
+  background-color: #e6efe5;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  border-left: 3px solid var(--color-primary);
+}
+
+/* Estilos específicos para el formulario */
+.cartel-publicitario-form-label {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.cartel-publicitario-form-control {
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.cartel-publicitario-form-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
+}
+
+.cartel-publicitario-form-select {
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.cartel-publicitario-form-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
+}
+
+.cartel-publicitario-form-check-input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.cartel-publicitario-form-text {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
 }
 
 .cartel-publicitario-alert {
-  border-radius: 0.5rem;
+  border: none;
+  border-radius: 5px;
   padding: 1rem;
 }
 
+.cartel-publicitario-alert-info {
+  background-color: #e6efe5;
+  color: var(--color-secondary);
+  border-left: 4px solid var(--color-primary);
+}
+
+.cartel-publicitario-alert-warning {
+  background-color: #FDEBD0;
+  color: #7D6608;
+  border-left: 4px solid #F39C12;
+}
+
+/* Estilos para detalles de cálculo */
 .cartel-publicitario-calculo-detalle {
   padding: 0.5rem;
   background-color: #f8f9fa;
@@ -111,18 +270,63 @@
   font-size: 0.9rem;
 }
 
+/* Botón de volver */
 .back-home-btn {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   padding: 0.5rem 1rem;
 }
 
+.back-home-btn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  color: white;
+}
+
+/* Estilos para dispositivos móviles */
 @media (max-width: 768px) {
   .cartel-publicitario-header {
     padding: 1rem 0;
   }
   
+  .cartel-publicitario-card {
+    margin-bottom: 1rem;
+  }
+  
+  .cartel-publicitario-resultado-final-valor {
+    font-size: 1.3rem;
+  }
+  
+  .cartel-publicitario-btn-primary {
+    padding: 0.75rem 1.5rem;
+  }
+  
   .cartel-publicitario-result-item {
     flex-direction: column;
   }
+}
+
+/* Animaciones */
+@keyframes cartel-publicitario-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cartel-publicitario-card {
+  animation: cartel-publicitario-fadeIn 0.5s ease-out;
+}
+
+.cartel-publicitario-result-item {
+  animation: cartel-publicitario-fadeIn 0.3s ease-out;
 }
