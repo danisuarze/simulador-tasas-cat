@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FaArrowLeft } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { FaArrowLeft, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const TareasTasaFijaC = ({ onBack }) => {
   // Constantes
-  // VPTR: Valor de Punto de Tarea de Referencia = $950
   const VPTR = 950;
   
   // Lista de tareas con sus multiplicadores
-  // Cada tarea se calcula como: Multiplicador × VPTR
   const tareas = [
     { id: 1, nombre: "CAMBIO DIRECCION TECNICA ENTRE ARQUITECTOS", multiplicador: 50 },
     { id: 2, nombre: "CAMBIO REPRES. TECNICO ENTRE ARQUITECTOS", multiplicador: 50 },
@@ -30,6 +27,7 @@ const TareasTasaFijaC = ({ onBack }) => {
   // Estados
   const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
   const [resultado, setResultado] = useState(null);
+  const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -37,7 +35,6 @@ const TareasTasaFijaC = ({ onBack }) => {
   };
 
   // Calcular el valor cuando se selecciona una tarea
-  // Fórmula: valor = multiplicador × VPTR
   useEffect(() => {
     if (tareaSeleccionada) {
       const valor = tareaSeleccionada.multiplicador * VPTR;
@@ -46,10 +43,19 @@ const TareasTasaFijaC = ({ onBack }) => {
         valor,
         vptrEquivalente: tareaSeleccionada.multiplicador
       });
+      // Cerrar el acordeón después de seleccionar
+      setAcordeonAbierto(false);
     } else {
       setResultado(null);
     }
   }, [tareaSeleccionada]);
+
+  // Función para seleccionar otra tarea
+  const seleccionarOtraTarea = () => {
+    setTareaSeleccionada(null);
+    setResultado(null);
+    setAcordeonAbierto(true);
+  };
 
   return (
     <div className="tareas-tasa-fija-container">
@@ -57,7 +63,7 @@ const TareasTasaFijaC = ({ onBack }) => {
       <div className="container mt-3 mb-4">
         <button 
           className="btn back-home-btn"
-          onClick={onBack} // Usar el prop onBack en lugar de handleBackToHome
+          onClick={onBack}
         >
           <FaArrowLeft className="me-2" />
           Volver al Home
@@ -72,17 +78,24 @@ const TareasTasaFijaC = ({ onBack }) => {
       </div>
 
       <div className="container">
-        <div className="row equal-height-columns">
-          {/* Columna de selección de tareas - ANCHO FIJO */}
-          <div className="col-lg-6 fixed-width-column">
-            <div className="tareas-tasa-fija-card card h-100 fixed-card">
-              <div className="tareas-tasa-fija-card-header card-header fixed-header">
-                <h5 className="mb-0">Listado de Tareas</h5>
+        <div className="row justify-content-center">
+          <div className="col-lg-10 fixed-width-container">
+            {/* Acordeón de selección de tareas */}
+            <div className="tareas-tasa-fija-card card mb-4">
+              <div 
+                className="tareas-tasa-fija-card-header card-header d-flex justify-content-between align-items-center"
+                style={{ cursor: 'pointer' }}
+                onClick={() => setAcordeonAbierto(!acordeonAbierto)}
+              >
+                <h5 className="mb-0">
+                  {tareaSeleccionada ? "Tarea Seleccionada" : "Selecciona la tarea"}
+                </h5>
+                {acordeonAbierto ? <FaChevronUp /> : <FaChevronDown />}
               </div>
-              <div className="card-body d-flex flex-column">
-                <div className="mb-3">
-                  <label className="tareas-tasa-fija-form-label">Seleccione una tarea:</label>
-                  <div className="tareas-list fixed-list-container">
+              
+              {acordeonAbierto && (
+                <div className="card-body">
+                  <div className="tareas-list">
                     {tareas.map(tarea => (
                       <div key={tarea.id} className="tareas-tasa-fija-task-item form-check">
                         <input 
@@ -93,30 +106,39 @@ const TareasTasaFijaC = ({ onBack }) => {
                           checked={tareaSeleccionada && tareaSeleccionada.id === tarea.id}
                           onChange={() => setTareaSeleccionada(tarea)}
                         />
-                        <label className="form-check-label tarea-label-fixed" htmlFor={`tarea-${tarea.id}`}>
+                        <label className="form-check-label" htmlFor={`tarea-${tarea.id}`}>
                           {tarea.nombre}
                         </label>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-          </div>
-          
-          {/* Columna de resultados - ANCHO FIJO */}
-          <div className="col-lg-6 fixed-width-column">
-            <div className="tareas-tasa-fija-card card h-100 fixed-card">
-              <div className="tareas-tasa-fija-card-header card-header fixed-header">
-                <h5 className="mb-0">Resultado</h5>
-              </div>
-              <div className="card-body">
-                {resultado ? (
-                  <div className="result-content fixed-result-content">
+
+            {/* Resultados */}
+            {resultado && (
+              <div className="tareas-tasa-fija-card card">
+                <div className="tareas-tasa-fija-card-header card-header">
+                  <h5 className="mb-0">Resultado</h5>
+                </div>
+                <div className="card-body">
+                  <div className="result-content">
                     <div className="tareas-tasa-fija-result-item">
                       <strong>Tarea seleccionada:</strong>
-                      <div className="mt-2 tarea-nombre-resultado fixed-text-container">
+                      <div className="mt-2 tarea-nombre-resultado">
                         {resultado.tarea.nombre}
+                      </div>
+                    </div>
+                    
+                    <div className="tareas-tasa-fija-info-adicional mt-3">
+                      <div className="d-flex justify-content-between">
+                        <span>Equivalente en VPTR:</span>
+                        <strong>{resultado.vptrEquivalente} VPTR</strong>
+                      </div>
+                      <div className="d-flex justify-content-between mt-2">
+                        <span>Valor de cada VPTR:</span>
+                        <strong>{formatoMoneda(VPTR)}</strong>
                       </div>
                     </div>
                     
@@ -126,14 +148,27 @@ const TareasTasaFijaC = ({ onBack }) => {
                         {formatoMoneda(resultado.valor)}
                       </div>
                     </div>
+
+                    {/* Botón para seleccionar otra tarea */}
+                    <div className="text-center mt-4">
+                      <button 
+                        className="btn tareas-tasa-fija-btn-primary"
+                        onClick={seleccionarOtraTarea}
+                      >
+                        Seleccionar otra tarea
+                      </button>
+                    </div>
                   </div>
-                ) : (
-                  <div className="fixed-placeholder">
-                    <p className="text-center text-muted">Seleccione una tarea para ver su valor</p>
-                  </div>
-                )}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Placeholder cuando no hay selección */}
+            {!resultado && !acordeonAbierto && (
+              <div className="text-center text-muted mt-4">
+                <p>Haga clic en "Selecciona la tarea" para elegir una tarea y ver su valor</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

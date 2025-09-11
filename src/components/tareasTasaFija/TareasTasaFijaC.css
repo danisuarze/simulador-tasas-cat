@@ -1,453 +1,221 @@
-:root {
-  --color-primary: #2C3E50;
-  --color-secondary: #3498DB;
-  --color-accent: #2980B9;
-  --color-light: #f8f9fa;
-  --color-tertiary: #1ABC9C;
-}
-
-/* CONTENEDORES PRINCIPALES CON ANCHO ABSOLUTAMENTE FIJO */
-.equal-height-columns {
-  display: flex;
-  width: 100%;
-}
-
-.fixed-width-column {
-  flex: 0 0 500px !important;
-  max-width: 500px !important;
-  min-width: 500px !important;
-  width: 500px !important;
-}
-
-/* TARJETAS CON ANCHO FIJO */
-.fixed-card {
-  width: 100% !important;
-  min-width: 480px !important;
-  max-width: 480px !important;
-}
-
-/* HEADERS CON ANCHO FIJO */
-.fixed-header {
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-/* CONTENEDOR DE RESULTADO CON ANCHO FIJO */
-.fixed-result-content {
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-}
-
-/* CONTENEDOR DE LISTA CON ANCHO FIJO */
-.fixed-list-container {
-  height: 400px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-/* CONTENEDOR DE TEXTO FIJO - ANCHO CONSTANTE */
-.fixed-text-container {
-  min-height: 80px;
-  padding: 12px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  border-left: 3px solid var(--color-secondary);
-  white-space: normal;
-  line-height: 1.4;
-  display: block;
-  width: 100% !important;
-  min-width: 0 !important;
-  max-width: 100% !important;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Placeholder fijo */
-.fixed-placeholder {
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100% !important;
-}
-
-/* ESTILOS BASE */
+/* CONTENEDOR PRINCIPAL CON ANCHO FIJO ABSOLUTO */
 .tareas-tasa-fija-container {
   background-color: #f5f7fb;
   color: #333;
   padding-bottom: 2rem;
+  width: 1000px !important; /* ANCHO FIJO ABSOLUTO */
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  margin: 0 auto;
 }
 
-.tareas-tasa-fija-header {
-  background-color: var(--color-primary);
-  color: white;
-  padding: 1.5rem 0;
-  margin-bottom: 2rem;
-  border-bottom: 3px solid var(--color-secondary);
+/* CONTENEDOR PRINCIPAL - FIJAR ANCHO */
+.fixed-width-container {
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  margin: 0 auto;
+  padding: 0;
 }
 
+/* TARJETAS - ANCHO COMPLETO DEL CONTENEDOR */
 .tareas-tasa-fija-card {
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
   background-color: white;
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
 }
 
-.tareas-tasa-fija-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+/* CARD BODY - ANCHO COMPLETO */
+.tareas-tasa-fija-card .card-body {
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  padding: 1.5rem;
 }
 
+/* HEADER - ANCHO COMPLETO */
+.tareas-tasa-fija-header {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  color: white;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--color-secondary);
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  margin: 0 auto;
+}
+
+/* CARD HEADER - ANCHO COMPLETO */
 .tareas-tasa-fija-card-header {
   background-color: var(--color-primary);
   color: white;
   font-weight: 600;
-  border-radius: 10px 10px 0 0 !important;
+  border-radius: 10px 10px 0 0;
   padding: 1rem 1.5rem;
   border-bottom: 2px solid var(--color-secondary);
-  min-height: 60px;
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  box-sizing: border-box;
+}
+
+/* TEXTO DE RESULTADO - ANCHO FIJO COMPLETO */
+.tarea-nombre-resultado {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 3px solid var(--color-secondary);
+  line-height: 1.4;
+  width: 970px !important; /* 1000px - padding */
+  min-width: 970px !important;
+  max-width: 970px !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: block;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* LISTA DE TAREAS - ANCHO FIJO */
+.tareas-list {
+  width: 970px !important;
+  min-width: 970px !important;
+  max-height: 350px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.tareas-tasa-fija-task-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed #dee2e6;
   display: flex;
   align-items: center;
+  width: 970px !important;
+  min-width: 970px !important;
+  box-sizing: border-box;
+}
+
+.tareas-tasa-fija-task-item .form-check-label {
+  display: block;
+  padding: 12px 0 12px 8px;
+  line-height: 1.4;
+  width: 940px !important; /* 970px - checkbox margin */
+  min-width: 940px !important;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+/* RESULTADO FINAL - ANCHO FIJO */
+.tareas-tasa-fija-resultado-final {
+  background-color: #f8fff8;
+  border-left: 4px solid var(--color-secondary);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  width: 970px !important;
+  min-width: 970px !important;
+  box-sizing: border-box;
+}
+
+/* INFORMACIÓN ADICIONAL - ANCHO FIJO */
+.tareas-tasa-fija-info-adicional {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  border-left: 3px solid var(--color-secondary);
+  width: 970px !important;
+  min-width: 970px !important;
+  box-sizing: border-box;
+}
+
+/* BOTONES CON ANCHO FIJO */
+.back-home-btn {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  min-width: 180px !important;
 }
 
 .tareas-tasa-fija-btn-primary {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
-  padding: 0.6rem 1.5rem;
+  padding: 0.7rem 1.5rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  min-width: 220px !important;
 }
 
-.tareas-tasa-fija-btn-primary:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* OVERRIDE COMPLETO DE BOOTSTRAP */
+.container {
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  padding: 0;
+  margin: 0 auto;
 }
 
-.tareas-tasa-fija-result-card {
-  background-color: white;
-  border-left: 4px solid var(--color-secondary);
+.row {
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  margin: 0;
 }
 
-.tareas-tasa-fija-result-item {
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
+.col-lg-10 {
+  width: 1000px !important;
+  min-width: 1000px !important;
+  max-width: 1000px !important;
+  padding: 0;
+  flex: 0 0 1000px !important;
 }
 
-.tareas-tasa-fija-result-item:hover {
-  background-color: #F8F9FA;
+/* ELIMINAR CUALQUIER FLEXIBILIDAD */
+.justify-content-center {
+  justify-content: flex-start !important;
 }
 
-.tareas-tasa-fija-result-item:last-child {
-  border-bottom: none;
+/* VARIABLES */
+:root {
+  --color-primary: #040D3B;
+  --color-secondary: #7B9C6B;
+  --color-accent: #151f52;
+  --color-light: #f8f9fa;
 }
 
-.tareas-tasa-fija-category-title {
-  color: var(--color-primary);
-  border-left: 4px solid var(--color-secondary);
-  padding-left: 0.75rem;
-  margin: 1.5rem 0 1rem 0;
-}
-
-.tareas-tasa-fija-calculation-info {
-  background-color: #E8F4FC;
-  border-left: 4px solid var(--color-secondary);
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 0 5px 5px 0;
-  color: #2C3E50;
-}
-
-.tareas-tasa-fija-dynamic-field {
-  margin-bottom: 15px;
-}
-
-/* Items de tarea con ancho fijo */
-.tareas-tasa-fija-task-item {
-  padding: 8px 0;
-  border-bottom: 1px dashed #dee2e6;
-  transition: background-color 0.2s ease;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 0;
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-.tareas-tasa-fija-task-item:hover {
-  background-color: #E8F4FC;
-  border-radius: 4px;
-}
-
-.tareas-tasa-fija-avance-note {
-  font-size: 0.85rem;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
-/* Labels de tarea con ancho fijo */
-.tarea-label-fixed {
-  display: block;
-  min-height: 50px;
-  padding: 12px 0 12px 8px;
-  line-height: 1.4;
-  width: calc(100% - 30px) !important;
-  margin-bottom: 0;
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Checkbox alineado */
-.tareas-tasa-fija-task-item .form-check-input {
-  margin-top: 0;
-  align-self: flex-start;
-  margin-top: 18px;
-  margin-left: 0;
-  margin-right: 10px;
-  flex-shrink: 0;
-}
-
-.tareas-tasa-fija-task-item .form-check-input:checked {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-/* Prevenir que el contenido afecte el ancho */
-.tareas-tasa-fija-card .card-body {
-  display: flex;
-  flex-direction: column;
-  min-width: 0 !important;
-  width: 100% !important;
-}
-
-/* Estilos para destacar el resultado final */
-.tareas-tasa-fija-resultado-final {
-  background-color: #f8fff8;
-  border-left: 4px solid var(--color-secondary);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  width: 100% !important;
-  min-width: 0 !important;
-}
-
-.tareas-tasa-fija-resultado-final-titulo {
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.tareas-tasa-fija-resultado-final-valor {
-  color: var(--color-secondary);
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0;
-}
-
-.tareas-tasa-fija-resultado-final-descripcion {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.tareas-tasa-fija-info-adicional {
-  background-color: #f8f9fa;
-  padding: 0.75rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.tareas-tasa-fija-ampliacion-fields {
-  background-color: #f0f8ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.tareas-tasa-fija-antecedente-fields {
-  background-color: #fff8f0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #F39C12;
-}
-
-.tareas-tasa-fija-refaccion-fields {
-  background-color: #fff0f5;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #E74C3C;
-}
-
-.tareas-tasa-fija-refaccion-ampliacion-fields {
-  background-color: #f0f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #9B59B6;
-}
-
-.tareas-tasa-fija-sub-calculo {
-  background-color: #E8F4FC;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-  border-left: 3px solid var(--color-secondary);
-}
-
-/* Estilos específicos para el formulario */
-.tareas-tasa-fija-form-label {
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-}
-
-.tareas-tasa-fija-form-control {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.tareas-tasa-fija-form-control:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-}
-
-.tareas-tasa-fija-form-select {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.tareas-tasa-fija-form-select:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
-}
-
-.tareas-tasa-fija-form-text {
-  color: #6c757d;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
-.tareas-tasa-fija-alert {
-  border: none;
-  border-radius: 5px;
-  padding: 1rem;
-}
-
-.tareas-tasa-fija-alert-info {
-  background-color: #D6EAF8;
-  color: var(--color-primary);
-  border-left: 4px solid var(--color-secondary);
-}
-
-.tareas-tasa-fija-alert-warning {
-  background-color: #FDEBD0;
-  color: #7D6608;
-  border-left: 4px solid #F39C12;
-}
-
-/* Estilos para detalles de cálculo */
-.tareas-tasa-fija-calculo-detalle {
-  padding: 0.5rem;
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-  text-align: center;
-  font-weight: 600;
-}
-
-/* BOTÓN DE VOLVER*/
-.back-home-btn {
-  background-color: #6b8a5c;
-  border-color: #6b8a5c;
-  color: #6b8a5c;
-  transition: all 0.3s ease;
-}
-
-.back-home-btn:hover {
-  background-color: #5a7450;
-  border-color: #5a7450;
-  transform: translateY(-2px);
-  color: white;
-}
-
-/* Estilos para dispositivos móviles */
-@media (max-width: 768px) {
-  .tareas-tasa-fija-header {
-    padding: 1rem 0;
-  }
-  
-  .tareas-tasa-fija-card {
-    margin-bottom: 1rem;
-  }
-  
-  .tareas-tasa-fija-resultado-final-valor {
-    font-size: 1.3rem;
-  }
-  
-  .tareas-tasa-fija-btn-primary {
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .tareas-list {
-    max-height: 300px;
-  overflow-y: auto;
-  }
-  
-  .fixed-width-column {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    min-width: 100% !important;
-    width: 100% !important;
-  }
-  
-  .fixed-card {
-    min-width: 100% !important;
-    max-width: 100% !important;
-  }
-}
-
-/* Animaciones */
-@keyframes tareas-tasa-fija-fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.tareas-tasa-fija-card {
-  animation: tareas-tasa-fija-fadeIn 0.5s ease-out;
-}
-
-.tareas-tasa-fija-result-item {
-  animation: tareas-tasa-fija-fadeIn 0.3s ease-out;
-}
-
-/* Asegurar que todo mantenga su ancho sin importar el contenido */
+/* RESET COMPLETO DE ANCHOS */
 * {
   box-sizing: border-box;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* ANCHOS ESPECÍFICOS PARA ELEMENTOS CRÍTICOS */
+.tareas-tasa-fija-container * {
+  min-width: auto !important;
+  max-width: none !important;
+}
+
+/* RESPONSIVE - SOLO PERMITIR SCROLL HORIZONTAL EN MÓVILES */
+@media (max-width: 1000px) {
+  body {
+    overflow-x: auto;
+  }
+  
+  .tareas-tasa-fija-container {
+    overflow-x: auto;
+  }
 }
