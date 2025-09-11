@@ -26,7 +26,8 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC'; // Componente corregido
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
+import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC'; // Importar el nuevo componente
 import './CardsC.css';
 
 const CardsC = () => {
@@ -51,7 +52,9 @@ const CardsC = () => {
     } else if (title === "Representación Técnica") {
       setActiveComponent("RepresentacionTecnica");
     } else if (title === "Carteles Publicitarios") {
-      setActiveComponent("CartelPublicitario"); // Nombre corregido
+      setActiveComponent("CartelPublicitario");
+    } else if (title === "Tareas con tasa fija") { // Nueva condición
+      setActiveComponent("TareasTasaFija");
     }
   };
 
@@ -78,7 +81,9 @@ const CardsC = () => {
   } else if (activeComponent === "RepresentacionTecnica") {
     return <RepresentacionTecnicaC onBack={handleBack} />;
   } else if (activeComponent === "CartelPublicitario") {
-    return <CartelPublicitarioC onBack={handleBack} />; // Componente corregido
+    return <CartelPublicitarioC onBack={handleBack} />;
+  } else if (activeComponent === "TareasTasaFija") { // Nuevo caso
+    return <TareasTasaFijaC onBack={handleBack} />;
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -151,7 +156,7 @@ const CardsC = () => {
       title: "Carteles Publicitarios",
       text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
       icon: <FaAd size={30} />,
-      component: "CartelPublicitarioC" // Nombre corregido
+      component: "CartelPublicitarioC"
     },
     {
       id: 11,
