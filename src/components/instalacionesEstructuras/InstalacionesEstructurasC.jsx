@@ -88,7 +88,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
     html.push({ label: "% Instalaciones", value: "30%" });
     
     if (tipoObra === 'nueva' || tipoObra === 'ampliacion') {
-      html.push({ label: "% Avance de Obra", value: `${avance}% (solo aplica a Dirección Técnica)` });
+      html.push({ label: "% Avance de Obra", value: `${avance}% (solo aplica to Dirección Técnica)` });
     }
     
     let tasaRetributiva = 0;
@@ -272,7 +272,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       detallesCalculo.push({
         tipo: "subcalculo",
         contenido: `Aplicación 30% instalaciones: ${formatoMoneda(valorBaseAmpliacion)} × 30% = ${formatoMoneda(valorConPorcentajeAmpliacion)}`
-      });
+    });
 
       // Cálculo específico para cada tipo de tarea
       if (tareaSeleccionada === "Anteproyecto") {
@@ -375,7 +375,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       tasaRetributiva,
       descripcionServicio
     });
-  };
+  }; // <-- CIERRE de la función calcularInstalaciones
 
   // Determinar qué campos mostrar según el tipo de obra
   const mostrarCamposBasicos = tipoObra === 'nueva' || tipoObra === 'construida';
@@ -386,8 +386,8 @@ const InstalacionesEstructurasC = ({ onBack }) => {
 
   return (
     <div className="instalaciones-estructuras-container">
-      {/* Botón Volver al Home - Modificado para ser verde */}
-      <div className="container mt-3 mb-4">
+      {/* Botón Volver al Home - Modificado para ser verde y centrado verticalmente */}
+      <div className="container mt-3 mb-4 d-flex align-items-center justify-content-center">
         <button 
           className="btn instalaciones-estructuras-back-button"
           onClick={onBack}
@@ -654,6 +654,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       </div>
     </div>
   );
-};
+}; // <-- CIERRE del componente InstalacionesEstructurasC
 
 export default InstalacionesEstructurasC;

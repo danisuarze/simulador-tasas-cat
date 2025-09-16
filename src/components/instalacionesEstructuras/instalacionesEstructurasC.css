@@ -294,6 +294,7 @@
 
 /* Botón de volver */
 .instalaciones-estructuras-back-button {
+  align-content: center;
   background-color: #95a5a6;
   border-color: #95a5a6;
   margin-bottom: 1.5rem;
