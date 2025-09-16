@@ -328,7 +328,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
           contenido: `${formatoMoneda(valorConPorcentajeAmpliacion)} × 60% = ${formatoMoneda(tasaAmpliacion)}`
         });
       }
-      else if (tareaSeleccionada === "Anteproyecto, Proyecto and Dirección Técnea") {
+      else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
         tasaAmpliacion = valorConPorcentajeAmpliacion * 1.0; // 100%
         detallesCalculo.push({ tipo: "porcentaje", contenido: "100% para ampliación" });
         detallesCalculo.push({
@@ -386,15 +386,15 @@ const InstalacionesEstructurasC = ({ onBack }) => {
 
   return (
     <div className="instalaciones-estructuras-container">
-      {/* Botón Volver al Home */}
+      {/* Botón Volver al Home - Modificado para ser verde */}
       <div className="container mt-3 mb-4">
         <button 
-                  className="btn back-home-btn"
-                  onClick={onBack}
-                  style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
-                >
-                  <FaArrowLeft className="me-2" />
-                  Volver al Home
+          className="btn instalaciones-estructuras-back-button"
+          onClick={onBack}
+          style={{ backgroundColor: '#7B9C6B', borderColor: '#7B9C6B', color: 'white' }}
+        >
+          <FaArrowLeft className="me-2" />
+          Volver al Home
         </button>
       </div>
 
@@ -506,7 +506,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value={m2AntecedenteConstruida}
                         onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
                       />
-                      <div className="form-text instalaciones-estructuras-form-text">If no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
+                      <div className="form-text instalaciones-estructuras-form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
                     </div>
                   </div>
                 )}
@@ -608,8 +608,8 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 )}
                 
                 <div className="d-grid">
-                  <button className="btn btn-primary instalaciones-estructuras-btn-primary" onClick={calcularInstalaciones}>
-                    <i className="bi bi-calculator"></i> Calcular
+                  <button className="btn instalaciones-estructuras-btn-primary btn-primary" onClick={calcularInstalaciones}>
+                    Calcular
                   </button>
                 </div>
               </div>
@@ -624,7 +624,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
               <div className="card-body">
                 {resultados ? (
                   resultados.error ? (
-                    <div className="alert alert-warning instalaciones-estructuras-alert instalaciones-estructuras-alert-warning text-center">
+                    <div className="alert instalaciones-estructuras-alert instalaciones-estructuras-alert-warning text-center">
                       {resultados.error}
                     </div>
                   ) : (
