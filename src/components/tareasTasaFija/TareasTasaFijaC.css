@@ -1,80 +1,88 @@
-/* CONTENEDOR PRINCIPAL CON ANCHO FIJO ABSOLUTO */
+/* VARIABLES */
+:root {
+  --color-primary: #040D3B;
+  --color-secondary: #7B9C6B;
+  --color-accent: #151f52;
+  --color-light: #f8f9fa;
+}
+
+/* CONTENEDOR PRINCIPAL - RESPONSIVE */
 .tareas-tasa-fija-container {
   background-color: #f5f7fb;
   color: #333;
-  padding-bottom: 2rem;
-  width: 1000px !important; /* ANCHO FIJO ABSOLUTO */
-  min-width: 1000px !important;
-  max-width: 1000px !important;
+  padding: 1rem;
+  width: 100%;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* CONTENEDOR PRINCIPAL - FIJAR ANCHO */
+/* CONTENEDOR PRINCIPAL - FIJAR ANCHO EN PANTALLAS GRANDES */
 .fixed-width-container {
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
+  width: 100%;
   margin: 0 auto;
   padding: 0;
+  box-sizing: border-box;
 }
 
-/* TARJETAS - ANCHO COMPLETO DEL CONTENEDOR */
+/* TARJETAS - RESPONSIVE */
 .tareas-tasa-fija-card {
   border: none;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
   background-color: white;
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
-/* CARD BODY - ANCHO COMPLETO */
+/* CARD BODY - RESPONSIVE */
 .tareas-tasa-fija-card .card-body {
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-  padding: 1.5rem;
+  width: 100% !important;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* HEADER - ANCHO COMPLETO */
+/* HEADER - RESPONSIVE */
 .tareas-tasa-fija-header {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   color: white;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1rem;
   margin-bottom: 2rem;
   border-bottom: 3px solid var(--color-secondary);
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* CARD HEADER - ANCHO COMPLETO */
+/* CARD HEADER - RESPONSIVE */
 .tareas-tasa-fija-card-header {
   background-color: var(--color-primary);
   color: white;
   font-weight: 600;
   border-radius: 10px 10px 0 0;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   border-bottom: 2px solid var(--color-secondary);
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
+  width: 100%;
   box-sizing: border-box;
 }
 
-/* TEXTO DE RESULTADO - ANCHO FIJO COMPLETO */
-.tarea-nombre-resultado {
+/* TÍTULO FIJO - RESPONSIVE */
+.fixed-title-container {
+  width: 100% !important;
+  white-space: normal;
+  word-wrap: break-word;
+  display: block;
+  line-height: 1.4;
+  font-size: 1rem;
+}
+
+/* TEXTO DE RESULTADO - RESPONSIVE */
+.tarea-nombre-resultado, .fixed-result-container {
   padding: 15px;
   background-color: #f8f9fa;
   border-radius: 4px;
   border-left: 3px solid var(--color-secondary);
   line-height: 1.4;
-  width: 970px !important; /* 1000px - padding */
-  min-width: 970px !important;
-  max-width: 970px !important;
+  width: 100% !important;
   word-break: break-word;
   overflow-wrap: break-word;
   display: block;
@@ -83,10 +91,9 @@
   margin: 0;
 }
 
-/* LISTA DE TAREAS - ANCHO FIJO */
+/* LISTA DE TAREAS - RESPONSIVE */
 .tareas-list {
-  width: 970px !important;
-  min-width: 970px !important;
+  width: 100% !important;
   max-height: 350px;
   overflow-y: auto;
   box-sizing: border-box;
@@ -97,125 +104,316 @@
   padding: 10px 0;
   border-bottom: 1px dashed #dee2e6;
   display: flex;
-  align-items: center;
-  width: 970px !important;
-  min-width: 970px !important;
+  align-items: flex-start;
+  width: 100% !important;
   box-sizing: border-box;
 }
 
-.tareas-tasa-fija-task-item .form-check-label {
+/* ETIQUETAS FIJAS - RESPONSIVE */
+.tareas-tasa-fija-task-item .form-check-label, .fixed-label-container {
   display: block;
   padding: 12px 0 12px 8px;
   line-height: 1.4;
-  width: 940px !important; /* 970px - checkbox margin */
-  min-width: 940px !important;
+  width: calc(100% - 30px) !important;
   word-break: break-word;
   overflow-wrap: break-word;
   box-sizing: border-box;
   font-size: 0.9rem;
+  white-space: normal;
 }
 
-/* RESULTADO FINAL - ANCHO FIJO */
+/* RESULTADO FINAL - RESPONSIVE */
 .tareas-tasa-fija-resultado-final {
   background-color: #f8fff8;
   border-left: 4px solid var(--color-secondary);
-  padding: 1.5rem;
+  padding: 1rem;
   margin-top: 1.5rem;
   border-radius: 5px;
-  width: 970px !important;
-  min-width: 970px !important;
+  width: 100% !important;
   box-sizing: border-box;
+  text-align: center;
 }
 
-/* INFORMACIÓN ADICIONAL - ANCHO FIJO */
+.tareas-tasa-fija-resultado-final-titulo {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tareas-tasa-fija-resultado-final-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+}
+
+/* INFORMACIÓN ADICIONAL - RESPONSIVE */
 .tareas-tasa-fija-info-adicional {
   background-color: #f8f9fa;
   padding: 1rem;
   border-radius: 5px;
   margin: 1rem 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   border-left: 3px solid var(--color-secondary);
-  width: 970px !important;
-  min-width: 970px !important;
+  width: 100% !important;
   box-sizing: border-box;
 }
 
-/* BOTONES CON ANCHO FIJO */
+.info-row {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-label {
+  width: 100%;
+  text-align: left;
+  padding-right: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  width: 100%;
+  text-align: left;
+  color: var(--color-secondary);
+  font-weight: 600;
+}
+
+/* PLACEHOLDER RESPONSIVE */
+.fixed-placeholder {
+  width: 100% !important;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* BOTONES RESPONSIVE */
 .back-home-btn {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
   color: white;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   font-weight: 500;
   border-radius: 0.375rem;
-  min-width: 180px !important;
+  width: auto;
+  font-size: 0.9rem;
 }
 
 .tareas-tasa-fija-btn-primary {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
-  padding: 0.7rem 1.5rem;
+  color: white;
+  padding: 0.7rem 1.2rem;
   font-weight: 600;
-  min-width: 220px !important;
+  border-radius: 0.375rem;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 250px;
 }
 
-/* OVERRIDE COMPLETO DE BOOTSTRAP */
-.container {
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-  padding: 0;
+/* OVERRIDE COMPLETO DE BOOTSTRAP PARA RESPONSIVE */
+.tareas-tasa-fija-container .container {
+  width: 100% !important;
+  padding: 0 15px;
   margin: 0 auto;
-}
-
-.row {
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-  margin: 0;
-}
-
-.col-lg-10 {
-  width: 1000px !important;
-  min-width: 1000px !important;
-  max-width: 1000px !important;
-  padding: 0;
-  flex: 0 0 1000px !important;
-}
-
-/* ELIMINAR CUALQUIER FLEXIBILIDAD */
-.justify-content-center {
-  justify-content: flex-start !important;
-}
-
-/* VARIABLES */
-:root {
-  --color-primary: #040D3B;
-  --color-secondary: #7B9C6B;
-  --color-accent: #151f52;
-  --color-light: #f8f9fa;
-}
-
-/* RESET COMPLETO DE ANCHOS */
-* {
   box-sizing: border-box;
-  min-width: 0 !important;
-  max-width: none !important;
 }
 
-/* ANCHOS ESPECÍFICOS PARA ELEMENTOS CRÍTICOS */
-.tareas-tasa-fija-container * {
-  min-width: auto !important;
-  max-width: none !important;
+.tareas-tasa-fija-container .row {
+  width: 100% !important;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-/* RESPONSIVE - SOLO PERMITIR SCROLL HORIZONTAL EN MÓVILES */
-@media (max-width: 1000px) {
-  body {
-    overflow-x: auto;
+.tareas-tasa-fija-container .col-lg-10 {
+  width: 100% !important;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ESTILOS PARA PANTALLAS GRANDES (más de 992px) */
+@media (min-width: 992px) {
+  .tareas-tasa-fija-container {
+    width: 1000px !important;
+    padding: 2rem;
   }
   
+  .fixed-width-container {
+    width: 1000px !important;
+  }
+  
+  .tareas-tasa-fija-card {
+    width: 1000px !important;
+  }
+  
+  .tareas-tasa-fija-card .card-body {
+    width: 1000px !important;
+    padding: 1.5rem;
+  }
+  
+  .tareas-tasa-fija-header {
+    width: 1000px !important;
+    padding: 1.5rem 0;
+  }
+  
+  .tareas-tasa-fija-card-header {
+    width: 1000px !important;
+    padding: 1rem 1.5rem;
+  }
+  
+  .fixed-title-container {
+    width: 850px !important;
+    font-size: 1.1rem;
+  }
+  
+  .tarea-nombre-resultado, .fixed-result-container {
+    width: 970px !important;
+  }
+  
+  .tareas-list {
+    width: 970px !important;
+  }
+  
+  .tareas-tasa-fija-task-item {
+    width: 970px !important;
+  }
+  
+  .tareas-tasa-fija-task-item .form-check-label, .fixed-label-container {
+    width: 940px !important;
+  }
+  
+  .tareas-tasa-fija-resultado-final {
+    width: 970px !important;
+    padding: 1.5rem;
+  }
+  
+  .tareas-tasa-fija-info-adicional {
+    width: 970px !important;
+  }
+  
+  .info-row {
+    flex-wrap: nowrap;
+  }
+  
+  .info-label {
+    width: 60% !important;
+    margin-bottom: 0;
+  }
+  
+  .info-value {
+    width: 40% !important;
+    text-align: right;
+  }
+  
+  .fixed-placeholder {
+    width: 1000px !important;
+    padding: 2rem;
+  }
+  
+  .tareas-tasa-fija-container .container {
+    width: 1000px !important;
+    padding: 0;
+  }
+  
+  .tareas-tasa-fija-container .row {
+    width: 1000px !important;
+  }
+  
+  .tareas-tasa-fija-container .col-lg-10 {
+    width: 1000px !important;
+  }
+}
+
+/* ESTILOS PARA PANTALLAS MEDIANAS (768px a 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
   .tareas-tasa-fija-container {
-    overflow-x: auto;
+    width: 100% !important;
+    padding: 1.5rem;
+  }
+  
+  .info-label {
+    width: 60% !important;
+    margin-bottom: 0;
+  }
+  
+  .info-value {
+    width: 40% !important;
+    text-align: right;
+  }
+  
+  .tareas-tasa-fija-btn-primary {
+    width: auto;
+  }
+}
+
+/* ESTILOS PARA PANTALLAS PEQUEÑAS (menos de 768px) */
+@media (max-width: 767px) {
+  .tareas-tasa-fija-container {
+    padding: 1rem;
+  }
+  
+  .tareas-tasa-fija-header {
+    padding: 1rem;
+  }
+  
+  .tareas-tasa-fija-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tareas-tasa-fija-card-header h5 {
+    font-size: 0.9rem;
+  }
+  
+  .tareas-tasa-fija-resultado-final-valor {
+    font-size: 1.3rem;
+  }
+  
+  .back-home-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ESTILOS PARA PANTALLAS MUY PEQUEÑAS (menos de 576px) */
+@media (max-width: 575px) {
+  .tareas-tasa-fija-container {
+    padding: 0.5rem;
+  }
+  
+  .tareas-tasa-fija-header {
+    padding: 0.75rem;
+  }
+  
+  .tareas-tasa-fija-header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .tareas-tasa-fija-header p {
+    font-size: 0.9rem;
+  }
+  
+  .tareas-tasa-fija-card-header {
+    padding: 0.75rem;
+  }
+  
+  .tareas-tasa-fija-card .card-body {
+    padding: 0.75rem;
+  }
+  
+  .form-check-label {
+    font-size: 0.85rem;
+  }
+  
+  .tareas-tasa-fija-resultado-final-titulo {
+    font-size: 1rem;
+  }
+  
+  .tareas-tasa-fija-resultado-final-valor {
+    font-size: 1.2rem;
+  }
+  
+  .info-label, .info-value {
+    font-size: 0.9rem;
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import './TareasTasaFijaC.css'; // Importamos el CSS
 
 const TareasTasaFijaC = ({ onBack }) => {
   // Constantes
@@ -62,12 +63,13 @@ const TareasTasaFijaC = ({ onBack }) => {
       {/* Botón Volver al Home */}
       <div className="container mt-3 mb-4">
         <button 
-          className="btn back-home-btn"
-          onClick={onBack}
-        >
-          <FaArrowLeft className="me-2" />
-          Volver al Home
-        </button>
+              className="btn instalaciones-estructuras-back-button"
+              onClick={onBack}
+              style={{ backgroundColor: '#7B9C6B', borderColor: '#7B9C6B', color: 'white' }}
+                >
+                  <FaArrowLeft className="me-2" />
+                  Volver al Home
+       </button>
       </div>
 
       <div className="tareas-tasa-fija-header">
@@ -79,7 +81,7 @@ const TareasTasaFijaC = ({ onBack }) => {
 
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-lg-10 fixed-width-container">
+          <div className="col-12 col-lg-10 fixed-width-container">
             {/* Acordeón de selección de tareas */}
             <div className="tareas-tasa-fija-card card mb-4">
               <div 
@@ -87,8 +89,8 @@ const TareasTasaFijaC = ({ onBack }) => {
                 style={{ cursor: 'pointer' }}
                 onClick={() => setAcordeonAbierto(!acordeonAbierto)}
               >
-                <h5 className="mb-0">
-                  {tareaSeleccionada ? "Tarea Seleccionada" : "Selecciona la tarea"}
+                <h5 className="mb-0 fixed-title-container">
+                  {tareaSeleccionada ? tareaSeleccionada.nombre : "Selecciona la tarea"}
                 </h5>
                 {acordeonAbierto ? <FaChevronUp /> : <FaChevronDown />}
               </div>
@@ -106,7 +108,7 @@ const TareasTasaFijaC = ({ onBack }) => {
                           checked={tareaSeleccionada && tareaSeleccionada.id === tarea.id}
                           onChange={() => setTareaSeleccionada(tarea)}
                         />
-                        <label className="form-check-label" htmlFor={`tarea-${tarea.id}`}>
+                        <label className="form-check-label fixed-label-container" htmlFor={`tarea-${tarea.id}`}>
                           {tarea.nombre}
                         </label>
                       </div>
@@ -126,19 +128,19 @@ const TareasTasaFijaC = ({ onBack }) => {
                   <div className="result-content">
                     <div className="tareas-tasa-fija-result-item">
                       <strong>Tarea seleccionada:</strong>
-                      <div className="mt-2 tarea-nombre-resultado">
+                      <div className="mt-2 tarea-nombre-resultado fixed-result-container">
                         {resultado.tarea.nombre}
                       </div>
                     </div>
                     
                     <div className="tareas-tasa-fija-info-adicional mt-3">
-                      <div className="d-flex justify-content-between">
-                        <span>Equivalente en VPTR:</span>
-                        <strong>{resultado.vptrEquivalente} VPTR</strong>
+                      <div className="info-row d-flex justify-content-between">
+                        <span className="info-label">Equivalente en VPTR:</span>
+                        <strong className="info-value">{resultado.vptrEquivalente} VPTR</strong>
                       </div>
-                      <div className="d-flex justify-content-between mt-2">
-                        <span>Valor de cada VPTR:</span>
-                        <strong>{formatoMoneda(VPTR)}</strong>
+                      <div className="info-row d-flex justify-content-between mt-2">
+                        <span className="info-label">Valor de cada VPTR:</span>
+                        <strong className="info-value">{formatoMoneda(VPTR)}</strong>
                       </div>
                     </div>
                     
@@ -152,7 +154,7 @@ const TareasTasaFijaC = ({ onBack }) => {
                     {/* Botón para seleccionar otra tarea */}
                     <div className="text-center mt-4">
                       <button 
-                        className="btn tareas-tasa-fija-btn-primary"
+                        className="btn tareas-tasa-fija-btn-primary btn-primary"
                         onClick={seleccionarOtraTarea}
                       >
                         Seleccionar otra tarea
@@ -165,7 +167,7 @@ const TareasTasaFijaC = ({ onBack }) => {
 
             {/* Placeholder cuando no hay selección */}
             {!resultado && !acordeonAbierto && (
-              <div className="text-center text-muted mt-4">
+              <div className="text-center text-muted mt-4 fixed-placeholder">
                 <p>Haga clic en "Selecciona la tarea" para elegir una tarea y ver su valor</p>
               </div>
             )}

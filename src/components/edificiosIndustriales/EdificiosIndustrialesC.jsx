@@ -101,7 +101,7 @@ const EdificiosIndustrialesC = ({ onBack }) => {
         });
         return;
       }
-    }
+    }BTN
 
     let html = [];
     let detallesCalculo = [];
