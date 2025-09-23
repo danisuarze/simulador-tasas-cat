@@ -16,7 +16,8 @@ import {
   FaClipboardCheck,
   FaDraftingCompass,
   FaMoneyBillAlt,
-  FaStar
+  FaStar,
+  FaArrowLeft
 } from 'react-icons/fa';
 import ViviendaUnifamiliarC from '../viviendaUnifamiliar/ViviendaUnifamiliarC';
 import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
@@ -27,63 +28,58 @@ import InstalacionesEstructurasC from '../instalacionesEstructuras/Instalaciones
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
 import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
-import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC'; // Importar el nuevo componente
+import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import './CardsC.css';
 
-const CardsC = () => {
+const CardsC = ({ onBack }) => {
   const [activeComponent, setActiveComponent] = useState(null);
 
   // Función para manejar el clic en el botón Calcular
   const handleCalculateClick = (title) => {
-    if (title === "Vivienda Unifamiliar") {
-      setActiveComponent("ViviendaUnifamiliar");
-    } else if (title === "Edificios en Altura") {
-      setActiveComponent("EdificiosAltura");
-    } else if (title === "Edificios Especiales") {
-      setActiveComponent("EdificiosEspeciales");
-    } else if (title === "Edificios Industriales") {
-      setActiveComponent("EdificiosIndustriales");
-    } else if (title === "Exteriores no cubiertos") {
-      setActiveComponent("ExterioresNoCubiertos");
-    } else if (title === "Instalaciones | Estructuras") {
-      setActiveComponent("InstalacionesEstructuras");
-    } else if (title === "Estudio de la propuesta") {
-      setActiveComponent("EstudioPropuesta");
-    } else if (title === "Representación Técnica") {
-      setActiveComponent("RepresentacionTecnica");
-    } else if (title === "Carteles Publicitarios") {
-      setActiveComponent("CartelPublicitario");
-    } else if (title === "Tareas con tasa fija") { // Nueva condición
-      setActiveComponent("TareasTasaFija");
-    }
+    const componentMap = {
+      "Vivienda Unifamiliar": "ViviendaUnifamiliar",
+      "Edificios en Altura": "EdificiosAltura",
+      "Edificios Especiales": "EdificiosEspeciales",
+      "Edificios Industriales": "EdificiosIndustriales",
+      "Exteriores no cubiertos": "ExterioresNoCubiertos",
+      "Instalaciones | Estructuras": "InstalacionesEstructuras",
+      "Estudio de la propuesta": "EstudioPropuesta",
+      "Representación Técnica": "RepresentacionTecnica",
+      "Carteles Publicitarios": "CartelPublicitario",
+      "Tareas con tasa fija": "TareasTasaFija",
+      "IPV": "IPV",
+      "Servicios Premium": "ServiciosPremium"
+    };
+    
+    setActiveComponent(componentMap[title] || null);
   };
 
-  // Función para volver al menú principal
-  const handleBack = () => {
+  // Función para volver al menú principal de CardsC
+  const handleBackToCards = () => {
     setActiveComponent(null);
   };
 
   // Renderizar el componente activo si corresponde
-  if (activeComponent === "ViviendaUnifamiliar") {
-    return <ViviendaUnifamiliarC onBack={handleBack} />;
-  } else if (activeComponent === "EdificiosAltura") {
-    return <EdificiosAlturaC onBack={handleBack} />;
-  } else if (activeComponent === "EdificiosEspeciales") {
-    return <EdificiosEspecialesC onBack={handleBack} />;
-  } else if (activeComponent === "EdificiosIndustriales") {
-    return <EdificiosIndustrialesC onBack={handleBack} />;
-  } else if (activeComponent === "ExterioresNoCubiertos") {
-    return <ExterioresNoCubiertosC onBack={handleBack} />;
-  } else if (activeComponent === "InstalacionesEstructuras") {
-    return <InstalacionesEstructurasC onBack={handleBack} />;
-  } else if (activeComponent === "EstudioPropuesta") {
-    return <EstudioPropuestaC onBack={handleBack} />;
-  } else if (activeComponent === "RepresentacionTecnica") {
-    return <RepresentacionTecnicaC onBack={handleBack} />;
-  } else if (activeComponent === "CartelPublicitario") {
-    return <CartelPublicitarioC onBack={handleBack} />;
-  } else if (activeComponent === "TareasTasaFija") { // Nuevo caso
-    return <TareasTasaFijaC onBack={handleBack} />;
+  const renderActiveComponent = () => {
+    const components = {
+      "ViviendaUnifamiliar": <ViviendaUnifamiliarC onBack={handleBackToCards} />,
+      "EdificiosAltura": <EdificiosAlturaC onBack={handleBackToCards} />,
+      "EdificiosEspeciales": <EdificiosEspecialesC onBack={handleBackToCards} />,
+      "EdificiosIndustriales": <EdificiosIndustrialesC onBack={handleBackToCards} />,
+      "ExterioresNoCubiertos": <ExterioresNoCubiertosC onBack={handleBackToCards} />,
+      "InstalacionesEstructuras": <InstalacionesEstructurasC onBack={handleBackToCards} />,
+      "EstudioPropuesta": <EstudioPropuestaC onBack={handleBackToCards} />,
+      "RepresentacionTecnica": <RepresentacionTecnicaC onBack={handleBackToCards} />,
+      "CartelPublicitario": <CartelPublicitarioC onBack={handleBackToCards} />,
+      "TareasTasaFija": <TareasTasaFijaC onBack={handleBackToCards} />
+    };
+
+    return components[activeComponent] || null;
+  };
+
+  // Si hay un componente activo, renderizarlo
+  if (activeComponent) {
+    return renderActiveComponent();
   }
 
   // Datos de ejemplo para las cards con iconos correspondientes
@@ -176,10 +172,23 @@ const CardsC = () => {
 
   return (
     <Container className="my-5 cards-container">
-      <h2 className="text-center mb-4 main-title">Simulador de Tasas Retributivas</h2>
-      <p className="text-center mb-5 subtitle">
-        Modalidad de calculo aprobada por Asamblea Ordinaria
-      </p>
+      {/* Header con botón de volver */}
+      <div className="d-flex align-items-center mb-4">
+        <Button 
+          variant="outline-primary" 
+          onClick={onBack}
+          className="d-flex align-items-center me-3"
+        >
+          <FaArrowLeft className="me-2" />
+          Volver
+        </Button>
+        <div>
+          <h2 className="mb-0 main-title">Simulador de Tasas Retributivas</h2>
+          <p className="mb-0 subtitle">
+            Modalidad de calculo aprobada por Asamblea Ordinaria
+          </p>
+        </div>
+      </div>
       
       <Row>
         {cardData.map((card) => (
@@ -202,7 +211,7 @@ const CardsC = () => {
                 </Card.Text>
                 
                 {/* Botón */}
-                <div className="text-center">
+                <div className="mt-auto text-center">
                   <Button 
                     className="card-button"
                     onClick={() => handleCalculateClick(card.title)}
