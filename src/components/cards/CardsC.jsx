@@ -172,12 +172,11 @@ const CardsC = ({ onBack }) => {
 
   return (
     <Container className="my-5 cards-container">
-      {/* Header con botón de volver */}
-      <div className="d-flex align-items-center mb-4">
+      {/* Header con botón de volver CENTRADO ARRIBA DEL TÍTULO */}
+      <div className="text-center mb-4">
         <Button 
-          variant="outline-primary" 
           onClick={onBack}
-          className="d-flex align-items-center me-3"
+          className="back-button-custom d-inline-flex align-items-center mb-3"
         >
           <FaArrowLeft className="me-2" />
           Volver
