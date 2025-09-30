@@ -29,7 +29,7 @@ import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
 import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
-import './CardsC.css';
+//import './CardsC.css';
 
 const CardsC = ({ onBack }) => {
   const [activeComponent, setActiveComponent] = useState(null);
@@ -37,18 +37,18 @@ const CardsC = ({ onBack }) => {
   // Función para manejar el clic en el botón Calcular
   const handleCalculateClick = (title) => {
     const componentMap = {
-      "Vivienda Unifamiliar": "ViviendaUnifamiliar",
-      "Edificios en Altura": "EdificiosAltura",
-      "Edificios Especiales": "EdificiosEspeciales",
-      "Edificios Industriales": "EdificiosIndustriales",
-      "Exteriores no cubiertos": "ExterioresNoCubiertos",
-      "Instalaciones | Estructuras": "InstalacionesEstructuras",
-      "Estudio de la propuesta": "EstudioPropuesta",
-      "Representación Técnica": "RepresentacionTecnica",
-      "Carteles Publicitarios": "CartelPublicitario",
-      "Tareas con tasa fija": "TareasTasaFija",
-      "IPV": "IPV",
-      "Servicios Premium": "ServiciosPremium"
+      "Vivienda Unifamiliar": "ViviendaUnifamiliarC",
+      "Edificios en Altura": "EdificiosAlturaC",
+      "Edificios Especiales": "EdificiosEspecialesC",
+      "Edificios Industriales": "EdificiosIndustrialesC",
+      "Exteriores no cubiertos": "ExterioresNoCubiertosC",
+      "Instalaciones | Estructuras": "InstalacionesEstructurasC",
+      "Estudio de la propuesta": "EstudioPropuestaC",
+      "Representación Técnica": "RepresentacionTecnicaC",
+      "Carteles Publicitarios": "CartelPublicitarioC",
+      "Tareas con tasa fija": "TareasTasaFijaC",
+      "IPV": "IPVC",
+      "Servicios Premium": "ServiciosPremiumC"
     };
     
     setActiveComponent(componentMap[title] || null);
@@ -62,16 +62,18 @@ const CardsC = ({ onBack }) => {
   // Renderizar el componente activo si corresponde
   const renderActiveComponent = () => {
     const components = {
-      "ViviendaUnifamiliar": <ViviendaUnifamiliarC onBack={handleBackToCards} />,
-      "EdificiosAltura": <EdificiosAlturaC onBack={handleBackToCards} />,
-      "EdificiosEspeciales": <EdificiosEspecialesC onBack={handleBackToCards} />,
-      "EdificiosIndustriales": <EdificiosIndustrialesC onBack={handleBackToCards} />,
-      "ExterioresNoCubiertos": <ExterioresNoCubiertosC onBack={handleBackToCards} />,
-      "InstalacionesEstructuras": <InstalacionesEstructurasC onBack={handleBackToCards} />,
-      "EstudioPropuesta": <EstudioPropuestaC onBack={handleBackToCards} />,
-      "RepresentacionTecnica": <RepresentacionTecnicaC onBack={handleBackToCards} />,
-      "CartelPublicitario": <CartelPublicitarioC onBack={handleBackToCards} />,
-      "TareasTasaFija": <TareasTasaFijaC onBack={handleBackToCards} />
+      "ViviendaUnifamiliarC": <ViviendaUnifamiliarC onBack={handleBackToCards} />,
+      "EdificiosAlturaC": <EdificiosAlturaC onBack={handleBackToCards} />,
+      "EdificiosEspecialesC": <EdificiosEspecialesC onBack={handleBackToCards} />,
+      "EdificiosIndustrialesC": <EdificiosIndustrialesC onBack={handleBackToCards} />,
+      "ExterioresNoCubiertosC": <ExterioresNoCubiertosC onBack={handleBackToCards} />,
+      "InstalacionesEstructurasC": <InstalacionesEstructurasC onBack={handleBackToCards} />,
+      "EstudioPropuestaC": <EstudioPropuestaC onBack={handleBackToCards} />,
+      "RepresentacionTecnicaC": <RepresentacionTecnicaC onBack={handleBackToCards} />,
+      "CartelPublicitarioC": <CartelPublicitarioC onBack={handleBackToCards} />,
+      "TareasTasaFijaC": <TareasTasaFijaC onBack={handleBackToCards} />,
+      "IPVC": <div className="text-center p-5"><h3>Componente IPV en desarrollo</h3><Button onClick={handleBackToCards}>Volver</Button></div>,
+      "ServiciosPremiumC": <div className="text-center p-5"><h3>Componente Servicios Premium en desarrollo</h3><Button onClick={handleBackToCards}>Volver</Button></div>
     };
 
     return components[activeComponent] || null;

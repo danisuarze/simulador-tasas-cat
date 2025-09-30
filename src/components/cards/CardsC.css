@@ -20,8 +20,8 @@
 
 .back-button-custom:hover {
   background: #6a8a5c !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(123, 156, 107, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(123, 156, 107, 0.35);
   color: white;
 }
 
@@ -50,8 +50,8 @@
 }
 
 .card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08) !important;
   border-color: #040D3B;
 }
 
@@ -71,7 +71,7 @@
 .card-hover:hover .icon-wrapper {
   background: linear-gradient(135deg, #1a237e, #040D3B) !important;
   color: white !important;
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .card-title {
@@ -103,7 +103,7 @@
   background-color: #1A286F;
   border-color: #1A286F;
   color: white;
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 /* Estilos para el botón Calcular - versión mejorada */
@@ -120,8 +120,8 @@
 .card-button:hover {
   background-color: #1A286F !important;
   color: white !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(26, 40, 111, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(26, 40, 111, 0.15);
 }
 
 .card-button:active,
@@ -129,7 +129,7 @@
   background-color: #1A286F !important;
   color: white !important;
   border-color: #1A286F !important;
-  box-shadow: 0 2px 4px rgba(26, 40, 111, 0.3) !important;
+  box-shadow: 0 2px 4px rgba(26, 40, 111, 0.2) !important;
 }
 
 /* Responsive adjustments */
@@ -217,5 +217,5 @@
 }
 
 .card-hover:hover {
-  transform: translateY(-5px) scale(1.02);
+  transform: translateY(-3px) scale(1.01);
 }

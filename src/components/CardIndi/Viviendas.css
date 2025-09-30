@@ -1,0 +1,130 @@
+/* CardsC.css - Estilos para el componente Viviendas */
+
+/* Container padre con más altura, centrado y fondo blanco */
+.card-container-parent {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  background-color: #ffffff;
+}
+
+/* Card cuadrada perfecta */
+.card-perfect-square {
+  width: 400px;
+  height: 400px;
+  max-width: 90vmin;
+  max-height: 90vmin;
+  background-color: #e8e8e8;
+  border: 0;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Body que ocupa todo el espacio disponible */
+.card-perfect-square .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Wrapper para el contenido centrado */
+.card-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Para dispositivos móviles */
+@media (max-width: 576px) {
+  .card-container-parent {
+    min-height: 70vh;
+    padding: 2rem;
+  }
+  
+  .card-perfect-square {
+    width: 350px;
+    height: 350px;
+  }
+}
+
+/* Para tablets */
+@media (min-width: 577px) and (max-width: 768px) {
+  .card-container-parent {
+    min-height: 75vh;
+    padding: 2.5rem;
+  }
+  
+  .card-perfect-square {
+    width: 380px;
+    height: 380px;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 400px) {
+  .card-perfect-square {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+/* Para pantallas grandes */
+@media (min-width: 1200px) {
+  .card-container-parent {
+    min-height: 85vh;
+    padding: 4rem;
+  }
+  
+  .card-perfect-square {
+    width: 420px;
+    height: 420px;
+  }
+}
+
+/* Resto del CSS se mantiene igual... */
+
+/* Contenedor de iconos */
+.icon-wrapper {
+  background-color: rgba(26, 40, 111, 0.1);
+  border-radius: 50%;
+  padding: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Texto de las cards */
+.card-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+}
+
+/* Botones de las cards */
+.card-button {
+  background-color: #1A286F;
+  border-color: #1A286F;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.375rem;
+}
+
+.card-button:hover {
+  background-color: #15225c;
+  border-color: #15225c;
+  color: white;
+}
+
+/* Estilos para el contenedor de icono principal */
+.icon-container {
+  margin-bottom: 1.5rem;
+}
