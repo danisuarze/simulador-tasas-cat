@@ -14,8 +14,7 @@ const App = () => {
   return (
     <>
     <JumbotronC />
-    <PresentacionSimuladoresC />
-    <Viviendas />
+    <CardsC />
     <FooterC />
     </>
   )

@@ -29,62 +29,146 @@ import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
 import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
-//import './CardsC.css';
 
 const CardsC = ({ onBack }) => {
   const [activeComponent, setActiveComponent] = useState(null);
 
-  // Función para manejar el clic en el botón Calcular
-  const handleCalculateClick = (title) => {
-    const componentMap = {
-      "Vivienda Unifamiliar": "ViviendaUnifamiliarC",
-      "Edificios en Altura": "EdificiosAlturaC",
-      "Edificios Especiales": "EdificiosEspecialesC",
-      "Edificios Industriales": "EdificiosIndustrialesC",
-      "Exteriores no cubiertos": "ExterioresNoCubiertosC",
-      "Instalaciones | Estructuras": "InstalacionesEstructurasC",
-      "Estudio de la propuesta": "EstudioPropuestaC",
-      "Representación Técnica": "RepresentacionTecnicaC",
-      "Carteles Publicitarios": "CartelPublicitarioC",
-      "Tareas con tasa fija": "TareasTasaFijaC",
-      "IPV": "IPVC",
-      "Servicios Premium": "ServiciosPremiumC"
-    };
-    
-    setActiveComponent(componentMap[title] || null);
+  const handleCalculateClick = (componentName) => {
+    setActiveComponent(componentName);
   };
 
-  // Función para volver al menú principal de CardsC
   const handleBackToCards = () => {
     setActiveComponent(null);
   };
 
-  // Renderizar el componente activo si corresponde
+  // Renderizar componente activo
   const renderActiveComponent = () => {
     const components = {
-      "ViviendaUnifamiliarC": <ViviendaUnifamiliarC onBack={handleBackToCards} />,
-      "EdificiosAlturaC": <EdificiosAlturaC onBack={handleBackToCards} />,
-      "EdificiosEspecialesC": <EdificiosEspecialesC onBack={handleBackToCards} />,
-      "EdificiosIndustrialesC": <EdificiosIndustrialesC onBack={handleBackToCards} />,
-      "ExterioresNoCubiertosC": <ExterioresNoCubiertosC onBack={handleBackToCards} />,
-      "InstalacionesEstructurasC": <InstalacionesEstructurasC onBack={handleBackToCards} />,
-      "EstudioPropuestaC": <EstudioPropuestaC onBack={handleBackToCards} />,
-      "RepresentacionTecnicaC": <RepresentacionTecnicaC onBack={handleBackToCards} />,
-      "CartelPublicitarioC": <CartelPublicitarioC onBack={handleBackToCards} />,
-      "TareasTasaFijaC": <TareasTasaFijaC onBack={handleBackToCards} />,
-      "IPVC": <div className="text-center p-5"><h3>Componente IPV en desarrollo</h3><Button onClick={handleBackToCards}>Volver</Button></div>,
-      "ServiciosPremiumC": <div className="text-center p-5"><h3>Componente Servicios Premium en desarrollo</h3><Button onClick={handleBackToCards}>Volver</Button></div>
+      'ViviendaUnifamiliarC': <ViviendaUnifamiliarC onBack={handleBackToCards} />,
+      'EdificiosAlturaC': <EdificiosAlturaC onBack={handleBackToCards} />,
+      'EdificiosEspecialesC': <EdificiosEspecialesC onBack={handleBackToCards} />,
+      'EdificiosIndustrialesC': <EdificiosIndustrialesC onBack={handleBackToCards} />,
+      'ExterioresNoCubiertosC': <ExterioresNoCubiertosC onBack={handleBackToCards} />,
+      'InstalacionesEstructurasC': <InstalacionesEstructurasC onBack={handleBackToCards} />,
+      'EstudioPropuestaC': <EstudioPropuestaC onBack={handleBackToCards} />,
+      'RepresentacionTecnicaC': <RepresentacionTecnicaC onBack={handleBackToCards} />,
+      'CartelPublicitarioC': <CartelPublicitarioC onBack={handleBackToCards} />,
+      'TareasTasaFijaC': <TareasTasaFijaC onBack={handleBackToCards} />,
+      'IPVC': (
+        <Container style={{ 
+          minHeight: '100vh',
+          padding: '20px',
+          position: 'relative',
+          zIndex: 1000
+        }}>
+          <div className="text-center mb-4">
+            <Button 
+              onClick={handleBackToCards}
+              className="mb-3"
+              style={{ position: 'relative', zIndex: 1001 }}
+            >
+              <FaArrowLeft className="me-2" />
+              Volver a Cards
+            </Button>
+            <div>
+              <h1 style={{ color: '#343a40' }}>IPV</h1>
+              <p className="text-muted">Componente en desarrollo</p>
+            </div>
+          </div>
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '50px',
+            backgroundColor: '#f8f9fa',
+            borderRadius: '15px'
+          }}>
+            <h3>🚧 Componente IPV en construcción</h3>
+            <p>Este componente estará disponible próximamente</p>
+            <Button onClick={handleBackToCards} variant="primary">
+              Volver al Menú Principal
+            </Button>
+          </div>
+        </Container>
+      ),
+      'ServiciosPremiumC': (
+        <Container style={{ 
+          minHeight: '100vh',
+          padding: '20px',
+          position: 'relative',
+          zIndex: 1000
+        }}>
+          <div className="text-center mb-4">
+            <Button 
+              onClick={handleBackToCards}
+              className="mb-3"
+              style={{ position: 'relative', zIndex: 1001 }}
+            >
+              <FaArrowLeft className="me-2" />
+              Volver a Cards
+            </Button>
+            <div>
+              <h1 style={{ color: '#ff6b6b' }}>Servicios Premium</h1>
+              <p className="text-muted">Componente en desarrollo</p>
+            </div>
+          </div>
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '50px',
+            backgroundColor: '#fff5f5',
+            borderRadius: '15px'
+          }}>
+            <h3>🚧 Componente Servicios Premium en construcción</h3>
+            <p>Este componente estará disponible próximamente</p>
+            <Button onClick={handleBackToCards} variant="primary">
+              Volver al Menú Principal
+            </Button>
+          </div>
+        </Container>
+      )
     };
 
-    return components[activeComponent] || null;
+    return components[activeComponent] || (
+      <Container style={{ 
+        minHeight: '100vh',
+        padding: '20px',
+        position: 'relative',
+        zIndex: 1000
+      }}>
+        <div className="text-center mb-4">
+          <Button 
+            onClick={handleBackToCards}
+            className="mb-3"
+            style={{ position: 'relative', zIndex: 1001 }}
+          >
+            <FaArrowLeft className="me-2" />
+            Volver a Cards
+          </Button>
+          <div>
+            <h1 style={{ color: '#dc3545' }}>Componente no encontrado</h1>
+            <p className="text-muted">Error: {activeComponent}</p>
+          </div>
+        </div>
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '50px',
+          backgroundColor: '#f8d7da',
+          borderRadius: '15px'
+        }}>
+          <h3>❌ Error al cargar el componente</h3>
+          <p>El componente <strong>{activeComponent}</strong> no pudo ser cargado.</p>
+          <Button onClick={handleBackToCards} variant="danger">
+            Volver al Menú Principal
+          </Button>
+        </div>
+      </Container>
+    );
   };
 
-  // Si hay un componente activo, renderizarlo
+  // Si hay componente activo, renderizarlo
   if (activeComponent) {
     return renderActiveComponent();
   }
 
-  // Datos de ejemplo para las cards con iconos correspondientes
+  // Datos de las cards
   const cardData = [
     {
       id: 1,
@@ -173,12 +257,16 @@ const CardsC = ({ onBack }) => {
   ];
 
   return (
-    <Container className="my-5 cards-container">
-      {/* Header con botón de volver CENTRADO ARRIBA DEL TÍTULO */}
-      <div className="text-center mb-4">
+    <Container className="my-5" style={{ 
+      position: 'relative',
+      zIndex: 1000
+    }}>
+      {/* Header */}
+      <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <Button 
           onClick={onBack}
-          className="back-button-custom d-inline-flex align-items-center mb-3"
+          className="mb-3"
+          style={{ position: 'relative', zIndex: 1002 }}
         >
           <FaArrowLeft className="me-2" />
           Volver
@@ -194,9 +282,11 @@ const CardsC = ({ onBack }) => {
       <Row>
         {cardData.map((card) => (
           <Col key={card.id} xs={12} md={6} lg={4} className="mb-4">
-            <Card className="h-100 shadow-sm card-hover">
-              <Card.Body className="d-flex flex-column p-4">
-                {/* Cabecera con icono y título */}
+            <Card className="h-100 shadow-sm card-hover" style={{ 
+              position: 'relative',
+              zIndex: 1001
+            }}>
+              <Card.Body className="d-flex flex-column p-4" style={{ position: 'relative', zIndex: 1002 }}>
                 <div className="text-center mb-3">
                   <div className="icon-wrapper mx-auto">
                     {card.icon}
@@ -206,16 +296,18 @@ const CardsC = ({ onBack }) => {
                   </Card.Title>
                 </div>
                 
-                {/* Texto de la card */}
                 <Card.Text className="text-center mb-3 card-text">
                   {card.text}
                 </Card.Text>
                 
-                {/* Botón */}
                 <div className="mt-auto text-center">
                   <Button 
                     className="card-button"
-                    onClick={() => handleCalculateClick(card.title)}
+                    onClick={() => handleCalculateClick(card.component)}
+                    style={{ 
+                      position: 'relative',
+                      zIndex: 1003
+                    }}
                   >
                     Calcular
                   </Button>
