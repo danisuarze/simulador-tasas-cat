@@ -111,20 +111,26 @@ const EstudioPropuestaC = ({ onBack }) => {
   };
 
   return (
-    <div className="instalaciones-estructuras-container">
+    <div className="instalaciones-estructuras-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
       {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4">
+      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
           className="btn back-home-btn"
           onClick={onBack}
-          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+          style={{ 
+            backgroundColor: '#6b8a5c', 
+            borderColor: '#6b8a5c', 
+            color: 'white',
+            position: 'relative',
+            zIndex: 1002
+          }}
         >
           <FaArrowLeft className="me-2" />
           Volver al Home
         </button>
       </div>
 
-      <div className="instalaciones-estructuras-header">
+      <div className="instalaciones-estructuras-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
@@ -135,15 +141,15 @@ const EstudioPropuestaC = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="row">
           <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card">
-              <div className="card-header instalaciones-estructuras-card-header">
+            <div className="card instalaciones-estructuras-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Estudio de Propuesta</h5>
               </div>
-              <div className="card-body">
-                <div className="mb-3">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="montoObraEstudioPropuesta" className="form-label instalaciones-estructuras-form-label">
                     Monto de Licitación ($)
                   </label>
@@ -156,12 +162,17 @@ const EstudioPropuestaC = ({ onBack }) => {
                     step="0.01"
                     value={montoObra}
                     onChange={(e) => setMontoObra(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   />
                 </div>
                 
-                <div className="d-grid">
-                  <button className="btn btn-primary instalaciones-estructuras-btn-primary" onClick={calcularEstudioPropuesta}>
-                    <i className="bi bi-calculator"></i> Calcular
+                <div className="d-grid" style={{ position: 'relative', zIndex: 1004 }}>
+                  <button 
+                    className="btn btn-primary instalaciones-estructuras-btn-primary" 
+                    onClick={calcularEstudioPropuesta}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  >
+                    Calcular
                   </button>
                 </div>
               </div>
@@ -169,11 +180,11 @@ const EstudioPropuestaC = ({ onBack }) => {
           </div>
           
           <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card instalaciones-estructuras-result-card">
-              <div className="card-header instalaciones-estructuras-card-header">
+            <div className="card instalaciones-estructuras-card instalaciones-estructuras-result-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Resultados - Estudio de Propuesta</h5>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                 {resultados ? (
                   resultados.error ? (
                     <div className="alert alert-warning instalaciones-estructuras-alert instalaciones-estructuras-alert-warning text-center">

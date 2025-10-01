@@ -88,7 +88,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
     html.push({ label: "% Instalaciones", value: "30%" });
     
     if (tipoObra === 'nueva' || tipoObra === 'ampliacion') {
-      html.push({ label: "% Avance de Obra", value: `${avance}% (solo aplica to Dirección Técnica)` });
+      html.push({ label: "% Avance de Obra", value: `${avance}% (solo aplica a Dirección Técnica)` });
     }
     
     let tasaRetributiva = 0;
@@ -375,7 +375,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       tasaRetributiva,
       descripcionServicio
     });
-  }; // <-- CIERRE de la función calcularInstalaciones
+  };
 
   // Determinar qué campos mostrar según el tipo de obra
   const mostrarCamposBasicos = tipoObra === 'nueva' || tipoObra === 'construida';
@@ -385,20 +385,26 @@ const InstalacionesEstructurasC = ({ onBack }) => {
   const mostrarAvanceField = tipoObra === 'nueva' || tipoObra === 'ampliacion';
 
   return (
-    <div className="instalaciones-estructuras-container">
+    <div className="instalaciones-estructuras-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
       {/* Botón Volver al Home - Modificado para ser verde y centrado verticalmente */}
-      <div className="container mt-3 mb-4 d-flex align-items-center justify-content-center">
+      <div className="container mt-3 mb-4 d-flex align-items-center justify-content-center" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
           className="btn instalaciones-estructuras-back-button"
           onClick={onBack}
-          style={{ backgroundColor: '#7B9C6B', borderColor: '#7B9C6B', color: 'white' }}
+          style={{ 
+            backgroundColor: '#7B9C6B', 
+            borderColor: '#7B9C6B', 
+            color: 'white',
+            position: 'relative',
+            zIndex: 1002
+          }}
         >
           <FaArrowLeft className="me-2" />
           Volver al Home
         </button>
       </div>
 
-      <div className="instalaciones-estructuras-header">
+      <div className="instalaciones-estructuras-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
@@ -409,21 +415,22 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="row">
           <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card">
-              <div className="card-header instalaciones-estructuras-card-header">
+            <div className="card instalaciones-estructuras-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Instalaciones y Estructuras</h5>
               </div>
-              <div className="card-body">
-                <div className="mb-3">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="tipoObraInstalaciones" className="form-label instalaciones-estructuras-form-label">Tipo de Obra</label>
                   <select 
                     className="form-select instalaciones-estructuras-form-select" 
                     id="tipoObraInstalaciones" 
                     value={tipoObra}
                     onChange={(e) => setTipoObra(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   >
                     <option value="nueva">Obra Nueva</option>
                     <option value="construida">Obra Construida</option>
@@ -433,7 +440,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 
                 {/* Campos para Obra Nueva y Obra Construida */}
                 {mostrarCamposBasicos && (
-                  <div className="mb-3" id="m2BasicoField">
+                  <div className="mb-3" id="m2BasicoField" style={{ position: 'relative', zIndex: 1004 }}>
                     <label htmlFor="m2Instalaciones" className="form-label instalaciones-estructuras-form-label">Metros cuadrados (m²)</label>
                     <input 
                       type="number" 
@@ -443,13 +450,14 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                       min="0"
                       value={m2Instalaciones}
                       onChange={(e) => setM2Instalaciones(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
                     />
                   </div>
                 )}
                 
                 {/* Campos específicos para Construida y Ampliación */}
                 {mostrarAmpliacionFields && (
-                  <div id="ampliacionFields" className="instalaciones-estructuras-ampliacion-fields">
+                  <div id="ampliacionFields" className="instalaciones-estructuras-ampliacion-fields" style={{ position: 'relative', zIndex: 1004 }}>
                     <div className="mb-3">
                       <label htmlFor="m2Construida" className="form-label instalaciones-estructuras-form-label">Superficie Construida (m²)</label>
                       <input 
@@ -460,6 +468,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         min="0"
                         value={m2Construida}
                         onChange={(e) => setM2Construida(e.target.value)}
+                        style={{ position: 'relative', zIndex: 1005 }}
                       />
                     </div>
                     
@@ -473,6 +482,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         min="0"
                         value={m2Ampliacion}
                         onChange={(e) => setM2Ampliacion(e.target.value)}
+                        style={{ position: 'relative', zIndex: 1005 }}
                       />
                     </div>
                     
@@ -486,6 +496,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         min="0"
                         value={m2AntecedenteAmpliacion}
                         onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                        style={{ position: 'relative', zIndex: 1005 }}
                       />
                       <div className="form-text instalaciones-estructuras-form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede ser mayor a la superficie construida.</div>
                     </div>
@@ -494,7 +505,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 
                 {/* Campos específicos para Obra Construida con Antecedente */}
                 {mostrarAntecedenteFields && (
-                  <div id="antecedenteFields" className="instalaciones-estructuras-antecedente-fields">
+                  <div id="antecedenteFields" className="instalaciones-estructuras-antecedente-fields" style={{ position: 'relative', zIndex: 1004 }}>
                     <div className="mb-3">
                       <label htmlFor="m2AntecedenteConstruida" className="form-label instalaciones-estructuras-form-label">Superficie de Antecedente (m²)</label>
                       <input 
@@ -505,6 +516,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         min="0"
                         value={m2AntecedenteConstruida}
                         onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                        style={{ position: 'relative', zIndex: 1005 }}
                       />
                       <div className="form-text instalaciones-estructuras-form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
                     </div>
@@ -513,9 +525,9 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 
                 {/* Selección de tareas para Obra Nueva y Ampliación */}
                 {mostrarTareasField && (
-                  <div className="mb-3 instalaciones-estructuras-dynamic-field" id="tareasInstalacionesField">
+                  <div className="mb-3 instalaciones-estructuras-dynamic-field" id="tareasInstalacionesField" style={{ position: 'relative', zIndex: 1004 }}>
                     <label className="form-label instalaciones-estructuras-form-label">Seleccione las tareas:</label>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -524,10 +536,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Anteproyecto" 
                         checked={tareaSeleccionada === "Anteproyecto"}
                         onChange={() => setTareaSeleccionada("Anteproyecto")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instAnteproyecto">Anteproyecto</label>
                     </div>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -536,10 +549,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Proyecto" 
                         checked={tareaSeleccionada === "Proyecto"}
                         onChange={() => setTareaSeleccionada("Proyecto")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instProyecto">Proyecto</label>
                     </div>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -548,10 +562,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Dirección Técnica" 
                         checked={tareaSeleccionada === "Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Dirección Técnica")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instDireccion">Dirección Técnica</label>
                     </div>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -560,10 +575,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Anteproyecto y Proyecto" 
                         checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
                         onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instAnteproyectoProyecto">Anteproyecto y Proyecto</label>
                     </div>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -572,10 +588,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instProyectoDireccion">Proyecto y Dirección Técnica</label>
                     </div>
-                    <div className="form-check instalaciones-estructuras-task-item">
+                    <div className="form-check instalaciones-estructuras-task-item" style={{ position: 'relative', zIndex: 1005 }}>
                       <input 
                         className="form-check-input instalaciones-estructuras-form-check-input" 
                         type="radio" 
@@ -584,6 +601,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                         value="Anteproyecto, Proyecto y Dirección Técnica" 
                         checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
                         onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
+                        style={{ position: 'relative', zIndex: 1006 }}
                       />
                       <label className="form-check-label" htmlFor="instCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
                     </div>
@@ -591,7 +609,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 )}
                 
                 {mostrarAvanceField && (
-                  <div className="mb-3" id="avanceField">
+                  <div className="mb-3" id="avanceField" style={{ position: 'relative', zIndex: 1004 }}>
                     <label htmlFor="avanceInstalaciones" className="form-label instalaciones-estructuras-form-label">% Avance de Obra (solo para Dirección Técnica)</label>
                     <input 
                       type="number" 
@@ -602,13 +620,18 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                       max="100"
                       value={avanceInstalaciones}
                       onChange={(e) => setAvanceInstalaciones(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
                     />
                     <div className="form-text instalaciones-estructuras-form-text">Ingrese 0 si no hay avance de obra. Este valor solo afecta al cálculo de Dirección Técnica.</div>
                   </div>
                 )}
                 
-                <div className="d-grid">
-                  <button className="btn instalaciones-estructuras-btn-primary btn-primary" onClick={calcularInstalaciones}>
+                <div className="d-grid" style={{ position: 'relative', zIndex: 1004 }}>
+                  <button 
+                    className="btn instalaciones-estructuras-btn-primary btn-primary" 
+                    onClick={calcularInstalaciones}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  >
                     Calcular
                   </button>
                 </div>
@@ -617,11 +640,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
           </div>
           
           <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card instalaciones-estructuras-result-card">
-              <div className="card-header instalaciones-estructuras-card-header">
+            <div className="card instalaciones-estructuras-card instalaciones-estructuras-result-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Resultados - Instalaciones y Estructuras</h5>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                 {resultados ? (
                   resultados.error ? (
                     <div className="alert instalaciones-estructuras-alert instalaciones-estructuras-alert-warning text-center">
@@ -654,6 +677,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       </div>
     </div>
   );
-}; // <-- CIERRE del componente InstalacionesEstructurasC
+};
 
 export default InstalacionesEstructurasC;
