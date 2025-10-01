@@ -29,6 +29,7 @@ import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
 import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
+import "./CardsC.css"
 
 const CardsC = ({ onBack }) => {
   const [activeComponent, setActiveComponent] = useState(null);
