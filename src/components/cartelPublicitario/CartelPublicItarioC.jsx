@@ -69,20 +69,26 @@ const CartelPublicitarioC = ({ onBack }) => {
   };
 
   return (
-    <div className="cartel-publicitario-container">
+    <div className="cartel-publicitario-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
       {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4">
+      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
           className="btn back-home-btn"
           onClick={onBack}
-          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+          style={{ 
+            backgroundColor: '#6b8a5c', 
+            borderColor: '#6b8a5c', 
+            color: 'white',
+            position: 'relative',
+            zIndex: 1002
+          }}
         >
           <FaArrowLeft className="me-2" />
           Volver al Home
         </button>
       </div>
 
-      <div className="cartel-publicitario-header">
+      <div className="cartel-publicitario-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
@@ -93,28 +99,29 @@ const CartelPublicitarioC = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="row">
           <div className="col-lg-6">
-            <div className="card cartel-publicitario-card">
-              <div className="card-header cartel-publicitario-card-header">
+            <div className="card cartel-publicitario-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header cartel-publicitario-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Carteles Publicitarios</h5>
               </div>
-              <div className="card-body">
-                <div className="mb-3">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="tipoCartel" className="form-label cartel-publicitario-form-label">Tipo de Cartel</label>
                   <select 
                     className="form-select cartel-publicitario-form-select" 
                     id="tipoCartel" 
                     value={tipoCartel}
                     onChange={(e) => setTipoCartel(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   >
                     <option value="nuevo">Cartel Nuevo</option>
                     <option value="construido">Cartel Construido</option>
                   </select>
                 </div>
                 
-                <div className="mb-3">
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="superficieTotal" className="form-label cartel-publicitario-form-label">Superficie Total (m²)</label>
                   <input 
                     type="number" 
@@ -124,12 +131,17 @@ const CartelPublicitarioC = ({ onBack }) => {
                     min="0"
                     value={superficieTotal}
                     onChange={(e) => setSuperficieTotal(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   />
                 </div>
                 
-                <div className="d-grid">
-                  <button className="btn btn-primary cartel-publicitario-btn-primary" onClick={calcularTasa}>
-                    <i className="bi bi-calculator"></i> Calcular
+                <div className="d-grid" style={{ position: 'relative', zIndex: 1004 }}>
+                  <button 
+                    className="btn btn-primary cartel-publicitario-btn-primary" 
+                    onClick={calcularTasa}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  >
+                    Calcular
                   </button>
                 </div>
               </div>
@@ -137,11 +149,11 @@ const CartelPublicitarioC = ({ onBack }) => {
           </div>
           
           <div className="col-lg-6">
-            <div className="card cartel-publicitario-card cartel-publicitario-result-card">
-              <div className="card-header cartel-publicitario-card-header">
+            <div className="card cartel-publicitario-card cartel-publicitario-result-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header cartel-publicitario-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Resultados - Cartel Publicitario</h5>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                 {resultados ? (
                   resultados.error ? (
                     <div className="alert alert-warning cartel-publicitario-alert cartel-publicitario-alert-warning text-center">

@@ -59,34 +59,40 @@ const TareasTasaFijaC = ({ onBack }) => {
   };
 
   return (
-    <div className="tareas-tasa-fija-container">
+    <div className="tareas-tasa-fija-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
       {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4">
+      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
-              className="btn instalaciones-estructuras-back-button"
-              onClick={onBack}
-              style={{ backgroundColor: '#7B9C6B', borderColor: '#7B9C6B', color: 'white' }}
-                >
-                  <FaArrowLeft className="me-2" />
-                  Volver al Home
-       </button>
+          className="btn instalaciones-estructuras-back-button"
+          onClick={onBack}
+          style={{ 
+            backgroundColor: '#7B9C6B', 
+            borderColor: '#7B9C6B', 
+            color: 'white',
+            position: 'relative',
+            zIndex: 1002
+          }}
+        >
+          <FaArrowLeft className="me-2" />
+          Volver al Home
+        </button>
       </div>
 
-      <div className="tareas-tasa-fija-header">
+      <div className="tareas-tasa-fija-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <h1 className="text-center mb-1">Tareas con Tasa Fija</h1>
           <p className="text-center mb-0">Seleccione una tarea para ver su valor</p>
         </div>
       </div>
 
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="row justify-content-center">
           <div className="col-12 col-lg-10 fixed-width-container">
             {/* Acordeón de selección de tareas */}
-            <div className="tareas-tasa-fija-card card mb-4">
+            <div className="tareas-tasa-fija-card card mb-4" style={{ position: 'relative', zIndex: 1002 }}>
               <div 
                 className="tareas-tasa-fija-card-header card-header d-flex justify-content-between align-items-center"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', position: 'relative', zIndex: 1003 }}
                 onClick={() => setAcordeonAbierto(!acordeonAbierto)}
               >
                 <h5 className="mb-0 fixed-title-container">
@@ -96,10 +102,10 @@ const TareasTasaFijaC = ({ onBack }) => {
               </div>
               
               {acordeonAbierto && (
-                <div className="card-body">
+                <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                   <div className="tareas-list">
                     {tareas.map(tarea => (
-                      <div key={tarea.id} className="tareas-tasa-fija-task-item form-check">
+                      <div key={tarea.id} className="tareas-tasa-fija-task-item form-check" style={{ position: 'relative', zIndex: 1004 }}>
                         <input 
                           className="form-check-input" 
                           type="radio" 
@@ -107,6 +113,7 @@ const TareasTasaFijaC = ({ onBack }) => {
                           id={`tarea-${tarea.id}`}
                           checked={tareaSeleccionada && tareaSeleccionada.id === tarea.id}
                           onChange={() => setTareaSeleccionada(tarea)}
+                          style={{ position: 'relative', zIndex: 1005 }}
                         />
                         <label className="form-check-label fixed-label-container" htmlFor={`tarea-${tarea.id}`}>
                           {tarea.nombre}
@@ -120,11 +127,11 @@ const TareasTasaFijaC = ({ onBack }) => {
 
             {/* Resultados */}
             {resultado && (
-              <div className="tareas-tasa-fija-card card">
-                <div className="tareas-tasa-fija-card-header card-header">
+              <div className="tareas-tasa-fija-card card" style={{ position: 'relative', zIndex: 1002 }}>
+                <div className="tareas-tasa-fija-card-header card-header" style={{ position: 'relative', zIndex: 1003 }}>
                   <h5 className="mb-0">Resultado</h5>
                 </div>
-                <div className="card-body">
+                <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                   <div className="result-content">
                     <div className="tareas-tasa-fija-result-item">
                       <strong>Tarea seleccionada:</strong>
@@ -152,10 +159,11 @@ const TareasTasaFijaC = ({ onBack }) => {
                     </div>
 
                     {/* Botón para seleccionar otra tarea */}
-                    <div className="text-center mt-4">
+                    <div className="text-center mt-4" style={{ position: 'relative', zIndex: 1004 }}>
                       <button 
                         className="btn tareas-tasa-fija-btn-primary btn-primary"
                         onClick={seleccionarOtraTarea}
+                        style={{ position: 'relative', zIndex: 1005 }}
                       >
                         Seleccionar otra tarea
                       </button>

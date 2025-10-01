@@ -131,20 +131,26 @@ const RepresentacionTecnicaC = ({ onBack }) => {
   };
 
   return (
-    <div className="representacion-tecnica-container">
+    <div className="representacion-tecnica-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
       {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4">
+      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
           className="btn back-home-btn"
           onClick={onBack}
-          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+          style={{ 
+            backgroundColor: '#6b8a5c', 
+            borderColor: '#6b8a5c', 
+            color: 'white',
+            position: 'relative',
+            zIndex: 1002
+          }}
         >
           <FaArrowLeft className="me-2" />
           Volver al Home
         </button>
       </div>
 
-      <div className="representacion-tecnica-header">
+      <div className="representacion-tecnica-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-12">
@@ -155,15 +161,15 @@ const RepresentacionTecnicaC = ({ onBack }) => {
         </div>
       </div>
 
-      <div className="container">
+      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="row">
           <div className="col-lg-6">
-            <div className="card representacion-tecnica-card">
-              <div className="card-header representacion-tecnica-card-header">
+            <div className="card representacion-tecnica-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header representacion-tecnica-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Representación Técnica</h5>
               </div>
-              <div className="card-body">
-                <div className="mb-3">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="montoObraRepresentacionTecnica" className="form-label representacion-tecnica-form-label">
                     Monto de Licitación ($)
                   </label>
@@ -176,10 +182,11 @@ const RepresentacionTecnicaC = ({ onBack }) => {
                     step="0.01"
                     value={montoObra}
                     onChange={(e) => setMontoObra(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   />
                 </div>
                 
-                <div className="mb-3">
+                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="avanceObraRepresentacionTecnica" className="form-label representacion-tecnica-form-label">
                     % Avance de Obra (opcional)
                   </label>
@@ -192,15 +199,20 @@ const RepresentacionTecnicaC = ({ onBack }) => {
                     max="100"
                     value={avanceObra}
                     onChange={(e) => setAvanceObra(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
                   />
                   <div className="form-text representacion-tecnica-form-text">
                     Si no hay avance de obra, dejar en blanco. Este valor ajusta el cálculo al porcentaje restante de obra.
                   </div>
                 </div>
                 
-                <div className="d-grid">
-                  <button className="btn btn-primary representacion-tecnica-btn-primary" onClick={calcularRepresentacionTecnica}>
-                    <i className="bi bi-calculator"></i> Calcular
+                <div className="d-grid" style={{ position: 'relative', zIndex: 1004 }}>
+                  <button 
+                    className="btn btn-primary representacion-tecnica-btn-primary" 
+                    onClick={calcularRepresentacionTecnica}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  >
+                    Calcular
                   </button>
                 </div>
               </div>
@@ -208,11 +220,11 @@ const RepresentacionTecnicaC = ({ onBack }) => {
           </div>
           
           <div className="col-lg-6">
-            <div className="card representacion-tecnica-card representacion-tecnica-result-card">
-              <div className="card-header representacion-tecnica-card-header">
+            <div className="card representacion-tecnica-card representacion-tecnica-result-card" style={{ position: 'relative', zIndex: 1002 }}>
+              <div className="card-header representacion-tecnica-card-header" style={{ position: 'relative', zIndex: 1003 }}>
                 <h5 className="mb-0">Resultados - Representación Técnica</h5>
               </div>
-              <div className="card-body">
+              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
                 {resultados ? (
                   resultados.error ? (
                     <div className="alert alert-warning representacion-tecnica-alert representacion-tecnica-alert-warning text-center">
