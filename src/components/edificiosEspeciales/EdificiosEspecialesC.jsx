@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './EdificiosEspecialesC.css';
 
@@ -504,334 +505,354 @@ const EdificiosEspecialesC = ({ onBack }) => {
   const mostrarInfoRefaccionAmpliacion = tipoObra === 'refaccionAmpliacion';
 
   return (
-    <div>
-      {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4">
-        <button 
-          className="btn back-home-btn"
+    <div className="container my-4" style={{ 
+      position: 'relative',
+      zIndex: 1000,
+      minHeight: '100vh'
+    }}>
+      {/* Header con botón de volver */}
+      <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
+        <Button 
           onClick={onBack}
-          style={{ backgroundColor: '#6b8a5c', borderColor: '#6b8a5c', color: 'white' }}
+          className="back-button-custom d-inline-flex align-items-center mb-3"
+          variant="outline-primary"
+          style={{ position: 'relative', zIndex: 1002 }}
         >
           <FaArrowLeft className="me-2" />
-          Volver al Home
-        </button>
-      </div>
-
-      <div className="header">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-12">
-              <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
-              <p className="mb-0">Luego seleccione la tarea a realizar y presione calcular</p>
-            </div>
-          </div>
+          Volver al Menú Principal
+        </Button>
+        <div style={{ position: 'relative', zIndex: 1001 }}>
+          <h2 className="mb-0">Edificios Especiales</h2>
+          <p className="mb-0 text-muted">
+            Complete el tipo de obra y cargue la/s superficie/s. Luego seleccione la tarea a realizar y presione calcular.
+          </p>
         </div>
       </div>
 
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="card">
-              <div className="card-header">
-                <h5 className="mb-0">Edificios Especiales</h5>
+      <div className="row" style={{ position: 'relative', zIndex: 1001 }}>
+        <div className="col-lg-6">
+          <div className="card" style={{ position: 'relative', zIndex: 1002 }}>
+            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
+              <h5 className="mb-0">Datos de Entrada</h5>
+            </div>
+            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+              <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
+                <label htmlFor="tipoObraEdificio" className="form-label">Tipo de Obra</label>
+                <select 
+                  className="form-select" 
+                  id="tipoObraEdificio" 
+                  value={tipoObra}
+                  onChange={(e) => setTipoObra(e.target.value)}
+                  style={{ position: 'relative', zIndex: 1005 }}
+                >
+                  <option value="nueva">Obra Nueva</option>
+                  <option value="construida">Obra Construida</option>
+                  <option value="ampliacion">Construida y Ampliación</option>
+                  <option value="refaccion">Refacción</option>
+                  <option value="refaccionAmpliacion">Refacción y Ampliación</option>
+                </select>
               </div>
-              <div className="card-body">
-                <div className="mb-3">
-                  <label htmlFor="tipoObraEdificio" className="form-label">Tipo de Obra</label>
-                  <select 
-                    className="form-select" 
-                    id="tipoObraEdificio" 
-                    value={tipoObra}
-                    onChange={(e) => setTipoObra(e.target.value)}
-                  >
-                    <option value="nueva">Obra Nueva</option>
-                    <option value="construida">Obra Construida</option>
-                    <option value="ampliacion">Construida y Ampliación</option>
-                    <option value="refaccion">Refacción</option>
-                    <option value="refaccionAmpliacion">Refacción y Ampliación</option>
-                  </select>
+              
+              {/* Campos para Obra Nueva y Obra Construida */}
+              {mostrarCamposBasicos && (
+                <div className="mb-3" id="m2BasicoField" style={{ position: 'relative', zIndex: 1004 }}>
+                  <label htmlFor="m2Edificio" className="form-label">Metros cuadrados (m²)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="m2Edificio" 
+                    placeholder="Ingrese los m² de construcción" 
+                    min="0"
+                    value={m2Edificio}
+                    onChange={(e) => setM2Edificio(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  />
                 </div>
-                
-                {/* Campos para Obra Nueva y Obra Construida */}
-                {mostrarCamposBasicos && (
-                  <div className="mb-3" id="m2BasicoField">
-                    <label htmlFor="m2Edificio" className="form-label">Metros cuadrados (m²)</label>
+              )}
+              
+              {/* Campos específicos para Construida y Ampliación */}
+              {mostrarAmpliacionFields && (
+                <div id="ampliacionFields" className="ampliacion-fields" style={{ position: 'relative', zIndex: 1004 }}>
+                  <div className="mb-3">
+                    <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
                     <input 
                       type="number" 
                       className="form-control" 
-                      id="m2Edificio" 
-                      placeholder="Ingrese los m² de construcción" 
+                      id="m2Construida" 
+                      placeholder="Superficie ya construida" 
                       min="0"
-                      value={m2Edificio}
-                      onChange={(e) => setM2Edificio(e.target.value)}
+                      value={m2Construida}
+                      onChange={(e) => setM2Construida(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
                     />
                   </div>
-                )}
-                
-                {/* Campos específicos para Construida y Ampliación */}
-                {mostrarAmpliacionFields && (
-                  <div id="ampliacionFields" className="ampliacion-fields">
-                    <div className="mb-3">
-                      <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2Construida" 
-                        placeholder="Superficie ya construida" 
-                        min="0"
-                        value={m2Construida}
-                        onChange={(e) => setM2Construida(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="mb-3">
-                      <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2Ampliacion" 
-                        placeholder="Superficie a ampliar" 
-                        min="0"
-                        value={m2Ampliacion}
-                        onChange={(e) => setM2Ampliacion(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="mb-3">
-                      <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2AntecedenteAmpliacion" 
-                        placeholder="Superficie de antecedente (opcional)" 
-                        min="0"
-                        value={m2AntecedenteAmpliacion}
-                        onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
-                      />
-                      <div className="form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede ser mayor a la superficie construida.</div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Campos específicos para Obra Construida con Antecedente */}
-                {mostrarAntecedenteFields && (
-                  <div id="antecedenteFields" className="antecedente-fields">
-                    <div className="mb-3">
-                      <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2AntecedenteConstruida" 
-                        placeholder="Superficie de antecedente (opcional)" 
-                        min="0"
-                        value={m2AntecedenteConstruida}
-                        onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
-                      />
-                      <div className="form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Campos específicos para Refacción */}
-                {mostrarRefaccionFields && (
-                  <div id="refaccionFields" className="refaccion-fields">
-                    <div className="mb-3">
-                      <label htmlFor="montoRefaccion" className="form-label">Monto de Obra en $</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="montoRefaccion" 
-                        placeholder="Ingrese el monto total de la refacción" 
-                        min="0"
-                        value={montoRefaccion}
-                        onChange={(e) => setMontoRefaccion(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                )}
-                
-                {/* Campos específicos para Refacción y Ampliación */}
-                {mostrarRefaccionAmpliacionFields && (
-                  <div id="refaccionAmpliacionFields" className="refaccion-ampliacion-fields">
-                    <div className="mb-3">
-                      <label htmlFor="montoRefaccionAmpliacion" className="form-label">Monto de Refacción en $</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="montoRefaccionAmpliacion" 
-                        placeholder="Ingrese el monto total de la refacción" 
-                        min="0"
-                        value={montoRefaccionAmpliacion}
-                        onChange={(e) => setMontoRefaccionAmpliacion(e.target.value)}
-                      />
-                    </div>
-                    
-                    <div className="mb-3">
-                      <label htmlFor="m2AmpliacionRefaccion" className="form-label">Superficie de Ampliación (m²)</label>
-                      <input 
-                        type="number" 
-                        className="form-control" 
-                        id="m2AmpliacionRefaccion" 
-                        placeholder="Superficie a ampliar" 
-                        min="0"
-                        value={m2AmpliacionRefaccion}
-                        onChange={(e) => setM2AmpliacionRefaccion(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                )}
-                
-                {/* Selección de tareas para Obra Nueva y Ampliación */}
-                {mostrarTareasField && (
-                  <div className="mb-3 dynamic-field" id="tareasEdificioField">
-                    <label className="form-label">Seleccione las tareas:</label>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eAnteproyecto" 
-                        value="Anteproyecto" 
-                        checked={tareaSeleccionada === "Anteproyecto"}
-                        onChange={() => setTareaSeleccionada("Anteproyecto")}
-                      />
-                      <label className="form-check-label" htmlFor="eAnteproyecto">Anteproyecto</label>
-                    </div>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eProyecto" 
-                        value="Proyecto" 
-                        checked={tareaSeleccionada === "Proyecto"}
-                        onChange={() => setTareaSeleccionada("Proyecto")}
-                      />
-                      <label className="form-check-label" htmlFor="eProyecto">Proyecto</label>
-                    </div>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eDireccion" 
-                        value="Dirección Técnica" 
-                        checked={tareaSeleccionada === "Dirección Técnica"}
-                        onChange={() => setTareaSeleccionada("Dirección Técnica")}
-                      />
-                      <label className="form-check-label" htmlFor="eDireccion">Dirección Técnica</label>
-                    </div>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eAnteproyectoProyecto" 
-                        value="Anteproyecto y Proyecto" 
-                        checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
-                        onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
-                      />
-                      <label className="form-check-label" htmlFor="eAnteproyectoProyecto">Anteproyecto y Proyecto</label>
-                    </div>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eProyectoDireccion" 
-                        value="Proyecto y Dirección Técnica" 
-                        checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
-                        onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
-                      />
-                      <label className="form-check-label" htmlFor="eProyectoDireccion">Proyecto y Dirección Técnica</label>
-                    </div>
-                    <div className="form-check task-item">
-                      <input 
-                        className="form-check-input" 
-                        type="radio" 
-                        name="tareaEdificioEspecial" 
-                        id="eCompleto" 
-                        value="Anteproyecto, Proyecto y Dirección Técnica" 
-                        checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
-                        onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
-                      />
-                      <label className="form-check-label" htmlFor="eCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
-                    </div>
-                  </div>
-                )}
-                
-                {/* Información específica para Refacción */}
-                {mostrarInfoRefaccion && (
-                  <div id="infoRefaccion" className="alert alert-info">
-                    <i className="bi bi-info-circle"></i> Para Refacción, la tasa retributiva se calcula como el 1% del monto de obra, aplicándose a la tarea completa de Anteproyecto, Proyecto y Dirección Técnica.
-                  </div>
-                )}
-                
-                {/* Información específica para Refacción y Ampliación */}
-                {mostrarInfoRefaccionAmpliacion && (
-                  <div id="infoRefaccionAmpliacion" className="alert alert-info">
-                    <i className="bi bi-info-circle"></i> Para Refacción y Ampliación, se calcula una tasa parcial por la refacción (1% del monto) y otra por la ampliación (como obra nueva). La tasa total es la suma de ambos.
-                  </div>
-                )}
-                
-                {mostrarAvanceField && (
-                  <div className="mb-3" id="avanceField">
-                    <label htmlFor="avanceEdificio" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
+                  
+                  <div className="mb-3">
+                    <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
                     <input 
                       type="number" 
                       className="form-control" 
-                      id="avanceEdificio" 
-                      placeholder="Sin avance de obra (0%)" 
-                      min="0" 
-                      max="100"
-                      value={avanceEdificio}
-                      onChange={(e) => setAvanceEdificio(e.target.value)}
+                      id="m2Ampliacion" 
+                      placeholder="Superficie a ampliar" 
+                      min="0"
+                      value={m2Ampliacion}
+                      onChange={(e) => setM2Ampliacion(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
                     />
-                    <div className="form-text">Ingrese 0 si no hay avance de obra. Este valor solo afecta al cálculo de Dirección Técnica.</div>
                   </div>
-                )}
-                
-                <div className="d-grid">
-                  <button className="btn btn-primary" onClick={calcularEdificio}>
-                    <i className="bi bi-calculator"></i> Calcular
-                  </button>
+                  
+                  <div className="mb-3">
+                    <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      id="m2AntecedenteAmpliacion" 
+                      placeholder="Superficie de antecedente (opcional)" 
+                      min="0"
+                      value={m2AntecedenteAmpliacion}
+                      onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
+                    />
+                    <div className="form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede ser mayor a la superficie construida.</div>
+                  </div>
                 </div>
+              )}
+              
+              {/* Campos específicos para Obra Construida con Antecedente */}
+              {mostrarAntecedenteFields && (
+                <div id="antecedenteFields" className="antecedente-fields" style={{ position: 'relative', zIndex: 1004 }}>
+                  <div className="mb-3">
+                    <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      id="m2AntecedenteConstruida" 
+                      placeholder="Superficie de antecedente (opcional)" 
+                      min="0"
+                      value={m2AntecedenteConstruida}
+                      onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
+                    />
+                    <div className="form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Campos específicos para Refacción */}
+              {mostrarRefaccionFields && (
+                <div id="refaccionFields" className="refaccion-fields" style={{ position: 'relative', zIndex: 1004 }}>
+                  <div className="mb-3">
+                    <label htmlFor="montoRefaccion" className="form-label">Monto de Obra en $</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      id="montoRefaccion" 
+                      placeholder="Ingrese el monto total de la refacción" 
+                      min="0"
+                      value={montoRefaccion}
+                      onChange={(e) => setMontoRefaccion(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
+                    />
+                  </div>
+                </div>
+              )}
+              
+              {/* Campos específicos para Refacción y Ampliación */}
+              {mostrarRefaccionAmpliacionFields && (
+                <div id="refaccionAmpliacionFields" className="refaccion-ampliacion-fields" style={{ position: 'relative', zIndex: 1004 }}>
+                  <div className="mb-3">
+                    <label htmlFor="montoRefaccionAmpliacion" className="form-label">Monto de Refacción en $</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      id="montoRefaccionAmpliacion" 
+                      placeholder="Ingrese el monto total de la refacción" 
+                      min="0"
+                      value={montoRefaccionAmpliacion}
+                      onChange={(e) => setMontoRefaccionAmpliacion(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
+                    />
+                  </div>
+                  
+                  <div className="mb-3">
+                    <label htmlFor="m2AmpliacionRefaccion" className="form-label">Superficie de Ampliación (m²)</label>
+                    <input 
+                      type="number" 
+                      className="form-control" 
+                      id="m2AmpliacionRefaccion" 
+                      placeholder="Superficie a ampliar" 
+                      min="0"
+                      value={m2AmpliacionRefaccion}
+                      onChange={(e) => setM2AmpliacionRefaccion(e.target.value)}
+                      style={{ position: 'relative', zIndex: 1005 }}
+                    />
+                  </div>
+                </div>
+              )}
+              
+              {/* Selección de tareas para Obra Nueva y Ampliación */}
+              {mostrarTareasField && (
+                <div className="mb-3 dynamic-field" id="tareasEdificioField" style={{ position: 'relative', zIndex: 1004 }}>
+                  <label className="form-label">Seleccione las tareas:</label>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eAnteproyecto" 
+                      value="Anteproyecto" 
+                      checked={tareaSeleccionada === "Anteproyecto"}
+                      onChange={() => setTareaSeleccionada("Anteproyecto")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eAnteproyecto">Anteproyecto</label>
+                  </div>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eProyecto" 
+                      value="Proyecto" 
+                      checked={tareaSeleccionada === "Proyecto"}
+                      onChange={() => setTareaSeleccionada("Proyecto")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eProyecto">Proyecto</label>
+                  </div>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eDireccion" 
+                      value="Dirección Técnica" 
+                      checked={tareaSeleccionada === "Dirección Técnica"}
+                      onChange={() => setTareaSeleccionada("Dirección Técnica")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eDireccion">Dirección Técnica</label>
+                  </div>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eAnteproyectoProyecto" 
+                      value="Anteproyecto y Proyecto" 
+                      checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
+                      onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eAnteproyectoProyecto">Anteproyecto y Proyecto</label>
+                  </div>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eProyectoDireccion" 
+                      value="Proyecto y Dirección Técnica" 
+                      checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
+                      onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eProyectoDireccion">Proyecto y Dirección Técnica</label>
+                  </div>
+                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
+                    <input 
+                      className="form-check-input" 
+                      type="radio" 
+                      name="tareaEdificioEspecial" 
+                      id="eCompleto" 
+                      value="Anteproyecto, Proyecto y Dirección Técnica" 
+                      checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
+                      onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
+                      style={{ position: 'relative', zIndex: 1006 }}
+                    />
+                    <label className="form-check-label" htmlFor="eCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
+                  </div>
+                </div>
+              )}
+              
+              {/* Información específica para Refacción */}
+              {mostrarInfoRefaccion && (
+                <div id="infoRefaccion" className="alert alert-info" style={{ position: 'relative', zIndex: 1005 }}>
+                  Para Refacción, la tasa retributiva se calcula como el 1% del monto de obra, aplicándose a la tarea completa de Anteproyecto, Proyecto y Dirección Técnica.
+                </div>
+              )}
+              
+              {/* Información específica para Refacción y Ampliación */}
+              {mostrarInfoRefaccionAmpliacion && (
+                <div id="infoRefaccionAmpliacion" className="alert alert-info" style={{ position: 'relative', zIndex: 1005 }}>
+                  Para Refacción y Ampliación, se calcula una tasa parcial por la refacción (1% del monto) y otra por la ampliación (como obra nueva). La tasa total es la suma de ambos.
+                </div>
+              )}
+              
+              {mostrarAvanceField && (
+                <div className="mb-3" id="avanceField" style={{ position: 'relative', zIndex: 1004 }}>
+                  <label htmlFor="avanceEdificio" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="avanceEdificio" 
+                    placeholder="Sin avance de obra (0%)" 
+                    min="0" 
+                    max="100"
+                    value={avanceEdificio}
+                    onChange={(e) => setAvanceEdificio(e.target.value)}
+                    style={{ position: 'relative', zIndex: 1005 }}
+                  />
+                  <div className="form-text">Ingrese 0 si no hay avance de obra. Este valor solo afecta al cálculo de Dirección Técnica.</div>
+                </div>
+              )}
+              
+              <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={calcularEdificio}
+                  style={{ position: 'relative', zIndex: 1006 }}
+                >
+                  Calcular
+                </button>
               </div>
             </div>
           </div>
-          
-          <div className="col-lg-6">
-            <div className="card result-card">
-              <div className="card-header">
-                <h5 className="mb-0">Resultados - Edificios Especiales</h5>
-              </div>
-              <div className="card-body">
-                {resultados ? (
-                  resultados.error ? (
-                    <div className="alert alert-warning text-center">
-                      {resultados.error}
-                    </div>
-                  ) : (
-                    <div id="resultadosEdificio">
-                      {resultados.html.map((item, index) => (
-                        <div key={index} className="result-item">
-                          <strong>{item.label}:</strong> {item.value}
-                        </div>
-                      ))}
-                      
-                      <hr />
-                      
-                      <div className="resultado-final">
-                        <div className="resultado-final-titulo">Tasa Retributiva Final</div>
-                        <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
-                        <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
-                      </div>
-                    </div>
-                  )
+        </div>
+        
+        <div className="col-lg-6">
+          <div className="card result-card" style={{ position: 'relative', zIndex: 1002 }}>
+            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
+              <h5 className="mb-0">Resultados - Edificios Especiales</h5>
+            </div>
+            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+              {resultados ? (
+                resultados.error ? (
+                  <div className="alert alert-warning text-center" style={{ position: 'relative', zIndex: 1004 }}>
+                    {resultados.error}
+                  </div>
                 ) : (
-                  <p className="text-center text-muted">Ingrese los datos y haga clic en calcular para ver los resultados</p>
-                )}
-              </div>
+                  <div id="resultadosEdificio" style={{ position: 'relative', zIndex: 1004 }}>
+                    {resultados.html.map((item, index) => (
+                      <div key={index} className="result-item">
+                        <strong>{item.label}:</strong> {item.value}
+                      </div>
+                    ))}
+                    
+                    <hr />
+                    
+                    <div className="resultado-final">
+                      <div className="resultado-final-titulo">Tasa Retributiva Final</div>
+                      <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
+                      <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
+                    </div>
+                  </div>
+                )
+              ) : (
+                <p className="text-center text-muted" style={{ position: 'relative', zIndex: 1004 }}>
+                  Ingrese los datos y haga clic en calcular para ver los resultados
+                </p>
+              )}
             </div>
           </div>
         </div>
