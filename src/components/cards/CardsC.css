@@ -96,6 +96,11 @@
   -webkit-line-clamp: 3; /* Limitar a 3 líneas */
   -webkit-box-orient: vertical;
   overflow: hidden;
+  
+  /* Para navegadores modernos que soportan la propiedad estándar */
+  display: -webkit-box;
+  line-clamp: 3;
+  box-orient: vertical;
 }
 
 .card-button {
@@ -203,10 +208,17 @@
     font-size: 0.9rem;
   }
   
-  .card-text {
-    font-size: 0.75rem;
-    -webkit-line-clamp: 2; /* Solo 2 líneas en móvil */
-  }
+ .card-text {
+  font-size: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Solo 2 líneas en móvil */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  
+  /* Propiedades estándar para navegadores modernos */
+  line-clamp: 2;
+  box-orient: vertical;
+}
 
   .card-hover {
     height: 240px; /* Más pequeña en móvil */
