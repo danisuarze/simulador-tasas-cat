@@ -510,17 +510,8 @@ const EdificiosAlturaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
-      {/* Header con botón de volver */}
+      {/* Header sin botón de volver */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
-        <Button 
-          onClick={onBack}
-          className="back-button-custom d-inline-flex align-items-center mb-3"
-          variant="outline-primary"
-          style={{ position: 'relative', zIndex: 1002 }}
-        >
-          <FaArrowLeft className="me-2" />
-          Volver al Menú Principal
-        </Button>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Edificios en Altura</h2>
           <p className="mb-0 text-muted">
@@ -846,12 +837,52 @@ const EdificiosAlturaC = ({ onBack }) => {
                       <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
                       <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
                     </div>
+                    
+                    {/* Botón Volver fijo al final de los resultados */}
+                    <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
+                      <Button 
+                        onClick={onBack}
+                        className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+                        style={{
+                          backgroundColor: '#7B9C6B',
+                          borderColor: '#7B9C6B',
+                          color: 'white',
+                          padding: '0.75rem 1.5rem',
+                          fontSize: '1rem',
+                          fontWeight: '600'
+                        }}
+                      >
+                        <FaArrowLeft className="me-2" />
+                        Volver al Menú Principal
+                      </Button>
+                    </div>
                   </div>
                 )
               ) : (
-                <p className="text-center text-muted" style={{ position: 'relative', zIndex: 1004 }}>
-                  Ingrese los datos y haga clic en calcular para ver los resultados
-                </p>
+                <div style={{ position: 'relative', zIndex: 1004 }}>
+                  <p className="text-center text-muted">
+                    Ingrese los datos y haga clic en calcular para ver los resultados
+                  </p>
+                  
+                  {/* Botón Volver visible incluso sin resultados */}
+                  <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
+                    <Button 
+                      onClick={onBack}
+                      className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+                      style={{
+                        backgroundColor: '#7B9C6B',
+                        borderColor: '#7B9C6B',
+                        color: 'white',
+                        padding: '0.75rem 1.5rem',
+                        fontSize: '1rem',
+                        fontWeight: '600'
+                      }}
+                    >
+                      <FaArrowLeft className="me-2" />
+                      Volver al Menú Principal
+                    </Button>
+                  </div>
+                </div>
               )}
             </div>
           </div>

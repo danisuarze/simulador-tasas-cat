@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './EstudioPropuestaC.css';
 
@@ -111,106 +112,131 @@ const EstudioPropuestaC = ({ onBack }) => {
   };
 
   return (
-    <div className="instalaciones-estructuras-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
-      {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
-        <button 
-          className="btn back-home-btn"
-          onClick={onBack}
-          style={{ 
-            backgroundColor: '#6b8a5c', 
-            borderColor: '#6b8a5c', 
-            color: 'white',
-            position: 'relative',
-            zIndex: 1002
-          }}
-        >
-          <FaArrowLeft className="me-2" />
-          Volver al Home
-        </button>
-      </div>
-
-      <div className="instalaciones-estructuras-header" style={{ position: 'relative', zIndex: 1001 }}>
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-12">
-              <h1 className="h3 mb-1">Simulador de Tasa Retributiva</h1>
-              <p className="mb-0">Estudio de Propuesta - Ingrese el monto de la licitación y presione calcular</p>
-            </div>
-          </div>
+    <div className="container my-4" style={{ 
+      position: 'relative',
+      zIndex: 1000,
+      minHeight: '100vh'
+    }}>
+      {/* Header sin botón de volver */}
+      <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
+        <div style={{ position: 'relative', zIndex: 1001 }}>
+          <h2 className="mb-0">Estudio de Propuesta</h2>
+          <p className="mb-0 text-muted">
+            Ingrese el monto de la licitación y presione calcular.
+          </p>
         </div>
       </div>
 
-      <div className="container" style={{ position: 'relative', zIndex: 1001 }}>
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card" style={{ position: 'relative', zIndex: 1002 }}>
-              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
-                <h5 className="mb-0">Estudio de Propuesta</h5>
+      <div className="row" style={{ position: 'relative', zIndex: 1001 }}>
+        <div className="col-lg-6">
+          <div className="card" style={{ position: 'relative', zIndex: 1002 }}>
+            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
+              <h5 className="mb-0">Datos de Entrada</h5>
+            </div>
+            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+              <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
+                <label htmlFor="montoObraEstudioPropuesta" className="form-label">
+                  Monto de Licitación ($)
+                </label>
+                <input 
+                  type="number" 
+                  className="form-control" 
+                  id="montoObraEstudioPropuesta" 
+                  placeholder="Ingrese el monto de la licitación" 
+                  min="0"
+                  step="0.01"
+                  value={montoObra}
+                  onChange={(e) => setMontoObra(e.target.value)}
+                  style={{ position: 'relative', zIndex: 1005 }}
+                />
               </div>
-              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-                <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
-                  <label htmlFor="montoObraEstudioPropuesta" className="form-label instalaciones-estructuras-form-label">
-                    Monto de Licitación ($)
-                  </label>
-                  <input 
-                    type="number" 
-                    className="form-control instalaciones-estructuras-form-control" 
-                    id="montoObraEstudioPropuesta" 
-                    placeholder="Ingrese el monto de la licitación" 
-                    min="0"
-                    step="0.01"
-                    value={montoObra}
-                    onChange={(e) => setMontoObra(e.target.value)}
-                    style={{ position: 'relative', zIndex: 1005 }}
-                  />
-                </div>
-                
-                <div className="d-grid" style={{ position: 'relative', zIndex: 1004 }}>
-                  <button 
-                    className="btn btn-primary instalaciones-estructuras-btn-primary" 
-                    onClick={calcularEstudioPropuesta}
-                    style={{ position: 'relative', zIndex: 1005 }}
-                  >
-                    Calcular
-                  </button>
-                </div>
+              
+              <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
+                <button 
+                  className="btn btn-primary" 
+                  onClick={calcularEstudioPropuesta}
+                  style={{ position: 'relative', zIndex: 1006 }}
+                >
+                  Calcular
+                </button>
               </div>
             </div>
           </div>
-          
-          <div className="col-lg-6">
-            <div className="card instalaciones-estructuras-card instalaciones-estructuras-result-card" style={{ position: 'relative', zIndex: 1002 }}>
-              <div className="card-header instalaciones-estructuras-card-header" style={{ position: 'relative', zIndex: 1003 }}>
-                <h5 className="mb-0">Resultados - Estudio de Propuesta</h5>
-              </div>
-              <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-                {resultados ? (
-                  resultados.error ? (
-                    <div className="alert alert-warning instalaciones-estructuras-alert instalaciones-estructuras-alert-warning text-center">
-                      {resultados.error}
-                    </div>
-                  ) : (
-                    <div id="resultadosEstudioPropuesta">
-                      {resultados.html.map((item, index) => (
-                        <div key={index} className="instalaciones-estructuras-result-item">
-                          <strong>{item.label}:</strong> {item.value}
-                        </div>
-                      ))}
-                      
-                      <hr />
-                      
-                      <div className="instalaciones-estructuras-resultado-final">
-                        <div className="instalaciones-estructuras-resultado-final-titulo">Tasa Retributiva Final</div>
-                        <div className="instalaciones-estructuras-resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
-                        <div className="instalaciones-estructuras-resultado-final-descripcion">{resultados.descripcionServicio}</div>
-                      </div>
-                    </div>
-                  )
+        </div>
+        
+        <div className="col-lg-6">
+          <div className="card result-card" style={{ position: 'relative', zIndex: 1002 }}>
+            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
+              <h5 className="mb-0">Resultados - Estudio de Propuesta</h5>
+            </div>
+            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
+              {resultados ? (
+                resultados.error ? (
+                  <div className="alert alert-warning text-center" style={{ position: 'relative', zIndex: 1004 }}>
+                    {resultados.error}
+                  </div>
                 ) : (
-                  <p className="text-center text-muted">Ingrese el monto de la licitación y haga clic en calcular para ver los resultados</p>
-                )}
-              </div>
+                  <div id="resultadosEstudioPropuesta" style={{ position: 'relative', zIndex: 1004 }}>
+                    {resultados.html.map((item, index) => (
+                      <div key={index} className="result-item">
+                        <strong>{item.label}:</strong> {item.value}
+                      </div>
+                    ))}
+                    
+                    <hr />
+                    
+                    <div className="resultado-final">
+                      <div className="resultado-final-titulo">Tasa Retributiva Final</div>
+                      <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
+                      <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
+                    </div>
+                    
+                    {/* Botón Volver fijo al final de los resultados */}
+                    <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
+                      <Button 
+                        onClick={onBack}
+                        className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+                        style={{
+                          backgroundColor: '#7B9C6B',
+                          borderColor: '#7B9C6B',
+                          color: 'white',
+                          padding: '0.75rem 1.5rem',
+                          fontSize: '1rem',
+                          fontWeight: '600'
+                        }}
+                      >
+                        <FaArrowLeft className="me-2" />
+                        Volver al Menú Principal
+                      </Button>
+                    </div>
+                  </div>
+                )
+              ) : (
+                <div style={{ position: 'relative', zIndex: 1004 }}>
+                  <p className="text-center text-muted">
+                    Ingrese el monto de la licitación y haga clic en calcular para ver los resultados
+                  </p>
+                  
+                  {/* Botón Volver visible incluso sin resultados */}
+                  <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
+                    <Button 
+                      onClick={onBack}
+                      className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+                      style={{
+                        backgroundColor: '#7B9C6B',
+                        borderColor: '#7B9C6B',
+                        color: 'white',
+                        padding: '0.75rem 1.5rem',
+                        fontSize: '1rem',
+                        fontWeight: '600'
+                      }}
+                    >
+                      <FaArrowLeft className="me-2" />
+                      Volver al Menú Principal
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

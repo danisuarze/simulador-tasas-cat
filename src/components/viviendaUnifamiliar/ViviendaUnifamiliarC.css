@@ -1,283 +1,46 @@
-:root {
-  --color-primary: #040D3B;
-  --color-secondary: #7B9C6B;
-  --color-accent: #151f52;
-  --color-light: #f8f9fa;
+/* Estilos para el botón volver personalizado */
+.back-button-custom {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.vivienda-unifamiliar-container {
-  min-height: 100vh;
-  background-color: #f5f7fb;
-}
-
-.vivienda-unifamiliar-container body {
-  background-color: #f5f7fb;
-  color: #333;
-  padding-bottom: 2rem;
-}
-
-.header {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  color: white;
-  padding: 1.5rem 0;
-  margin-bottom: 2rem;
-  border-bottom: 3px solid var(--color-secondary);
-}
-
-.back-home-btn {
+.back-button-custom:hover {
   background-color: #6b8a5c !important;
   border-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.4);
   color: white !important;
-  padding: 0.6rem 1.5rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.3s ease;
 }
 
-.back-home-btn:hover {
-  background-color: #5a7950 !important;
-  border-color: #5a7950 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(107, 138, 92, 0.3);
+.back-button-custom:focus {
+  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5);
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
 }
 
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-}
-
-.card-header {
-  background-color: var(--color-primary);
-  color: white;
-  font-weight: 600;
-  border-radius: 10px 10px 0 0 !important;
-  padding: 1rem 1.5rem;
-}
-
-.btn-primary {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  padding: 0.6rem 1.5rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #6b8a5c;
-  border-color: #6b8a5c;
-  transform: translateY(-1px);
-}
-
-.result-card {
-  background-color: white;
-}
-
-.result-item {
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+/* Asegurar que el botón sea siempre visible */
+.result-card .card-body {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
 
-.result-item:last-child {
-  border-bottom: none;
+.result-card .card-body > div:last-child {
+  margin-top: auto;
 }
 
-.category-title {
-  color: var(--color-primary);
-  border-left: 4px solid var(--color-secondary);
-  padding-left: 0.75rem;
-  margin: 1.5rem 0 1rem 0;
-}
-
-.calculation-info {
-  background-color: #f8f9fa;
-  border-left: 4px solid var(--color-secondary);
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 0 5px 5px 0;
-}
-
-.dynamic-field {
-  margin-bottom: 15px;
-}
-
-.task-item {
-  padding: 8px 0;
-  border-bottom: 1px dashed #dee2e6;
-}
-
-.avance-note {
-  font-size: 0.85rem;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
-/* Estilos para destacar el resultado final */
-.resultado-final {
-  background-color: #f8fff8;
-  border-left: 4px solid var(--color-secondary);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.resultado-final-titulo {
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.resultado-final-valor {
-  color: var(--color-secondary);
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0;
-}
-
-.resultado-final-descripcion {
-  color: #6c757d;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.info-adicional {
-  background-color: #f8f9fa;
-  padding: 0.75rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-}
-
-.ampliacion-fields {
-  background-color: #f0f8ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.antecedente-fields {
-  background-color: #fff8f0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.refaccion-fields {
-  background-color: #fff0f5;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.refaccion-ampliacion-fields {
-  background-color: #f0f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.sub-calculo {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.form-label {
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-}
-
-.form-control {
-  border-radius: 8px;
-  border: 1px solid #dee2e6;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.form-control:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.25);
-}
-
-.form-select {
-  border-radius: 8px;
-  border: 1px solid #dee2e6;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.form-select:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.25);
-}
-
-.form-check-input:checked {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.alert {
-  border-radius: 8px;
-  border: none;
-}
-
-.alert-info {
-  background-color: #e3f2fd;
-  color: #0d47a1;
-}
-
-.alert-warning {
-  background-color: #fff3e0;
-  color: #e65100;
-}
-
-/* Responsive adjustments */
+/* Responsive adjustments para el botón */
 @media (max-width: 768px) {
-  .vivienda-unifamiliar-container .container {
-    padding: 0 15px;
-  }
-  
-  .header h1 {
-    font-size: 1.5rem;
-  }
-  
-  .resultado-final-valor {
-    font-size: 1.3rem;
-  }
-  
-  .back-home-btn {
-    padding: 0.5rem 1rem;
+  .back-button-custom {
+    padding: 0.6rem 1.2rem;
     font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .result-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .result-item strong {
-    margin-bottom: 0.25rem;
   }
 }
