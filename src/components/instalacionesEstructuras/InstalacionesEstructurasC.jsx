@@ -386,24 +386,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
 
   return (
     <div className="instalaciones-estructuras-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
-      {/* Botón Volver al Home - Modificado para ser verde y centrado verticalmente */}
-      <div className="container mt-3 mb-4 d-flex align-items-center justify-content-center" style={{ position: 'relative', zIndex: 1001 }}>
-        <button 
-          className="btn instalaciones-estructuras-back-button"
-          onClick={onBack}
-          style={{ 
-            backgroundColor: '#7B9C6B', 
-            borderColor: '#7B9C6B', 
-            color: 'white',
-            position: 'relative',
-            zIndex: 1002
-          }}
-        >
-          <FaArrowLeft className="me-2" />
-          Volver al Home
-        </button>
-      </div>
-
       <div className="instalaciones-estructuras-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <div className="row align-items-center">
@@ -670,6 +652,19 @@ const InstalacionesEstructurasC = ({ onBack }) => {
                 ) : (
                   <p className="text-center text-muted">Ingrese los datos y haga clic en calcular para ver los resultados</p>
                 )}
+                
+                {/* Botón Volver al Home - AHORA EN LA PARTE INFERIOR DE LOS RESULTADOS */}
+                <div className="mt-4 pt-3 border-top">
+                  <div className="d-grid">
+                    <button 
+                      className="btn instalaciones-estructuras-back-button"
+                      onClick={onBack}
+                    >
+                      <FaArrowLeft className="me-2" />
+                      Volver al Home
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
