@@ -1,0 +1,367 @@
+/* EstudioPropuestaC.css */
+:root {
+  --color-primary: #2C3E50;
+  --color-secondary: #3498DB;
+  --color-accent: #2980B9;
+  --color-light: #f8f9fa;
+  --color-tertiary: #1ABC9C;
+}
+
+.estudio-propuesta-container {
+  background-color: #f5f7fb;
+  color: #333;
+  padding-bottom: 2rem;
+}
+
+.estudio-propuesta-header {
+  background-color: white;
+  color: var(--color-primary);
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--color-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.estudio-propuesta-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+  background-color: white;
+}
+
+.estudio-propuesta-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.estudio-propuesta-card-header {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0 !important;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid var(--color-secondary);
+}
+
+.estudio-propuesta-btn-primary {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.estudio-propuesta-btn-primary:hover {
+  background-color: #2980B9;
+  border-color: #2980B9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.estudio-propuesta-result-card {
+  background-color: white;
+  border-left: 4px solid var(--color-secondary);
+}
+
+.estudio-propuesta-result-item {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.estudio-propuesta-result-item:hover {
+  background-color: #F8F9FA;
+}
+
+.estudio-propuesta-result-item:last-child {
+  border-bottom: none;
+}
+
+.estudio-propuesta-category-title {
+  color: var(--color-primary);
+  border-left: 4px solid var(--color-secondary);
+  padding-left: 0.75rem;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.estudio-propuesta-calculation-info {
+  background-color: #E8F4FC;
+  border-left: 4px solid var(--color-secondary);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 0 5px 5px 0;
+  color: #2C3E50;
+}
+
+.estudio-propuesta-dynamic-field {
+  margin-bottom: 15px;
+}
+
+.estudio-propuesta-task-item {
+  padding: 8px 0;
+  border-bottom: 1px dashed #dee2e6;
+  transition: background-color 0.2s ease;
+}
+
+.estudio-propuesta-task-item:hover {
+  background-color: #E8F4FC;
+  border-radius: 4px;
+}
+
+.estudio-propuesta-avance-note {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Estilos para destacar el resultado final */
+.estudio-propuesta-resultado-final {
+  background-color: #f8fff8;
+  border-left: 4px solid var(--color-secondary);
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.estudio-propuesta-resultado-final-titulo {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.estudio-propuesta-resultado-final-valor {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.estudio-propuesta-resultado-final-descripcion {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.estudio-propuesta-info-adicional {
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 5px;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  border-left: 3px solid var(--color-secondary);
+}
+
+.estudio-propuesta-ampliacion-fields {
+  background-color: #f0f8ff;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid var(--color-secondary);
+}
+
+.estudio-propuesta-antecedente-fields {
+  background-color: #fff8f0;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #F39C12;
+}
+
+.estudio-propuesta-refaccion-fields {
+  background-color: #fff0f5;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #E74C3C;
+}
+
+.estudio-propuesta-refaccion-ampliacion-fields {
+  background-color: #f0f0ff;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-left: 3px solid #9B59B6;
+}
+
+.estudio-propuesta-sub-calculo {
+  background-color: #E8F4FC;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+  border-left: 3px solid var(--color-secondary);
+}
+
+/* Estilos específicos para el formulario */
+.estudio-propuesta-form-label {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.estudio-propuesta-form-control {
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.estudio-propuesta-form-control:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.estudio-propuesta-form-select {
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.estudio-propuesta-form-select:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.estudio-propuesta-form-check-input:checked {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.estudio-propuesta-form-text {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.estudio-propuesta-alert {
+  border: none;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.estudio-propuesta-alert-info {
+  background-color: #D6EAF8;
+  color: var(--color-primary);
+  border-left: 4px solid var(--color-secondary);
+}
+
+.estudio-propuesta-alert-warning {
+  background-color: #FDEBD0;
+  color: #7D6608;
+  border-left: 4px solid #F39C12;
+}
+
+/* Botón de volver - MODIFICADO */
+.back-button-custom {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.back-button-custom:hover {
+  background-color: #6b8a5c !important;
+  border-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white !important;
+}
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .estudio-propuesta-header {
+    padding: 1rem 0;
+  }
+  
+  .estudio-propuesta-card {
+    margin-bottom: 1rem;
+  }
+  
+  .estudio-propuesta-resultado-final-valor {
+    font-size: 1.3rem;
+  }
+  
+  .estudio-propuesta-btn-primary {
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .back-button-custom {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* Animaciones */
+@keyframes estudio-propuesta-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.estudio-propuesta-card {
+  animation: estudio-propuesta-fadeIn 0.5s ease-out;
+}
+
+.estudio-propuesta-result-item {
+  animation: estudio-propuesta-fadeIn 0.3s ease-out;
+}
+
+/* Clases genéricas para mantener consistencia con otros componentes */
+.result-item {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.result-item:hover {
+  background-color: #F8F9FA;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.resultado-final {
+  background-color: #f8fff8;
+  border-left: 4px solid var(--color-secondary);
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.resultado-final-titulo {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.resultado-final-valor {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.resultado-final-descripcion {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.result-card {
+  background-color: white;
+  border-left: 4px solid var(--color-secondary);
+}

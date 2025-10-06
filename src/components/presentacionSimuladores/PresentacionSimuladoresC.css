@@ -1,0 +1,313 @@
+.presentacion-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden;
+  background-image: url('/images/sedecat.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  z-index: 0;
+}
+
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  max-width: 1000px;
+  width: 100%;
+  z-index: 1;
+}
+
+.card {
+  position: relative;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 
+    0 4px 20px rgba(4, 13, 59, 0.1),
+    0 1px 5px rgba(4, 13, 59, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  opacity: 0.9;
+  transform: scale(1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(4, 13, 59, 0.05) 0%, rgba(4, 13, 59, 0) 50%);
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.card:hover {
+  transform: scale(1.04);
+  opacity: 1;
+  box-shadow: 
+    0 15px 35px rgba(4, 13, 59, 0.15),
+    0 5px 15px rgba(4, 13, 59, 0.1);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card.active {
+  opacity: 1;
+  transform: scale(1.02);
+  transition: all 0.6s ease;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .card-content {
+  transform: scale(1.01);
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(4, 13, 59, 0.2));
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #040D3B;
+  opacity: 0.9;
+}
+
+.card-icon svg {
+  width: 1em;
+  height: 1em;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.08);
+  opacity: 1;
+  filter: drop-shadow(0 4px 8px rgba(4, 13, 59, 0.3));
+}
+
+.card-title {
+  color: #040D3B;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+  line-height: 1.4;
+  text-align: center;
+  width: 100%;
+  letter-spacing: 0.5px;
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .card-title {
+  transform: translateY(-2px);
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7);
+}
+
+/* Animación sutil de respiración muy lenta */
+@keyframes subtleBreath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.003);
+  }
+}
+
+.card {
+  animation: subtleBreath 12s ease-in-out infinite;
+}
+
+.card:hover {
+  animation: none;
+  animation-duration: 0s;
+}
+
+/* Estilos para el componente en desarrollo */
+.componente-en-desarrollo {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  position: relative;
+}
+
+.back-button {
+  margin-bottom: 2rem;
+  padding: 0.8rem 2rem;
+  background: #7B9C6B;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.3);
+  font-size: 1rem;
+}
+
+.back-button:hover {
+  background: #6a8a5c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(123, 156, 107, 0.4);
+}
+
+.development-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+.development-content h2 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.development-content p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .presentacion-container {
+    padding: 1.5rem;
+    min-height: 80vh;
+    background-attachment: scroll;
+  }
+  
+  .cards-wrapper {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    gap: 2rem;
+  }
+  
+  .card {
+    padding: 2.5rem 2rem;
+    min-height: 180px;
+    transition: all 0.6s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card:hover .card-content {
+    transform: scale(1.005);
+  }
+  
+  .card-icon {
+    font-size: 3rem;
+  }
+  
+  .card-title {
+    font-size: 1.3rem;
+  }
+  
+  .development-content {
+    padding: 2rem;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .presentacion-container {
+    padding: 1rem;
+  }
+  
+  .card {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    min-height: 160px;
+    transition: all 0.5s ease;
+  }
+  
+  .card:hover {
+    transform: scale(1.01);
+  }
+  
+  .card:hover .card-content {
+    transform: scale(1.002);
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card:hover .card-icon {
+    transform: scale(1.04);
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .back-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .development-content {
+    padding: 1.5rem;
+  }
+  
+  .development-content h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Mejoras de accesibilidad */
+.card:focus {
+  outline: 2px solid rgba(4, 13, 59, 0.3);
+  outline-offset: 2px;
+}
+
+/* Prevenir saltos bruscos */
+.card {
+  transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}

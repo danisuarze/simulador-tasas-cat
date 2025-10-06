@@ -1,0 +1,90 @@
+/* Importar Font Awesome para los iconos */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Estilos generales del acordeón */
+.custom-accordion {
+  width: 100%;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Estilos para los ítems del acordeón */
+.accordion-item-custom {
+  border: 1px solid #3498db;
+  border-radius: 8px !important;
+  margin-bottom: 15px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.accordion-item-custom:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Estilos para los encabezados */
+.accordion-header-custom {
+  background: #151f52;
+}
+
+.accordion-header-custom .accordion-button {
+  background: transparent !important;
+  color: white !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+  padding: 1.2rem 1.5rem;
+  justify-content: center;
+  text-align: center;
+  box-shadow: none !important;
+}
+
+.accordion-header-custom .accordion-button:not(.collapsed) {
+  background: transparent !important;
+  color: white !important;
+}
+
+.accordion-header-custom .accordion-button::after {
+  filter: invert(1); /* Hace que la flecha sea blanca */
+  margin-left: 15px;
+}
+
+/* Estilos para los títulos con iconos */
+.accordion-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.accordion-icon {
+  font-size: 1.6rem;
+  width: 30px;
+  text-align: center;
+}
+
+/* Estilos para el cuerpo del acordeón */
+.accordion-body-custom {
+  background-color: #f8f9fa;
+  padding: 20px 25px;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .accordion-header-custom .accordion-button {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  
+  .accordion-title {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .accordion-icon {
+    font-size: 1.4rem;
+  }
+}
