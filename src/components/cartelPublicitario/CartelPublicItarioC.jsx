@@ -5,7 +5,7 @@ import './CartelPublicitarioC.css';
 
 const CartelPublicitarioC = ({ onBack }) => {
   // Constantes
-  const VPTR = 950;
+  const VPTR = 1250;
   const TASA_MINIMA = 20 * VPTR; // $19,000
 
   // Estados

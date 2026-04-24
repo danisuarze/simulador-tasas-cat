@@ -5,8 +5,8 @@ import './EstudioPropuestaC.css';
 
 const EstudioPropuestaC = ({ onBack }) => {
   // Constantes
-  const VPTR = 950;
-  const TASA_MINIMA = 20 * VPTR; // $19,000
+  const VPTR = 1250;
+  const TASA_MINIMA = 20 * VPTR; // $25,000
 
   // Estados
   const [montoObra, setMontoObra] = useState('');
