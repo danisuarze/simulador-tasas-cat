@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './CartelPublicitarioC.css';
@@ -6,12 +6,17 @@ import './CartelPublicitarioC.css';
 const CartelPublicitarioC = ({ onBack }) => {
   // Constantes
   const VPTR = 1250;
-  const TASA_MINIMA = 20 * VPTR; // $19,000
+  const TASA_MINIMA = 20 * VPTR; // $25,000
 
   // Estados
   const [tipoCartel, setTipoCartel] = useState('nuevo');
   const [superficieTotal, setSuperficieTotal] = useState('');
   const [resultados, setResultados] = useState(null);
+
+  // Efecto para limpiar resultados cuando cambian los campos de entrada
+  useEffect(() => {
+    setResultados(null);
+  }, [tipoCartel, superficieTotal]);
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -47,18 +52,26 @@ const CartelPublicitarioC = ({ onBack }) => {
       contenido: `Cálculo: ${superficie} m² × ${formatoMoneda(VPTR)} = ${formatoMoneda(valorBase)}`
     });
 
-    let tasaRetributiva = valorBase;
+    let tasaCalculada = valorBase;
     let descripcionServicio = tipoCartel === 'nuevo' 
       ? "Anteproyecto, Proyecto y Dirección Técnica" 
       : "Relevamiento";
 
     // Aplicar tasa mínima si corresponde
-    if (tasaRetributiva < TASA_MINIMA) {
+    let aplicaTasaMinima = false;
+    let tasaRetributiva = tasaCalculada;
+
+    if (tasaCalculada < TASA_MINIMA) {
+      aplicaTasaMinima = true;
       detallesCalculo.push({
         tipo: "info",
-        contenido: `Aplicación de Tasa Mínima: El cálculo inicial (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
+        contenido: `La tasa calculada (${formatoMoneda(tasaCalculada)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
       });
       tasaRetributiva = TASA_MINIMA;
+    }
+
+    if (aplicaTasaMinima) {
+      descripcionServicio = descripcionServicio + " (tasa mínima aplicada)";
     }
 
     setResultados({
@@ -75,7 +88,6 @@ const CartelPublicitarioC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
-      {/* Header sin botón de volver */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Carteles Publicitarios</h2>
@@ -177,7 +189,6 @@ const CartelPublicitarioC = ({ onBack }) => {
                       </div>
                     )}
                     
-                    {/* Botón Volver fijo al final de los resultados */}
                     <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                       <Button 
                         onClick={onBack}
@@ -203,7 +214,6 @@ const CartelPublicitarioC = ({ onBack }) => {
                     Ingrese los datos y haga clic en calcular para ver los resultados
                   </p>
                   
-                  {/* Botón Volver visible incluso sin resultados */}
                   <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                     <Button 
                       onClick={onBack}

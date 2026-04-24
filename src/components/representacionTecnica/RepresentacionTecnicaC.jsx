@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './RepresentacionTecnicaC.css';
@@ -6,11 +6,17 @@ import './RepresentacionTecnicaC.css';
 const RepresentacionTecnicaC = ({ onBack }) => {
   // Constantes
   const VPTR = 1250;
+  const TASA_MINIMA = 20 * VPTR; // $25,000
 
   // Estados
   const [montoObra, setMontoObra] = useState('');
   const [avanceObra, setAvanceObra] = useState('');
   const [resultados, setResultados] = useState(null);
+
+  // Efecto para limpiar resultados cuando cambian los campos de entrada
+  useEffect(() => {
+    setResultados(null);
+  }, [montoObra, avanceObra]);
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -41,6 +47,7 @@ const RepresentacionTecnicaC = ({ onBack }) => {
     
     html.push({ label: "Monto de Licitación", value: formatoMoneda(monto) });
     html.push({ label: "VPTR", value: formatoMoneda(VPTR) });
+    html.push({ label: "Tasa Mínima", value: formatoMoneda(TASA_MINIMA) });
     
     if (avance > 0) {
       html.push({ label: "% Avance de Obra", value: `${avance}%` });
@@ -106,21 +113,38 @@ const RepresentacionTecnicaC = ({ onBack }) => {
     html.push({ label: "Rango aplicado", value: rangoAplicado });
 
     // Aplicar ajuste por avance de obra
-    let tasaRetributiva = tasaBase;
+    let tasaCalculada = tasaBase;
     
     if (avance > 0) {
       const porcentajeRestante = (100 - avance) / 100;
-      tasaRetributiva = tasaBase * porcentajeRestante;
+      tasaCalculada = tasaBase * porcentajeRestante;
       
       detallesCalculo.push({
         tipo: "calculo",
-        contenido: `Ajuste por avance de obra: ${formatoMoneda(tasaBase)} × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaRetributiva)}`
+        contenido: `Ajuste por avance de obra: ${formatoMoneda(tasaBase)} × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaCalculada)}`
       });
     } else {
       detallesCalculo.push({
         tipo: "info",
         contenido: "Sin avance de obra especificado: Se aplica el 100% de la representación técnica"
       });
+    }
+
+    // Aplicar tasa mínima si el cálculo es menor
+    let tasaRetributiva = tasaCalculada;
+    let aplicaTasaMinima = false;
+
+    if (tasaCalculada < TASA_MINIMA && tasaCalculada > 0) {
+      aplicaTasaMinima = true;
+      detallesCalculo.push({
+        tipo: "info",
+        contenido: `La tasa calculada (${formatoMoneda(tasaCalculada)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
+      });
+      tasaRetributiva = TASA_MINIMA;
+    }
+
+    if (aplicaTasaMinima) {
+      descripcionServicio = "Representación Técnica (tasa mínima aplicada)";
     }
 
     setResultados({
@@ -137,7 +161,6 @@ const RepresentacionTecnicaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
-      {/* Header sin botón de volver */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Representación Técnica</h2>
@@ -231,7 +254,6 @@ const RepresentacionTecnicaC = ({ onBack }) => {
                       <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
                     </div>
                     
-                    {/* Botón Volver fijo al final de los resultados */}
                     <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                       <Button 
                         onClick={onBack}
@@ -257,7 +279,6 @@ const RepresentacionTecnicaC = ({ onBack }) => {
                     Ingrese el monto de la licitación y haga clic en calcular para ver los resultados
                   </p>
                   
-                  {/* Botón Volver visible incluso sin resultados */}
                   <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                     <Button 
                       onClick={onBack}
