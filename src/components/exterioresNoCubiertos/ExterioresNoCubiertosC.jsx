@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './ExterioresNoCubiertosC.css';
 
 const ExterioresNoCubiertosC = ({ onBack }) => {
   // Constantes
-  const VPTR = 950;
-  const TASA_MINIMA = 20 * VPTR; // $19,000
+  const VPTR = 1250;
+  const TASA_MINIMA = 20 * VPTR; // $25,000
 
   // Estados
   const [tipoObra, setTipoObra] = useState('nueva');
@@ -19,36 +19,52 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
   const [avanceEdificio, setAvanceEdificio] = useState('');
   const [resultados, setResultados] = useState(null);
 
+  // Efecto para limpiar resultados cuando cambian los campos de entrada
+  useEffect(() => {
+    setResultados(null);
+  }, [
+    tipoObra,
+    m2Edificio,
+    m2Construida,
+    m2Ampliacion,
+    m2AntecedenteAmpliacion,
+    m2AntecedenteConstruida,
+    tareaSeleccionada,
+    avanceEdificio
+  ]);
+
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
+  };
+
+  // Función para calcular el valor de tasa de relevamiento para una superficie dada
+  const calcularTasaRelevamiento = (m2) => {
+    if (m2 <= 0) return 0;
+    const relevamientoComun = m2 * VPTR * 0.6;
+    const porcentajeTramos = obtenerPorcentajePorTramos(m2);
+    return relevamientoComun * porcentajeTramos;
   };
 
   // Función para obtener el porcentaje según los tramos de m2 específicos para exteriores no cubiertos
   const obtenerPorcentajePorTramos = (m2) => {
     let porcentaje = 0;
     
-    // Hasta 100m²: 50%
     if (m2 <= 100) {
       porcentaje = 0.5;
     }
-    // De 101m² a 500m²: 30%
     else if (m2 <= 500) {
       porcentaje = 0.3;
     }
-    // De 501m² a 1000m²: 20%
     else if (m2 <= 1000) {
       porcentaje = 0.2;
     }
-    // De 1001m² a 5000m²: 10%
     else if (m2 <= 5000) {
       porcentaje = 0.1;
     }
-    // De 5001m² a 10000m²: 5%
     else if (m2 <= 10000) {
       porcentaje = 0.05;
     }
-    // Desde 10001m² en adelante: 3%
     else {
       porcentaje = 0.03;
     }
@@ -56,10 +72,18 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     return porcentaje;
   };
 
-  // Función para calcular el valor según los tramos de m2 (Superficie total * VPTR * porcentaje)
+  // Función para calcular el valor según los tramos de m2
   const calcularPorTramos = (m2) => {
     const porcentaje = obtenerPorcentajePorTramos(m2);
     return m2 * VPTR * porcentaje;
+  };
+
+  // Función para aplicar tasa mínima si corresponde
+  const aplicarTasaMinima = (valor, descripcion) => {
+    if (valor < TASA_MINIMA && valor > 0) {
+      return { valor: TASA_MINIMA, aplicada: true, original: valor };
+    }
+    return { valor: valor, aplicada: false, original: valor };
   };
 
   // Función para calcular resultados
@@ -71,19 +95,10 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     if (tipoObra === 'ampliacion') {
       const construida = parseFloat(m2Construida) || 0;
       const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
       
-      if (construida <= 0 || ampliacion <= 0) {
+      if (ampliacion <= 0) {
         setResultados({
-          error: "Por favor, ingrese valores válidos para superficie construida y ampliación."
-        });
-        return;
-      }
-      
-      // Validar que el antecedente no sea mayor a la superficie construida
-      if (antecedente > construida) {
-        setResultados({
-          error: `Error: La superficie de antecedente (${antecedente} m²) no puede ser mayor que la superficie construida (${construida} m²).`
+          error: "Por favor, ingrese un valor válido para la superficie de ampliación (debe ser mayor a 0)."
         });
         return;
       }
@@ -131,170 +146,161 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     let tasaRetributiva = 0;
     let descripcionServicio = "";
 
-    // Para obra construida, solo mostrar Relevamiento
+    // Para obra construida
     if (tipoObra === 'construida') {
       const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      let superficieRelevamiento = m2 - antecedente;
       
-      // Si hay antecedente, calcular la diferencia
-      let m2Relevamiento = m2;
-      if (antecedente > 0) {
-        m2Relevamiento = m2 - antecedente;
-        
-        // Si el antecedente es mayor a la superficie total, aplicar tasa mínima
-        if (m2Relevamiento < 0) {
-          detallesCalculo.push({
-            tipo: "info",
-            contenido: `Aplicación de Tasa Mínima: La superficie de antecedente (${antecedente} m²) es mayor que la superficie total (${m2} m²), por lo que se aplica la tasa mínima.`
-          });
-          tasaRetributiva = TASA_MINIMA;
-          descripcionServicio = "Relevamiento (tasa mínima aplicada)";
-          
-          detallesCalculo.push({
-            tipo: "formula",
-            contenido: "Tasa Mínima (Superficie de Antecedente > Superficie Total)"
-          });
-        } else {
-          // Calcular Relevamiento común (60% base)
-          const relevamientoComun = m2Relevamiento * VPTR * 0.6;
-          
-          // Aplicar porcentaje por tramos al relevamiento común
-          const porcentajeTramos = obtenerPorcentajePorTramos(m2Relevamiento);
-          tasaRetributiva = relevamientoComun * porcentajeTramos;
-          descripcionServicio = "Relevamiento";
-          
-          html.push({ label: "Superficie para Relevamiento", value: `${m2} m² - ${antecedente} m² = ${m2Relevamiento} m²` });
-          detallesCalculo.push({
-            tipo: "formula",
-            contenido: "Relevamiento común × porcentaje por tramos"
-          });
-          detallesCalculo.push({
-            tipo: "calculo",
-            contenido: `Relevamiento común: ${m2Relevamiento} m² × ${formatoMoneda(VPTR)} × 60% = ${formatoMoneda(relevamientoComun)}`
-          });
-          detallesCalculo.push({
-            tipo: "calculo",
-            contenido: `Porcentaje por tramos (${(porcentajeTramos * 100).toFixed(0)}%): ${formatoMoneda(relevamientoComun)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(tasaRetributiva)}`
-          });
-        }
-      } else {
-        // Sin antecedente, cálculo normal
-        const relevamientoComun = m2 * VPTR * 0.6;
-        const porcentajeTramos = obtenerPorcentajePorTramos(m2);
-        tasaRetributiva = relevamientoComun * porcentajeTramos;
-        descripcionServicio = "Relevamiento";
-        
-        detallesCalculo.push({
-          tipo: "formula",
-          contenido: "Relevamiento común × porcentaje por tramos"
-        });
-        detallesCalculo.push({
-          tipo: "calculo",
-          contenido: `Relevamiento común: ${m2} m² × ${formatoMoneda(VPTR)} × 60% = ${formatoMoneda(relevamientoComun)}`
-        });
-        detallesCalculo.push({
-          tipo: "calculo",
-          contenido: `Porcentaje por tramos (${(porcentajeTramos * 100).toFixed(0)}%): ${formatoMoneda(relevamientoComun)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(tasaRetributiva)}`
-        });
-      }
+      html.push({ label: "Superficie a Relevar", value: `${m2} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
       
-      // Aplicar tasa mínima si corresponde (excepto cuando ya se aplicó por antecedente mayor)
-      if (tasaRetributiva < TASA_MINIMA && m2Relevamiento >= 0) {
+      detallesCalculo.push({
+        tipo: "info",
+        contenido: `Cálculo de Relevamiento:`
+      });
+      detallesCalculo.push({
+        tipo: "calculo",
+        contenido: `Superficie a relevar = ${m2} m² - ${antecedente} m² = ${superficieRelevamiento} m²`
+      });
+      
+      let tasaCalculada = 0;
+      let aplicaTasaMinima = false;
+      
+      if (superficieRelevamiento <= 0) {
+        tasaCalculada = 0;
+        aplicaTasaMinima = true;
         detallesCalculo.push({
           tipo: "info",
-          contenido: `Aplicación de Tasa Mínima: El cálculo inicial (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
+          contenido: `La superficie a relevar es ${superficieRelevamiento} m² (≤ 0), se aplica tasa mínima.`
         });
+      } else {
+        tasaCalculada = calcularTasaRelevamiento(superficieRelevamiento);
+        
+        const relevamientoComun = superficieRelevamiento * VPTR * 0.6;
+        const porcentajeTramos = obtenerPorcentajePorTramos(superficieRelevamiento);
+        
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `Relevamiento común: ${superficieRelevamiento} m² × ${formatoMoneda(VPTR)} × 60% = ${formatoMoneda(relevamientoComun)}`
+        });
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `Porcentaje por tramos (${(porcentajeTramos * 100).toFixed(0)}%): ${formatoMoneda(relevamientoComun)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(tasaCalculada)}`
+        });
+        
+        if (tasaCalculada < TASA_MINIMA) {
+          aplicaTasaMinima = true;
+          detallesCalculo.push({
+            tipo: "info",
+            contenido: `La tasa calculada (${formatoMoneda(tasaCalculada)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
+          });
+        }
+      }
+      
+      if (aplicaTasaMinima) {
         tasaRetributiva = TASA_MINIMA;
+        descripcionServicio = "Relevamiento (tasa mínima aplicada)";
+      } else {
+        tasaRetributiva = tasaCalculada;
+        descripcionServicio = "Relevamiento";
       }
     } 
     // Para obra nueva
     else if (tipoObra === 'nueva') {
-      descripcionServicio = tareaSeleccionada;
-      
-      // Calcular valor base: Superficie total * VPTR * porcentaje según tramo
       const valorBase = calcularPorTramos(m2);
       html.push({ label: "Valor Base", value: formatoMoneda(valorBase) });
 
-      // Mostrar detalles del cálculo del valor base
       const porcentajeTramos = obtenerPorcentajePorTramos(m2);
       detallesCalculo.push({
         tipo: "calculo",
         contenido: `Valor Base: ${m2} m² × ${formatoMoneda(VPTR)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(valorBase)}`
       });
 
-      // Cálculo específico para cada tipo de tarea
+      let tasaCalculada = 0;
+
       if (tareaSeleccionada === "Anteproyecto") {
-        tasaRetributiva = valorBase * 0.4; // 40%
+        tasaCalculada = valorBase * 0.4;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "40%" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBase)} × 40% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorBase)} × 40% = ${formatoMoneda(tasaCalculada)}`
         });
       }
       else if (tareaSeleccionada === "Proyecto") {
-        tasaRetributiva = valorBase * 0.6; // 60%
+        tasaCalculada = valorBase * 0.6;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "60%" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBase)} × 60% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorBase)} × 60% = ${formatoMoneda(tasaCalculada)}`
         });
       }
       else if (tareaSeleccionada === "Dirección Técnica") {
-        // Para Dirección Técnica: 40% del valor base, ajustado por el % restante
         const porcentajeRestante = (100 - avance) / 100;
-        tasaRetributiva = valorBase * 0.4 * porcentajeRestante;
+        tasaCalculada = valorBase * 0.4 * porcentajeRestante;
         
         detallesCalculo.push({ tipo: "porcentaje", contenido: "40%" });
         if (avance > 0) {
-          detallesCalculo.push({ tipo: "porcentaje-restante", contenido: `% Restante por ejecutar: ${(100 - avance).toFixed(0)}%` });
+          detallesCalculo.push({ tipo: "porcentaje-restante", contenido: `% Restante: ${(100 - avance).toFixed(0)}%` });
           detallesCalculo.push({
             tipo: "calculo",
-            contenido: `${formatoMoneda(valorBase)} × 40% × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaRetributiva)}`
+            contenido: `${formatoMoneda(valorBase)} × 40% × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaCalculada)}`
           });
         } else {
-          detallesCalculo.push({ tipo: "info", contenido: "Sin avance de obra: Se aplica el 100% de la dirección técnica" });
+          detallesCalculo.push({ tipo: "info", contenido: "Sin avance de obra" });
           detallesCalculo.push({
             tipo: "calculo",
-            contenido: `${formatoMoneda(valorBase)} × 40% = ${formatoMoneda(tasaRetributiva)}`
+            contenido: `${formatoMoneda(valorBase)} × 40% = ${formatoMoneda(tasaCalculada)}`
           });
         }
       }
       else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
-        tasaRetributiva = valorBase * 1.0; // 100%
+        tasaCalculada = valorBase * 1.0;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "100%" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBase)} × 100% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorBase)} × 100% = ${formatoMoneda(tasaCalculada)}`
         });
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
-        tasaRetributiva = valorBase * 1.0; // 100%
-        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% (60% Proyecto + 40% Dirección)" });
+        tasaCalculada = valorBase * 0.6;
+        detallesCalculo.push({ 
+          tipo: "porcentaje", 
+          contenido: "60% (Solo Proyecto - Dirección Técnica sin costo adicional)" 
+        });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBase)} × 100% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorBase)} × 60% = ${formatoMoneda(tasaCalculada)}`
         });
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
-        tasaRetributiva = valorBase * 1.0; // 100%
+        tasaCalculada = valorBase * 1.0;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "100%" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBase)} × 100% = ${formatoMoneda(tasaRetributiva)}`
+          contenido: `${formatoMoneda(valorBase)} × 100% = ${formatoMoneda(tasaCalculada)}`
         });
       }
 
-      // Aplicar tasa mínima solo para tareas individuales (no combinadas) y solo si el resultado es menor
-      // EXCEPCIÓN: No aplicar tasa mínima para Dirección Técnica cuando no hay avance
+      // Aplicar tasa mínima si corresponde
       const esTareaIndividual = !tareaSeleccionada.includes("y") && !tareaSeleccionada.includes(",");
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
+      const esProyectoYDireccion = tareaSeleccionada === "Proyecto y Dirección Técnica";
       
-      if (esTareaIndividual && tasaRetributiva < TASA_MINIMA && !esDireccionSinAvance) {
+      let aplicaTasaMinima = false;
+      
+      if (esTareaIndividual && tasaCalculada < TASA_MINIMA && !esDireccionSinAvance && !esProyectoYDireccion) {
+        aplicaTasaMinima = true;
         detallesCalculo.push({
           tipo: "info",
-          contenido: `Aplicación de Tasa Mínima: El cálculo inicial (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
+          contenido: `La tasa calculada (${formatoMoneda(tasaCalculada)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
         });
+      }
+      
+      if (aplicaTasaMinima) {
         tasaRetributiva = TASA_MINIMA;
+        descripcionServicio = tareaSeleccionada + " (tasa mínima aplicada)";
+      } else {
+        tasaRetributiva = tasaCalculada;
+        descripcionServicio = tareaSeleccionada;
       }
     }
     // Para obra de ampliación
@@ -303,124 +309,205 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       const ampliacion = parseFloat(m2Ampliacion) || 0;
       const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
       
-      // Calcular la parte de relevamiento (construida): relevamiento común × porcentaje por tramos
-      let m2Relevamiento = construida;
-      if (antecedente > 0) {
-        m2Relevamiento = construida - antecedente;
+      let tasaRelevamiento = 0;
+      let relevamientoAplicaMinima = false;
+      let relevamientoOriginal = 0;
+      
+      // Calcular relevamiento solo si hay superficie construida
+      if (construida > 0) {
+        let superficieRelevamiento = construida - antecedente;
+        
+        html.push({ label: "Superficie a Relevar", value: `${construida} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
+        
         detallesCalculo.push({
           tipo: "subcalculo",
-          contenido: `Cálculo de Relevamiento: Superficie Construida - Antecedente = ${construida} m² - ${antecedente} m² = ${m2Relevamiento} m²`
+          contenido: `Cálculo de Relevamiento:`
         });
-      }
-      
-      const relevamientoComun = m2Relevamiento * VPTR * 0.6;
-      const porcentajeTramos = obtenerPorcentajePorTramos(m2Relevamiento);
-      let tasaRelevamiento = relevamientoComun * porcentajeTramos;
-      
-      // Aplicar tasa mínima al relevamiento si corresponde
-      if (tasaRelevamiento > 0 && tasaRelevamiento < TASA_MINIMA) {
+        detallesCalculo.push({
+          tipo: "calculo",
+          contenido: `Superficie a relevar = ${construida} m² - ${antecedente} m² = ${superficieRelevamiento} m²`
+        });
+        
+        if (superficieRelevamiento <= 0) {
+          relevamientoOriginal = 0;
+          relevamientoAplicaMinima = true;
+          detallesCalculo.push({
+            tipo: "info",
+            contenido: `La superficie a relevar es ${superficieRelevamiento} m² (≤ 0), se aplica tasa mínima.`
+          });
+        } else {
+          relevamientoOriginal = calcularTasaRelevamiento(superficieRelevamiento);
+          
+          const relevamientoComun = superficieRelevamiento * VPTR * 0.6;
+          const porcentajeTramos = obtenerPorcentajePorTramos(superficieRelevamiento);
+          
+          detallesCalculo.push({
+            tipo: "calculo",
+            contenido: `Relevamiento común: ${superficieRelevamiento} m² × ${formatoMoneda(VPTR)} × 60% = ${formatoMoneda(relevamientoComun)}`
+          });
+          detallesCalculo.push({
+            tipo: "calculo",
+            contenido: `Porcentaje por tramos (${(porcentajeTramos * 100).toFixed(0)}%): ${formatoMoneda(relevamientoComun)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(relevamientoOriginal)}`
+          });
+          
+          if (relevamientoOriginal < TASA_MINIMA) {
+            relevamientoAplicaMinima = true;
+            detallesCalculo.push({
+              tipo: "info",
+              contenido: `La tasa de relevamiento calculada (${formatoMoneda(relevamientoOriginal)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
+            });
+          }
+        }
+        
+        tasaRelevamiento = relevamientoAplicaMinima ? TASA_MINIMA : relevamientoOriginal;
+      } else {
+        html.push({ label: "Superficie a Relevar", value: "0 m² (sin construcción existente)" });
         detallesCalculo.push({
           tipo: "info",
-          contenido: `Aplicación de Tasa Mínima en Relevamiento: El cálculo inicial (${formatoMoneda(tasaRelevamiento)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
+          contenido: "No hay superficie construida, no se calcula relevamiento."
         });
-        tasaRelevamiento = TASA_MINIMA;
+        tasaRelevamiento = 0;
       }
       
-      // Calcular la parte de obra nueva (ampliación): Superficie ampliación * VPTR * porcentaje según tramo
+      // Calcular ampliación
       const valorBaseAmpliacion = calcularPorTramos(ampliacion);
-      let tasaAmpliacion = 0;
-      
-      // Mostrar detalles del cálculo de la ampliación
       const porcentajeTramosAmpliacion = obtenerPorcentajePorTramos(ampliacion);
+      
       detallesCalculo.push({
         tipo: "subcalculo",
+        contenido: `Cálculo de Ampliación:`
+      });
+      detallesCalculo.push({
+        tipo: "calculo",
         contenido: `Valor Base Ampliación: ${ampliacion} m² × ${formatoMoneda(VPTR)} × ${(porcentajeTramosAmpliacion * 100).toFixed(0)}% = ${formatoMoneda(valorBaseAmpliacion)}`
       });
 
-      // Cálculo específico para cada tipo de tarea
+      let tasaAmpliacion = 0;
+      let ampliacionAplicaMinima = false;
+      let ampliacionOriginal = 0;
+
       if (tareaSeleccionada === "Anteproyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.4; // 40%
+        ampliacionOriginal = valorBaseAmpliacion * 0.4;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "40% para ampliación" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(ampliacionOriginal)}`
         });
       }
       else if (tareaSeleccionada === "Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6; // 60%
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "60% para ampliación" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 60% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 60% = ${formatoMoneda(ampliacionOriginal)}`
         });
       }
       else if (tareaSeleccionada === "Dirección Técnica") {
-        // Para Dirección Técnica: 40% del valor base, ajustado por el % restante
         const porcentajeRestante = (100 - avance) / 100;
-        tasaAmpliacion = valorBaseAmpliacion * 0.4 * porcentajeRestante;
+        ampliacionOriginal = valorBaseAmpliacion * 0.4 * porcentajeRestante;
         
         detallesCalculo.push({ tipo: "porcentaje", contenido: "40% para ampliación" });
         if (avance > 0) {
-          detallesCalculo.push({ tipo: "porcentaje-restante", contenido: `% Restante por ejecutar: ${(100 - avance).toFixed(0)}%` });
+          detallesCalculo.push({ tipo: "porcentaje-restante", contenido: `% Restante: ${(100 - avance).toFixed(0)}%` });
           detallesCalculo.push({
             tipo: "calculo",
-            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(tasaAmpliacion)}`
+            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% × ${(100 - avance).toFixed(0)}% = ${formatoMoneda(ampliacionOriginal)}`
           });
         } else {
-          detallesCalculo.push({ tipo: "info", contenido: "Sin avance de obra: Se aplica el 100% de la dirección técnica" });
+          detallesCalculo.push({ tipo: "info", contenido: "Sin avance de obra" });
           detallesCalculo.push({
             tipo: "calculo",
-            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(tasaAmpliacion)}`
+            contenido: `${formatoMoneda(valorBaseAmpliacion)} × 40% = ${formatoMoneda(ampliacionOriginal)}`
           });
         }
       }
       else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "100% para ampliación" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(ampliacionOriginal)}`
         });
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        // 60% para Proyecto + 40% para Dirección Técnica (sin ajuste de avance)
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
-        detallesCalculo.push({ tipo: "porcentaje", contenido: "100% (60% Proyecto + 40% Dirección) para ampliación" });
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
+        detallesCalculo.push({ 
+          tipo: "porcentaje", 
+          contenido: "60% (Solo Proyecto) para ampliación" 
+        });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 60% = ${formatoMoneda(ampliacionOriginal)}`
         });
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0; // 100%
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "100% para ampliación" });
         detallesCalculo.push({
           tipo: "calculo",
-          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(tasaAmpliacion)}`
+          contenido: `${formatoMoneda(valorBaseAmpliacion)} × 100% = ${formatoMoneda(ampliacionOriginal)}`
         });
       }
 
-      // Aplicar tasa mínima a la ampliación si corresponde (solo para tareas individuales)
+      // Verificar si la ampliación debe aplicar tasa mínima
       const esTareaIndividual = !tareaSeleccionada.includes("y") && !tareaSeleccionada.includes(",");
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
+      const esProyectoYDireccion = tareaSeleccionada === "Proyecto y Dirección Técnica";
       
-      if (esTareaIndividual && tasaAmpliacion < TASA_MINIMA && !esDireccionSinAvance) {
+      if (esTareaIndividual && ampliacionOriginal < TASA_MINIMA && !esDireccionSinAvance && !esProyectoYDireccion) {
+        ampliacionAplicaMinima = true;
         detallesCalculo.push({
           tipo: "info",
-          contenido: `Aplicación de Tasa Mínima en Ampliación: El cálculo inicial (${formatoMoneda(tasaAmpliacion)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
+          contenido: `La tasa de ampliación calculada (${formatoMoneda(ampliacionOriginal)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
         });
-        tasaAmpliacion = TASA_MINIMA;
       }
       
-      // Calcular la tasa total
-      tasaRetributiva = tasaRelevamiento + tasaAmpliacion;
-      descripcionServicio = "Relevamiento + " + tareaSeleccionada;
+      tasaAmpliacion = ampliacionAplicaMinima ? TASA_MINIMA : ampliacionOriginal;
       
-      // Mostrar detalles de los cálculos
-      detallesCalculo.push({
-        tipo: "subcalculo",
-        contenido: `Cálculo de Relevamiento: ${m2Relevamiento} m² × ${formatoMoneda(VPTR)} × 60% = ${formatoMoneda(relevamientoComun)} × ${(porcentajeTramos * 100).toFixed(0)}% = ${formatoMoneda(tasaRelevamiento)}`
-      });
+      // Calcular tasa total
+      let tasaTotal = tasaRelevamiento + tasaAmpliacion;
+      let totalAplicaMinima = false;
+      
+      // Verificar si el total debe aplicar tasa mínima (solo si hay al menos un componente > 0)
+      if (tasaTotal > 0 && tasaTotal < TASA_MINIMA) {
+        totalAplicaMinima = true;
+        detallesCalculo.push({
+          tipo: "info",
+          contenido: `La tasa total calculada (${formatoMoneda(tasaTotal)}) es menor que la tasa mínima (${formatoMoneda(TASA_MINIMA)}), se aplica tasa mínima.`
+        });
+        tasaRetributiva = TASA_MINIMA;
+      } else {
+        tasaRetributiva = tasaTotal;
+      }
+      
+      // Construir mensaje de servicio
+      const partes = [];
+      if (construida > 0) {
+        partes.push(`Relevamiento${relevamientoAplicaMinima ? " (tasa mínima)" : ""}`);
+      }
+      partes.push(tareaSeleccionada + (ampliacionAplicaMinima ? " (tasa mínima)" : ""));
+      descripcionServicio = partes.join(" + ");
+      if (totalAplicaMinima) {
+        descripcionServicio += " → Total con tasa mínima";
+      }
+      if (construida === 0) {
+        descripcionServicio = tareaSeleccionada + (ampliacionAplicaMinima ? " (tasa mínima)" : "") + " (sin relevamiento)";
+        if (totalAplicaMinima) {
+          descripcionServicio += " → Total con tasa mínima";
+        }
+      }
+      
+      html.push({ label: "Tasa Relevamiento", value: formatoMoneda(tasaRelevamiento) + (relevamientoAplicaMinima ? " (mínima)" : "") });
+      html.push({ label: "Tasa Ampliación", value: formatoMoneda(tasaAmpliacion) + (ampliacionAplicaMinima ? " (mínima)" : "") });
+      if (relevamientoAplicaMinima && relevamientoOriginal > 0) {
+        html.push({ label: "Tasa Relevamiento (original)", value: formatoMoneda(relevamientoOriginal) });
+      }
+      if (ampliacionAplicaMinima && ampliacionOriginal > 0) {
+        html.push({ label: "Tasa Ampliación (original)", value: formatoMoneda(ampliacionOriginal) });
+      }
+      if (totalAplicaMinima && tasaTotal > 0) {
+        html.push({ label: "Tasa Total (original)", value: formatoMoneda(tasaTotal) });
+      }
       
       detallesCalculo.push({
         tipo: "total",
@@ -449,7 +536,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
-      {/* Header sin botón de volver */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Exteriores No Cubiertos</h2>
@@ -479,9 +565,13 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                   <option value="construida">Obra Construida</option>
                   <option value="ampliacion">Construida y Ampliación</option>
                 </select>
+                {tipoObra === 'ampliacion' && (
+                  <div className="form-text text-muted mt-2">
+                    <small>La superficie construida puede ser 0 si no hay construcción existente. En ese caso, solo se calculará la ampliación (sin relevamiento).</small>
+                  </div>
+                )}
               </div>
               
-              {/* Campos para Obra Nueva y Obra Construida */}
               {mostrarCamposBasicos && (
                 <div className="mb-3" id="m2BasicoField" style={{ position: 'relative', zIndex: 1004 }}>
                   <label htmlFor="m2Edificio" className="form-label">Metros cuadrados (m²)</label>
@@ -498,7 +588,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                 </div>
               )}
               
-              {/* Campos específicos para Construida y Ampliación */}
               {mostrarAmpliacionFields && (
                 <div id="ampliacionFields" className="ampliacion-fields" style={{ position: 'relative', zIndex: 1004 }}>
                   <div className="mb-3">
@@ -507,12 +596,13 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                       type="number" 
                       className="form-control" 
                       id="m2Construida" 
-                      placeholder="Superficie ya construida" 
+                      placeholder="Superficie ya construida (puede ser 0)" 
                       min="0"
                       value={m2Construida}
                       onChange={(e) => setM2Construida(e.target.value)}
                       style={{ position: 'relative', zIndex: 1005 }}
                     />
+                    <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
                   </div>
                   
                   <div className="mb-3">
@@ -541,12 +631,11 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                       onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
                       style={{ position: 'relative', zIndex: 1005 }}
                     />
-                    <div className="form-text">Si no hay antecedente, dejar en blanco. El antecedente no puede ser mayor a la superficie construida.</div>
+                    <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                   </div>
                 </div>
               )}
               
-              {/* Campos específicos para Obra Construida con Antecedente */}
               {mostrarAntecedenteFields && (
                 <div id="antecedenteFields" className="antecedente-fields" style={{ position: 'relative', zIndex: 1004 }}>
                   <div className="mb-3">
@@ -561,12 +650,11 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                       onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
                       style={{ position: 'relative', zIndex: 1005 }}
                     />
-                    <div className="form-text">Si no hay antecedente, dejar en blanco. Si la superficie de antecedente es mayor a la superficie general se computará Tasa Mínima.</div>
+                    <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                   </div>
                 </div>
               )}
               
-              {/* Selección de tareas para Obra Nueva y Ampliación */}
               {mostrarTareasField && (
                 <div className="mb-3 dynamic-field" id="tareasEdificioField" style={{ position: 'relative', zIndex: 1004 }}>
                   <label className="form-label">Seleccione las tareas:</label>
@@ -665,7 +753,7 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                     onChange={(e) => setAvanceEdificio(e.target.value)}
                     style={{ position: 'relative', zIndex: 1005 }}
                   />
-                  <div className="form-text">Ingrese 0 si no hay avance de obra. Este valor solo afecta al cálculo de Dirección Técnica.</div>
+                  <div className="form-text">Ingrese 0 si no hay avance de obra.</div>
                 </div>
               )}
               
@@ -709,7 +797,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                       <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
                     </div>
                     
-                    {/* Botón Volver fijo al final de los resultados */}
                     <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                       <Button 
                         onClick={onBack}
@@ -735,7 +822,6 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                     Ingrese los datos y haga clic en calcular para ver los resultados
                   </p>
                   
-                  {/* Botón Volver visible incluso sin resultados */}
                   <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                     <Button 
                       onClick={onBack}

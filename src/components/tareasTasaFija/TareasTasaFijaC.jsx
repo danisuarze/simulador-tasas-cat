@@ -4,7 +4,7 @@ import './TareasTasaFijaC.css'; // Importamos el CSS
 
 const TareasTasaFijaC = ({ onBack }) => {
   // Constantes
-  const VPTR = 950;
+  const VPTR = 1250;
   
   // Lista de tareas con sus multiplicadores
   const tareas = [

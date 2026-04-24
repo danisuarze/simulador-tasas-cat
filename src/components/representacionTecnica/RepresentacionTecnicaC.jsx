@@ -5,7 +5,7 @@ import './RepresentacionTecnicaC.css';
 
 const RepresentacionTecnicaC = ({ onBack }) => {
   // Constantes
-  const VPTR = 950;
+  const VPTR = 1250;
 
   // Estados
   const [montoObra, setMontoObra] = useState('');
