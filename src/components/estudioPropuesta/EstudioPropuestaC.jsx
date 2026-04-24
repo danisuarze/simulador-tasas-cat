@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './EstudioPropuestaC.css';
@@ -11,6 +11,11 @@ const EstudioPropuestaC = ({ onBack }) => {
   // Estados
   const [montoObra, setMontoObra] = useState('');
   const [resultados, setResultados] = useState(null);
+
+  // Efecto para limpiar resultados cuando cambia el monto
+  useEffect(() => {
+    setResultados(null);
+  }, [montoObra]);
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -117,7 +122,6 @@ const EstudioPropuestaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
-      {/* Header sin botón de volver */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Estudio de Propuesta</h2>
@@ -191,7 +195,6 @@ const EstudioPropuestaC = ({ onBack }) => {
                       <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
                     </div>
                     
-                    {/* Botón Volver fijo al final de los resultados */}
                     <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                       <Button 
                         onClick={onBack}
@@ -217,7 +220,6 @@ const EstudioPropuestaC = ({ onBack }) => {
                     Ingrese el monto de la licitación y haga clic en calcular para ver los resultados
                   </p>
                   
-                  {/* Botón Volver visible incluso sin resultados */}
                   <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
                     <Button 
                       onClick={onBack}
