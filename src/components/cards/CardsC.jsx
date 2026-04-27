@@ -5,7 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { 
-  FaHome, 
   FaBuilding, 
   FaHospital, 
   FaIndustry,
@@ -171,6 +170,43 @@ const CardsC = ({ onBack }) => {
     return renderActiveComponent();
   }
 
+  // Componente de imagen para cards
+  const ViviendaImage = () => (
+    <img 
+      src="/images/vivienda.jpg" 
+      alt="Vivienda Unifamiliar"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const EdificiosAlturaImage = () => (
+    <img 
+      src="/images/edificios_altura.jpg" 
+      alt="Edificios en Altura"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const EdificiosEspecialesImage = () => (
+    <img 
+      src="/images/edificios_especiales.jpg" 
+      alt="Edificios Especiales"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
   // Datos de las cards
   const cardData = [
     {
@@ -207,78 +243,89 @@ const CardsC = ({ onBack }) => {
       id: 3,
       title: "Edificios en Altura",
       text: "Que supere planta baja y 2 niveles | No se considera uso | No se considera como nivel al subsuelo",
-      icon: <FaBuilding size={30} />,
-      component: "EdificiosAlturaC"
+      icon: <EdificiosAlturaImage />,
+      component: "EdificiosAlturaC",
+      isImage: true
     },
     {
       id: 4,
       title: "Edificios Especiales",
       text: "Locales comerciales | Viviendas colectivas | Oficinas y/o cualquier uso excepto viv. unifamiliar | Que no supere Pb. y 2 niveles sin considerar subsuelo",
-      icon: <FaHospital size={30} />,
-      component: "EdificiosEspecialesC"
+      icon: <EdificiosEspecialesImage />,
+      component: "EdificiosEspecialesC",
+      isImage: true
     },
     {
       id: 5,
       title: "Edificios Industriales",
       text: "Espacios industriales funcionales y seguros adaptados a procesos productivos específicos.",
       icon: <FaIndustry size={30} />,
-      component: "EdificiosIndustrialesC"
+      component: "EdificiosIndustrialesC",
+      isImage: false
     },
     {
       id: 6,
       title: "Exteriores no cubiertos",
       text: "Diseño de áreas exteriores, plazas, parques y espacios abiertos con enfoque estético y funcional.",
       icon: <FaTree size={30} />,
-      component: "ExterioresNoCubiertosC"
+      component: "ExterioresNoCubiertosC",
+      isImage: false
     },
     {
       id: 7,
       title: "Instalaciones | Estructuras",
       text: "Sistemas estructurales e instalaciones especializadas para todo tipo de construcciones.",
       icon: <FaCogs size={30} />,
-      component: "InstalacionesEstructurasC"
+      component: "InstalacionesEstructurasC",
+      isImage: false
     },
     {
       id: 8,
       title: "Estudio de la propuesta",
       text: "Análisis detallado de viabilidad y desarrollo conceptual de proyectos arquitectónicos.",
       icon: <FaClipboardCheck size={30} />,
-      component: "EstudioPropuestaC"
+      component: "EstudioPropuestaC",
+      isImage: false
     },
     {
       id: 9,
       title: "Representación Técnica",
       text: "Elaboración de planos, maquetas y visualizaciones para presentación de proyectos.",
       icon: <FaDraftingCompass size={30} />,
-      component: "RepresentacionTecnicaC"
+      component: "RepresentacionTecnicaC",
+      isImage: false
     },
     {
       id: 10,
       title: "IPV",
       text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
       icon: <FaHouseUser size={30} />,
-      component: "IPVC"
+      component: "IPVC",
+      isImage: false
     },
     {
       id: 11,
       title: "Carteles Publicitarios",
       text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
       icon: <FaAd size={30} />,
-      component: "CartelPublicitarioC"
+      component: "CartelPublicitarioC",
+      isImage: false
     },
     {
       id: 12,
       title: "Tareas con tasa fija",
       text: "Servicios específicos con precios establecidos para mayor transparencia y previsibilidad.",
       icon: <FaMoneyBillAlt size={30} />,
-      component: "TareasTasaFijaC"
+      component: "TareasTasaFijaC",
+      isImage: false
     },
     {
       id: 13,
       title: "Servicios Premium",
       text: "Soluciones exclusivas y personalizadas para clients que buscan el máximo nivel de calidad.",
       icon: <FaStar size={30} />,
-      component: "ServiciosPremiumC"
+      component: "ServiciosPremiumC",
+      isImage: false
     }
   ];
 
@@ -310,33 +357,37 @@ const CardsC = ({ onBack }) => {
           <Col key={card.id} xs={12} md={6} lg={4} className="mb-4">
             <Card className="h-100 shadow-sm card-hover" style={{ 
               position: 'relative',
-              zIndex: 1001
+              zIndex: 1001,
+              overflow: 'hidden'
             }}>
-              <Card.Body className="d-flex flex-column p-4" style={{ position: 'relative', zIndex: 1002 }}>
-                <div className="text-center mb-3">
-                  <div className="icon-wrapper mx-auto">
-                    {card.icon}
-                  </div>
+              <Card.Body className="d-flex flex-column p-0" style={{ position: 'relative', zIndex: 1002 }}>
+                {/* Contenedor de imagen/icono */}
+                <div className={`card-media-container ${card.isImage ? 'image-container' : 'icon-container'}`}>
+                  {card.icon}
+                </div>
+                
+                {/* Contenido textual */}
+                <div className="p-4">
                   <Card.Title className="text-center card-title">
                     {card.title}
                   </Card.Title>
-                </div>
-                
-                <Card.Text className="text-center mb-3 card-text">
-                  {card.text}
-                </Card.Text>
-                
-                <div className="mt-auto text-center">
-                  <Button 
-                    className="card-button"
-                    onClick={() => handleCalculateClick(card.component)}
-                    style={{ 
-                      position: 'relative',
-                      zIndex: 1003
-                    }}
-                  >
-                    Calcular
-                  </Button>
+                  
+                  <Card.Text className="text-center mb-3 card-text">
+                    {card.text}
+                  </Card.Text>
+                  
+                  <div className="text-center">
+                    <Button 
+                      className="card-button"
+                      onClick={() => handleCalculateClick(card.component)}
+                      style={{ 
+                        position: 'relative',
+                        zIndex: 1003
+                      }}
+                    >
+                      Calcular
+                    </Button>
+                  </div>
                 </div>
               </Card.Body>
             </Card>
