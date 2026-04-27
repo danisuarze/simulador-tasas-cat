@@ -19,6 +19,7 @@ import {
   FaArrowLeft
 } from 'react-icons/fa';
 import ViviendaUnifamiliarC from '../viviendaUnifamiliar/ViviendaUnifamiliarC';
+import ViviendaPropiaC from '../viviendaPropia/ViviendaPropiaC'; // ✅ Importación agregada
 import EdificiosAlturaC from '../edificiosAltura/EdificiosAlturaC';
 import EdificiosEspecialesC from '../edificiosEspeciales/EdificiosEspecialesC';
 import EdificiosIndustrialesC from '../edificiosIndustriales/EdificiosIndustrialesC';
@@ -45,6 +46,7 @@ const CardsC = ({ onBack }) => {
   const renderActiveComponent = () => {
     const components = {
       'ViviendaUnifamiliarC': <ViviendaUnifamiliarC onBack={handleBackToCards} />,
+      'ViviendaPropiaC': <ViviendaPropiaC onBack={handleBackToCards} />, // ✅ Reemplazado el placeholder
       'EdificiosAlturaC': <EdificiosAlturaC onBack={handleBackToCards} />,
       'EdificiosEspecialesC': <EdificiosEspecialesC onBack={handleBackToCards} />,
       'EdificiosIndustrialesC': <EdificiosIndustrialesC onBack={handleBackToCards} />,
@@ -210,13 +212,35 @@ const CardsC = ({ onBack }) => {
     {
       id: 1,
       title: "Vivienda Unifamiliar",
-      text: "Viviendas individuales",
-      icon: <ViviendaImage />,
-      component: "ViviendaUnifamiliarC",
-      isImage: true
+      text: "Viviendas individuales por contratación de terceros o para destino comercial",
+      icon: <FaHome size={30} />,
+      component: "ViviendaUnifamiliarC"
     },
     {
       id: 2,
+      title: "Vivienda Propia",
+      text: "Vivienda única del profesional para uso de residencia personal",
+      icon: (
+        <div style={{ position: 'relative', display: 'inline-block' }}>
+          <FaHome size={24} style={{ position: 'relative', zIndex: 2 }} />
+          <FaHouseUser 
+            size={16} 
+            style={{ 
+              position: 'absolute', 
+              bottom: -5, 
+              right: -5, 
+              zIndex: 3,
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              padding: '2px'
+            }} 
+          />
+        </div>
+      ),
+      component: "ViviendaPropiaC"
+    },
+    {
+      id: 3,
       title: "Edificios en Altura",
       text: "Que supere planta baja y 2 niveles | No se considera uso | No se considera como nivel al subsuelo",
       icon: <EdificiosAlturaImage />,
@@ -224,7 +248,7 @@ const CardsC = ({ onBack }) => {
       isImage: true
     },
     {
-      id: 3,
+      id: 4,
       title: "Edificios Especiales",
       text: "Locales comerciales | Viviendas colectivas | Oficinas y/o cualquier uso excepto viv. unifamiliar | Que no supere Pb. y 2 niveles sin considerar subsuelo",
       icon: <EdificiosEspecialesImage />,
@@ -232,7 +256,7 @@ const CardsC = ({ onBack }) => {
       isImage: true
     },
     {
-      id: 4,
+      id: 5,
       title: "Edificios Industriales",
       text: "Espacios industriales funcionales y seguros adaptados a procesos productivos específicos.",
       icon: <FaIndustry size={30} />,
@@ -240,7 +264,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 5,
+      id: 6,
       title: "Exteriores no cubiertos",
       text: "Diseño de áreas exteriores, plazas, parques y espacios abiertos con enfoque estético y funcional.",
       icon: <FaTree size={30} />,
@@ -248,7 +272,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 6,
+      id: 7,
       title: "Instalaciones | Estructuras",
       text: "Sistemas estructurales e instalaciones especializadas para todo tipo de construcciones.",
       icon: <FaCogs size={30} />,
@@ -256,7 +280,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 7,
+      id: 8,
       title: "Estudio de la propuesta",
       text: "Análisis detallado de viabilidad y desarrollo conceptual de proyectos arquitectónicos.",
       icon: <FaClipboardCheck size={30} />,
@@ -264,7 +288,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 8,
+      id: 9,
       title: "Representación Técnica",
       text: "Elaboración de planos, maquetas y visualizaciones para presentación de proyectos.",
       icon: <FaDraftingCompass size={30} />,
@@ -272,7 +296,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 9,
+      id: 10,
       title: "IPV",
       text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
       icon: <FaHouseUser size={30} />,
@@ -280,7 +304,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 10,
+      id: 11,
       title: "Carteles Publicitarios",
       text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
       icon: <FaAd size={30} />,
@@ -288,7 +312,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 11,
+      id: 12,
       title: "Tareas con tasa fija",
       text: "Servicios específicos con precios establecidos para mayor transparencia y previsibilidad.",
       icon: <FaMoneyBillAlt size={30} />,
@@ -296,7 +320,7 @@ const CardsC = ({ onBack }) => {
       isImage: false
     },
     {
-      id: 12,
+      id: 13,
       title: "Servicios Premium",
       text: "Soluciones exclusivas y personalizadas para clients que buscan el máximo nivel de calidad.",
       icon: <FaStar size={30} />,
