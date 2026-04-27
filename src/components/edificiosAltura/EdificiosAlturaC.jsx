@@ -736,6 +736,19 @@ const EdificiosAlturaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
+      {/* Header con imagen */}
+      <div className="card-media-container image-container mb-4">
+        <img 
+          src="/images/edificios_altura.jpg" 
+          alt="Edificios en Altura"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Edificios en Altura</h2>
