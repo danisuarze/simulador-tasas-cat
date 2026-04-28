@@ -13,6 +13,14 @@ const RepresentacionTecnicaC = ({ onBack }) => {
   const [avanceObra, setAvanceObra] = useState('');
   const [resultados, setResultados] = useState(null);
 
+  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
   // Efecto para limpiar resultados cuando cambian los campos de entrada
   useEffect(() => {
     setResultados(null);
@@ -161,6 +169,19 @@ const RepresentacionTecnicaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
+      {/* Imagen en la parte superior */}
+      <div className="card-media-container image-container mb-4">
+        <img 
+          src="/images/representacion_tecnica.jpg" 
+          alt="Representación Técnica"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Representación Técnica</h2>
@@ -216,7 +237,7 @@ const RepresentacionTecnicaC = ({ onBack }) => {
               
               <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
                 <button 
-                  className="btn btn-primary" 
+                  className="calculate-button" 
                   onClick={calcularRepresentacionTecnica}
                   style={{ position: 'relative', zIndex: 1006 }}
                 >

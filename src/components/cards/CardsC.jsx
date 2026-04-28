@@ -8,12 +8,7 @@ import {
   FaBuilding, 
   FaHospital, 
   FaIndustry,
-  FaTree,
-  FaCogs,
-  FaHouseUser,
   FaAd,
-  FaClipboardCheck,
-  FaDraftingCompass,
   FaMoneyBillAlt,
   FaStar,
   FaArrowLeft
@@ -205,6 +200,78 @@ const CardsC = ({ onBack }) => {
     />
   );
 
+  const EdificiosIndustrialesImage = () => (
+    <img 
+      src="/images/edificios_industriales.jpg" 
+      alt="Edificios Industriales"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const ExterioresImage = () => (
+    <img 
+      src="/images/exteriores.jpg" 
+      alt="Exteriores No Cubiertos"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const InstalacionesImage = () => (
+    <img 
+      src="/images/instalaciones.jpg" 
+      alt="Instalaciones y Estructuras"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const EstudioPropuestaImage = () => (
+    <img 
+      src="/images/estudio_propuesta.jpg" 
+      alt="Estudio de la Propuesta"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const RepresentacionTecnicaImage = () => (
+    <img 
+      src="/images/representacion_tecnica.jpg" 
+      alt="Representación Técnica"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const IPVImage = () => (
+    <img 
+      src="/images/viviendas_ipv.jpg" 
+      alt="IPV"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
   // Datos de las cards
   const cardData = [
     {
@@ -235,49 +302,49 @@ const CardsC = ({ onBack }) => {
       id: 4,
       title: "Edificios Industriales",
       text: "Espacios industriales funcionales y seguros adaptados a procesos productivos específicos.",
-      icon: <FaIndustry size={30} />,
+      icon: <EdificiosIndustrialesImage />,
       component: "EdificiosIndustrialesC",
-      isImage: false
+      isImage: true
     },
     {
       id: 5,
       title: "Exteriores no cubiertos",
       text: "Diseño de áreas exteriores, plazas, parques y espacios abiertos con enfoque estético y funcional.",
-      icon: <FaTree size={30} />,
+      icon: <ExterioresImage />,
       component: "ExterioresNoCubiertosC",
-      isImage: false
+      isImage: true
     },
     {
       id: 6,
       title: "Instalaciones | Estructuras",
       text: "Sistemas estructurales e instalaciones especializadas para todo tipo de construcciones.",
-      icon: <FaCogs size={30} />,
+      icon: <InstalacionesImage />,
       component: "InstalacionesEstructurasC",
-      isImage: false
+      isImage: true
     },
     {
       id: 7,
       title: "Estudio de la propuesta",
       text: "Análisis detallado de viabilidad y desarrollo conceptual de proyectos arquitectónicos.",
-      icon: <FaClipboardCheck size={30} />,
+      icon: <EstudioPropuestaImage />,
       component: "EstudioPropuestaC",
-      isImage: false
+      isImage: true
     },
     {
       id: 8,
       title: "Representación Técnica",
       text: "Elaboración de planos, maquetas y visualizaciones para presentación de proyectos.",
-      icon: <FaDraftingCompass size={30} />,
+      icon: <RepresentacionTecnicaImage />,
       component: "RepresentacionTecnicaC",
-      isImage: false
+      isImage: true
     },
     {
       id: 9,
       title: "IPV",
       text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
-      icon: <FaHouseUser size={30} />,
+      icon: <IPVImage />,
       component: "IPVC",
-      isImage: false
+      isImage: true
     },
     {
       id: 10,

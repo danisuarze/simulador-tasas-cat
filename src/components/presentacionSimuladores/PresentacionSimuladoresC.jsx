@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaCalculator, FaChartLine } from 'react-icons/fa';
 import CardsC from '../cards/CardsC'; // Ruta corregida
 import './PresentacionSimuladoresC.css';
@@ -31,13 +31,33 @@ const PresentacionSimuladoresC = () => {
     const selectedCard = cards.find(card => card.id === cardId);
     if (selectedCard) {
       setCurrentComponent(selectedCard.component);
+      // Hacer scroll al inicio de la página cuando se selecciona una card
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   };
 
   const handleBackClick = () => {
     setCurrentComponent(null);
     setActiveCard(null);
+    // Hacer scroll al inicio cuando se vuelve atrás
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
+
+  // Efecto para hacer scroll al inicio cuando el componente cambia
+  useEffect(() => {
+    if (currentComponent) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [currentComponent]);
 
   // Renderizar el componente correspondiente
   const renderComponent = () => {
