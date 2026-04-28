@@ -8,7 +8,6 @@ import {
   FaBuilding, 
   FaHospital, 
   FaIndustry,
-  FaAd,
   FaMoneyBillAlt,
   FaStar,
   FaArrowLeft
@@ -23,6 +22,7 @@ import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
 import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
+import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
 import "./CardsC.css"
 
 const CardsC = ({ onBack }) => {
@@ -49,41 +49,7 @@ const CardsC = ({ onBack }) => {
       'RepresentacionTecnicaC': <RepresentacionTecnicaC onBack={handleBackToCards} />,
       'CartelPublicitarioC': <CartelPublicitarioC onBack={handleBackToCards} />,
       'TareasTasaFijaC': <TareasTasaFijaC onBack={handleBackToCards} />,
-      'IPVC': (
-        <Container style={{ 
-          minHeight: '100vh',
-          padding: '20px',
-          position: 'relative',
-          zIndex: 1000
-        }}>
-          <div className="text-center mb-4">
-            <Button 
-              onClick={handleBackToCards}
-              className="mb-3"
-              style={{ position: 'relative', zIndex: 1001 }}
-            >
-              <FaArrowLeft className="me-2" />
-              Volver a Cards
-            </Button>
-            <div>
-              <h1 style={{ color: '#343a40' }}>IPV</h1>
-              <p className="text-muted">Componente en desarrollo</p>
-            </div>
-          </div>
-          <div style={{ 
-            textAlign: 'center', 
-            padding: '50px',
-            backgroundColor: '#f8f9fa',
-            borderRadius: '15px'
-          }}>
-            <h3>🚧 Componente IPV en construcción</h3>
-            <p>Este componente estará disponible próximamente</p>
-            <Button onClick={handleBackToCards} variant="primary">
-              Volver al Menú Principal
-            </Button>
-          </div>
-        </Container>
-      ),
+      'ViviendasIPVC': <ViviendasIPVC onBack={handleBackToCards} />,
       'ServiciosPremiumC': (
         <Container style={{ 
           minHeight: '100vh',
@@ -260,10 +226,22 @@ const CardsC = ({ onBack }) => {
     />
   );
 
-  const IPVImage = () => (
+  const ViviendasIPVImage = () => (
     <img 
       src="/images/viviendas_ipv.jpg" 
-      alt="IPV"
+      alt="Viviendas IPV"
+      style={{
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      }}
+    />
+  );
+
+  const CartelPublicitarioImage = () => (
+    <img 
+      src="/images/carteles_publicitarios.png" 
+      alt="Carteles Publicitarios"
       style={{
         width: '100%',
         height: '100%',
@@ -340,19 +318,19 @@ const CardsC = ({ onBack }) => {
     },
     {
       id: 9,
-      title: "IPV",
+      title: "Viviendas IPV",
       text: "Soluciones de vivienda social y planes de vivienda popular con enfoque comunitario.",
-      icon: <IPVImage />,
-      component: "IPVC",
+      icon: <ViviendasIPVImage />,
+      component: "ViviendasIPVC",
       isImage: true
     },
     {
       id: 10,
       title: "Carteles Publicitarios",
       text: "Diseño, cálculo y ejecución de estructuras para publicidad exterior y señalética.",
-      icon: <FaAd size={30} />,
+      icon: <CartelPublicitarioImage />,
       component: "CartelPublicitarioC",
-      isImage: false
+      isImage: true
     },
     {
       id: 11,
