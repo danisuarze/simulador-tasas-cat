@@ -26,7 +26,7 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
+import CartelPublicitarioC from '../CartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
 import "./CardsC.css"
