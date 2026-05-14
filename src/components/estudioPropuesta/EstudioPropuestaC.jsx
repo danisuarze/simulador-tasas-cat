@@ -12,6 +12,14 @@ const EstudioPropuestaC = ({ onBack }) => {
   const [montoObra, setMontoObra] = useState('');
   const [resultados, setResultados] = useState(null);
 
+  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
   // Efecto para limpiar resultados cuando cambia el monto
   useEffect(() => {
     setResultados(null);
@@ -122,6 +130,19 @@ const EstudioPropuestaC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
+      {/* Imagen en la parte superior */}
+      <div className="card-media-container image-container mb-4">
+        <img 
+          src="/images/estudio_propuesta.jpg" 
+          alt="Estudio de Propuesta"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Estudio de Propuesta</h2>
@@ -157,7 +178,7 @@ const EstudioPropuestaC = ({ onBack }) => {
               
               <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
                 <button 
-                  className="btn btn-primary" 
+                  className="calculate-button" 
                   onClick={calcularEstudioPropuesta}
                   style={{ position: 'relative', zIndex: 1006 }}
                 >

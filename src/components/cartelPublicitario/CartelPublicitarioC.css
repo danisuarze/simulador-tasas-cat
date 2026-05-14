@@ -1,325 +1,279 @@
 /* CartelPublicitarioC.css */
+
+/* ==================== VARIABLES UNIFICADAS ==================== */
 :root {
-  --color-primary: #6b8a5c;
-  --color-primary-dark: #5a7450;
-  --color-secondary: #2e5d34;
-  --color-accent: #495057;
+  --color-primary: #040D3B;
+  --color-secondary: #7B9C6B;
+  --color-accent: #1A286F;
   --color-light: #f8f9fa;
-  --color-background: #e9f5e9;
+  --color-white: #ffffff;
+  --color-gray: #6c757d;
+  --color-border: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }
 
+/* ==================== ESTILOS BASE ==================== */
 .cartel-publicitario-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
-  min-height: 100vh;
+  background-color: #f5f7fb;
+  color: #333;
   padding-bottom: 2rem;
+  min-height: 100vh;
 }
 
+/* ==================== HEADER ==================== */
 .cartel-publicitario-header {
-  background-color: white;
+  background-color: var(--color-white);
   color: var(--color-primary);
-  padding: 1.5rem 0;
-  margin-bottom: 2rem;
-  border-bottom: 3px solid var(--color-primary-dark);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid var(--color-secondary);
+  box-shadow: var(--shadow-sm);
 }
 
+/* ==================== IMAGEN SUPERIOR ==================== */
+.card-media-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-container {
+  height: 200px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==================== CARDS ==================== */
 .cartel-publicitario-card {
   border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--color-white);
+  overflow: hidden;
 }
 
 .cartel-publicitario-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .cartel-publicitario-card-header {
   background-color: var(--color-primary);
-  color: white;
-  border-bottom: none;
-  border-radius: 0.5rem 0.5rem 0 0 !important;
-  padding: 1rem 1.25rem;
-  border-bottom: 2px solid var(--color-primary-dark);
-}
-
-.cartel-publicitario-btn-primary {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  padding: 0.6rem 1.5rem;
+  color: var(--color-white);
   font-weight: 600;
-  transition: all 0.3s ease;
-  border-radius: 0.375rem;
-}
-
-.cartel-publicitario-btn-primary:hover {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.cartel-publicitario-result-card {
-  background-color: white;
-  border-left: 4px solid var(--color-primary);
-  height: 100%;
-}
-
-.cartel-publicitario-result-item {
-  display: flex;
-  justify-content: space-between;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
   padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
-  margin-bottom: 0;
+  border-bottom: 2px solid var(--color-secondary);
 }
 
-.cartel-publicitario-result-item:hover {
-  background-color: #F8F9FA;
+/* ==================== BOTONES ==================== */
+/* Botón Calcular unificado */
+.calculate-button {
+  background-color: var(--color-accent) !important;
+  color: var(--color-white) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  padding: 10px 20px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
 }
 
-.cartel-publicitario-result-item:last-child {
-  border-bottom: none;
+.calculate-button:hover {
+  background-color: #15225a !important;
+  transform: translateY(-2px);
 }
 
-.cartel-publicitario-category-title {
-  color: var(--color-primary);
-  border-left: 4px solid var(--color-primary);
-  padding-left: 0.75rem;
-  margin: 1.5rem 0 1rem 0;
+.calculate-button:active {
+  transform: translateY(0);
 }
 
-.cartel-publicitario-calculation-info {
-  background-color: #e6efe5;
-  border-left: 4px solid var(--color-primary);
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 0 5px 5px 0;
-  color: #2e5d34;
-}
-
-.cartel-publicitario-dynamic-field {
-  margin-bottom: 15px;
-}
-
-.cartel-publicitario-task-item {
-  padding: 8px 0;
-  border-bottom: 1px dashed #dee2e6;
-  transition: background-color 0.2s ease;
-}
-
-.cartel-publicitario-task-item:hover {
-  background-color: #e6efe5;
-  border-radius: 4px;
-}
-
-.cartel-publicitario-avance-note {
-  font-size: 0.85rem;
-  color: #6c757d;
-  margin-top: 5px;
-}
-
-/* Estilos para destacar el resultado final */
-.cartel-publicitario-resultado-final {
-  background-color: var(--color-background);
-  border-left: 4px solid var(--color-primary);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.cartel-publicitario-resultado-final-titulo {
-  color: var(--color-secondary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.cartel-publicitario-resultado-final-valor {
-  color: var(--color-secondary);
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-.cartel-publicitario-resultado-final-descripcion {
-  color: var(--color-accent);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.cartel-publicitario-info-adicional {
-  background-color: #f8f9fa;
-  padding: 0.75rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  border-left: 3px solid var(--color-primary);
-}
-
-.cartel-publicitario-ampliacion-fields {
-  background-color: #f0f8f0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-primary);
-}
-
-.cartel-publicitario-antecedente-fields {
-  background-color: #fff8f0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #F39C12;
-}
-
-.cartel-publicitario-refaccion-fields {
-  background-color: #fff0f5;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #E74C3C;
-}
-
-.cartel-publicitario-refaccion-ampliacion-fields {
-  background-color: #f0f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid #9B59B6;
-}
-
-.cartel-publicitario-sub-calculo {
-  background-color: #e6efe5;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
-  border-left: 3px solid var(--color-primary);
-}
-
-/* Estilos específicos para el formulario */
-.cartel-publicitario-form-label {
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-}
-
-.cartel-publicitario-form-control {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.cartel-publicitario-form-control:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
-}
-
-.cartel-publicitario-form-select {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.cartel-publicitario-form-select:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 0.2rem rgba(107, 138, 92, 0.25);
-}
-
-.cartel-publicitario-form-check-input:checked {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
-.cartel-publicitario-form-text {
-  color: #6c757d;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
-.cartel-publicitario-alert {
-  border: none;
-  border-radius: 5px;
-  padding: 1rem;
-}
-
-.cartel-publicitario-alert-info {
-  background-color: #e6efe5;
-  color: var(--color-secondary);
-  border-left: 4px solid var(--color-primary);
-}
-
-.cartel-publicitario-alert-warning {
-  background-color: #FDEBD0;
-  color: #7D6608;
-  border-left: 4px solid #F39C12;
-}
-
-/* Estilos para detalles de cálculo */
-.cartel-publicitario-calculo-detalle {
-  padding: 0.5rem;
-  background-color: #f8f9fa;
-  border-radius: 0.25rem;
-  margin-bottom: 0.5rem;
-  font-size: 0.9rem;
-}
-
-/* Botón de volver - MODIFICADO */
+/* Botón Volver */
 .back-button-custom {
-  background-color: #7B9C6B !important;
-  border-color: #7B9C6B !important;
-  color: white !important;
-  padding: 0.75rem 1.5rem;
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: var(--color-white) !important;
+  padding: 0.6rem 1.2rem;
   font-weight: 600;
+  border-radius: var(--radius-md);
   transition: all 0.3s ease;
-  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
 }
 
 .back-button-custom:hover {
   background-color: #6b8a5c !important;
   border-color: #6b8a5c !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: white !important;
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.4);
+  color: var(--color-white) !important;
 }
 
-/* Estilos para dispositivos móviles */
-@media (max-width: 768px) {
-  .cartel-publicitario-header {
-    padding: 1rem 0;
-  }
-  
-  .cartel-publicitario-card {
-    margin-bottom: 1rem;
-  }
-  
-  .cartel-publicitario-resultado-final-valor {
-    font-size: 1.3rem;
-  }
-  
-  .cartel-publicitario-btn-primary {
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .back-button-custom {
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .cartel-publicitario-result-item {
-    flex-direction: column;
-  }
+.back-button-custom:focus {
+  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5);
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: var(--color-white) !important;
 }
 
-/* Animaciones */
-@keyframes cartel-publicitario-fadeIn {
+/* ==================== FORMULARIOS ==================== */
+.cartel-publicitario-form-label {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.cartel-publicitario-form-control,
+.cartel-publicitario-form-select {
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.cartel-publicitario-form-control:focus,
+.cartel-publicitario-form-select:focus {
+  border-color: var(--color-accent);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(26, 40, 111, 0.25);
+}
+
+.cartel-publicitario-form-text {
+  color: var(--color-gray);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* ==================== ALERTAS ==================== */
+.cartel-publicitario-alert {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+}
+
+/* ==================== RESULTADOS ==================== */
+.result-card {
+  background-color: var(--color-white);
+  border-left: 4px solid var(--color-secondary);
+}
+
+.result-card .card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.result-card .card-body > div:last-child {
+  margin-top: auto;
+}
+
+.result-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.result-item:hover {
+  background-color: var(--color-light);
+  padding-left: 0.5rem;
+}
+
+.result-item:last-child {
+  border-bottom: none;
+}
+
+.resultado-final {
+  background-color: var(--color-light);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.resultado-final-titulo {
+  font-size: 0.85rem;
+  color: var(--color-gray);
+  margin-bottom: 0.25rem;
+}
+
+.resultado-final-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.resultado-final-descripcion {
+  font-size: 0.8rem;
+  color: var(--color-gray);
+  margin-top: 0.5rem;
+}
+
+.cartel-publicitario-calculation-info {
+  background-color: var(--color-light);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin: 0.75rem 0;
+  border-left: 3px solid var(--color-secondary);
+  font-size: 0.85rem;
+}
+
+.cartel-publicitario-calculo-detalle {
+  padding: 0.5rem;
+  background-color: var(--color-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* ==================== TÍTULOS ==================== */
+.text-center h2 {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-muted {
+  color: #848688 !important;
+  font-size: 0.85rem;
+}
+
+/* ==================== GRID ==================== */
+.d-grid {
+  display: grid;
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -331,59 +285,108 @@
 }
 
 .cartel-publicitario-card {
-  animation: cartel-publicitario-fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
-.cartel-publicitario-result-item {
-  animation: cartel-publicitario-fadeIn 0.3s ease-out;
-}
-
-/* Clases genéricas para mantener consistencia con otros componentes */
 .result-item {
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.result-item:hover {
-  background-color: #F8F9FA;
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .image-container {
+    height: 150px;
+  }
+  
+  .calculate-button {
+    padding: 8px 16px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .back-button-custom {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .resultado-final-valor {
+    font-size: 1.2rem;
+  }
+  
+  .text-center h2 {
+    font-size: 1.4rem;
+  }
+  
+  .text-muted {
+    font-size: 0.8rem;
+  }
+  
+  .cartel-publicitario-form-label {
+    font-size: 0.85rem;
+  }
+  
+  .cartel-publicitario-form-control,
+  .cartel-publicitario-form-select {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+  
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .result-item {
+    flex-direction: row;
+  }
 }
 
-.result-item:last-child {
-  border-bottom: none;
-}
-
-.resultado-final {
-  background-color: var(--color-background);
-  border-left: 4px solid var(--color-primary);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.resultado-final-titulo {
-  color: var(--color-secondary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.resultado-final-valor {
-  color: var(--color-secondary);
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-.resultado-final-descripcion {
-  color: var(--color-accent);
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-.result-card {
-  background-color: white;
-  border-left: 4px solid var(--color-primary);
+@media (max-width: 576px) {
+  .image-container {
+    height: 120px;
+  }
+  
+  .calculate-button {
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .back-button-custom {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .cartel-publicitario-card-header {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .resultado-final-valor {
+    font-size: 1rem;
+  }
+  
+  .resultado-final-descripcion {
+    font-size: 0.7rem;
+  }
+  
+  .text-center h2 {
+    font-size: 1.2rem;
+  }
+  
+  .text-muted {
+    font-size: 0.7rem;
+  }
+  
+  .cartel-publicitario-form-label {
+    font-size: 0.8rem;
+  }
+  
+  .cartel-publicitario-form-control,
+  .cartel-publicitario-form-select {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .alert-warning {
+    font-size: 0.75rem;
+    padding: 0.6rem;
+  }
 }

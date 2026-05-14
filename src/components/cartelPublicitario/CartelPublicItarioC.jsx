@@ -13,6 +13,14 @@ const CartelPublicitarioC = ({ onBack }) => {
   const [superficieTotal, setSuperficieTotal] = useState('');
   const [resultados, setResultados] = useState(null);
 
+  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
+
   // Efecto para limpiar resultados cuando cambian los campos de entrada
   useEffect(() => {
     setResultados(null);
@@ -88,6 +96,19 @@ const CartelPublicitarioC = ({ onBack }) => {
       zIndex: 1000,
       minHeight: '100vh'
     }}>
+      {/* Imagen en la parte superior */}
+      <div className="card-media-container image-container mb-4">
+        <img 
+          src="/images/carteles_publicitarios.png" 
+          alt="Carteles Publicitarios"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover'
+          }}
+        />
+      </div>
+
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
           <h2 className="mb-0">Carteles Publicitarios</h2>
@@ -134,7 +155,7 @@ const CartelPublicitarioC = ({ onBack }) => {
               
               <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
                 <button 
-                  className="btn btn-primary" 
+                  className="calculate-button" 
                   onClick={calcularTasa}
                   style={{ position: 'relative', zIndex: 1006 }}
                 >
@@ -182,6 +203,11 @@ const CartelPublicitarioC = ({ onBack }) => {
                               detalle.tipo === 'info' ? 'text-warning' : 
                               detalle.tipo === 'calculo' ? 'text-dark' : ''
                             }`}
+                            style={{
+                              padding: '8px',
+                              marginBottom: '5px',
+                              fontSize: '0.85rem'
+                            }}
                           >
                             {detalle.contenido}
                           </div>

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { FaCalculator, FaChartLine } from 'react-icons/fa';
-import CardsC from '../cards/CardsC'; // Ruta corregida
+import React, { useState, useEffect } from 'react';
+import CardsC from '../cards/CardsC';
 import './PresentacionSimuladoresC.css';
 
 const PresentacionSimuladoresC = () => {
@@ -10,19 +9,15 @@ const PresentacionSimuladoresC = () => {
   const cards = [
     {
       id: 1,
-      title: "Simulador de Honorarios",
-      icon: <FaCalculator />,
-      bgColor: "rgba(255, 255, 255, 0.85)",
-      hoverColor: "rgba(255, 255, 255, 0.95)",
-      component: 'Honorarios'
+      title: "Simulador de Tasas Retributivas",
+      image: "/images/visados.png",
+      component: 'CardsC'
     },
     {
       id: 2,
-      title: "Simulador de Tasas Retributivas",
-      icon: <FaChartLine />,
-      bgColor: "rgba(255, 255, 255, 0.85)",
-      hoverColor: "rgba(255, 255, 255, 0.95)",
-      component: 'CardsC'
+      title: "Simulador de Honorarios",
+      image: "/images/Honorarios.png",
+      component: 'Honorarios'
     }
   ];
 
@@ -31,15 +26,22 @@ const PresentacionSimuladoresC = () => {
     const selectedCard = cards.find(card => card.id === cardId);
     if (selectedCard) {
       setCurrentComponent(selectedCard.component);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handleBackClick = () => {
     setCurrentComponent(null);
     setActiveCard(null);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Renderizar el componente correspondiente
+  useEffect(() => {
+    if (currentComponent) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [currentComponent]);
+
   const renderComponent = () => {
     switch (currentComponent) {
       case 'CardsC':
@@ -51,7 +53,7 @@ const PresentacionSimuladoresC = () => {
               ← Volver
             </button>
             <div className="development-content">
-              <h2>Simulador de Honorarios - En desarrollo</h2>
+              <h2>Simulador de Honorarios - En construcción</h2>
               <p>Esta funcionalidad estará disponible próximamente.</p>
             </div>
           </div>
@@ -68,7 +70,6 @@ const PresentacionSimuladoresC = () => {
   return (
     <div className="presentacion-container">
       <div className="background-overlay"></div>
-      
       <div className="cards-wrapper">
         {cards.map((card) => (
           <div
@@ -77,13 +78,12 @@ const PresentacionSimuladoresC = () => {
             onClick={() => handleCardClick(card.id)}
             onMouseEnter={() => setActiveCard(card.id)}
             onMouseLeave={() => setActiveCard(null)}
-            style={{
-              backgroundColor: activeCard === card.id ? card.hoverColor : card.bgColor
-            }}
           >
-            <div className="card-content">
-              <div className="card-icon">{card.icon}</div>
-              <h3 className="card-title">{card.title}</h3>
+            <div className="card-image-container">
+              <img src={card.image} alt={card.title} className="card-image" />
+            </div>
+            <div className="card-title-overlay">
+              <h3>{card.title}</h3>
             </div>
           </div>
         ))}

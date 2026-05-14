@@ -1,102 +1,184 @@
 /* InstalacionesEstructurasC.css */
+
+/* ==================== VARIABLES ==================== */
 :root {
   --color-primary: #040D3B;
   --color-secondary: #7B9C6B;
-  --color-accent: #151f52;
+  --color-accent: #1A286F;
   --color-light: #f8f9fa;
-  --color-tertiary: #1ABC9C;
+  --color-white: #ffffff;
+  --color-gray: #6c757d;
+  --color-border: #e0e0e0;
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }
 
+/* ==================== ESTILOS BASE ==================== */
 .instalaciones-estructuras-container {
   background-color: #f5f7fb;
   color: #333;
   padding-bottom: 2rem;
 }
 
+/* ==================== HEADER ==================== */
 .instalaciones-estructuras-header {
-  background-color: white; /* CAMBIO: Ahora es blanco en lugar del gradiente */
-  color: var(--color-primary); /* CAMBIO: Texto en color primario para contraste */
-  padding: 1.5rem 0;
-  margin-bottom: 2rem;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
   border-bottom: 3px solid var(--color-secondary);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Opcional: añade una sombra sutil */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* ==================== IMAGEN SUPERIOR ==================== */
+.card-media-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.image-container {
+  height: 200px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==================== CARDS ==================== */
 .instalaciones-estructuras-card {
   border: none;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 1.5rem;
-  transition: transform 0.3s ease;
-  background-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--color-white);
+  overflow: hidden;
 }
 
 .instalaciones-estructuras-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .instalaciones-estructuras-card-header {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-white);
   font-weight: 600;
-  border-radius: 10px 10px 0 0 !important;
-  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+  padding: 0.75rem 1.25rem;
   border-bottom: 2px solid var(--color-secondary);
 }
 
-.instalaciones-estructuras-btn-primary {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-  padding: 0.6rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+.instalaciones-estructuras-card-body {
+  padding: 1.25rem;
 }
 
-.instalaciones-estructuras-btn-primary:hover {
-  background-color: #6b8a5c;
-  border-color: #6b8a5c;
+/* ==================== BOTONES ==================== */
+/* Botón Calcular unificado */
+.calculate-button {
+  background-color: var(--color-accent) !important;
+  color: var(--color-white) !important;
+  border: none !important;
+  border-radius: var(--radius-md) !important;
+  padding: 10px 20px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.calculate-button:hover {
+  background-color: #15225a !important;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.instalaciones-estructuras-result-card {
-  background-color: white;
-  border-left: 4px solid var(--color-secondary);
+.calculate-button:active {
+  transform: translateY(0);
 }
 
-.instalaciones-estructuras-result-item {
-  padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
+/* Botón Volver */
+.back-button-custom {
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: var(--color-white) !important;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
 }
 
-.instalaciones-estructuras-result-item:hover {
-  background-color: #F8F9FA;
+.back-button-custom:hover {
+  background-color: #6b8a5c !important;
+  border-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.4);
+  color: var(--color-white) !important;
 }
 
-.instalaciones-estructuras-result-item:last-child {
-  border-bottom: none;
+.back-button-custom:focus {
+  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5);
+  background-color: var(--color-secondary) !important;
+  border-color: var(--color-secondary) !important;
+  color: var(--color-white) !important;
 }
 
-.instalaciones-estructuras-category-title {
+/* ==================== FORMULARIOS ==================== */
+.instalaciones-estructuras-form-label {
+  font-weight: 600;
   color: var(--color-primary);
-  border-left: 4px solid var(--color-secondary);
-  padding-left: 0.75rem;
-  margin: 1.5rem 0 1rem 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.instalaciones-estructuras-calculation-info {
-  background-color: #f8f9fa;
-  border-left: 4px solid var(--color-secondary);
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 0 5px 5px 0;
+.instalaciones-estructuras-form-control,
+.instalaciones-estructuras-form-select {
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.75rem;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.instalaciones-estructuras-form-control:focus,
+.instalaciones-estructuras-form-select:focus {
+  border-color: var(--color-accent);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(26, 40, 111, 0.25);
+}
+
+.instalaciones-estructuras-form-text {
+  color: var(--color-gray);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+/* ==================== CHECKBOXES / RADIOS ==================== */
+.instalaciones-estructuras-form-check-input {
+  margin-right: 8px;
+}
+
+.instalaciones-estructuras-form-check-input:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.instalaciones-estructuras-form-check-label {
+  font-size: 0.85rem;
   color: #333;
-}
-
-.instalaciones-estructuras-dynamic-field {
-  margin-bottom: 15px;
 }
 
 .instalaciones-estructuras-task-item {
@@ -106,199 +188,134 @@
 }
 
 .instalaciones-estructuras-task-item:hover {
-  background-color: #E8F4FC;
-  border-radius: 4px;
+  background-color: #f0f4f8;
+  border-radius: var(--radius-md);
+  padding-left: 8px;
 }
 
-.instalaciones-estructuras-avance-note {
+/* ==================== CAMPOS DINÁMICOS ==================== */
+.instalaciones-estructuras-ampliacion-fields,
+.instalaciones-estructuras-antecedente-fields {
+  background-color: var(--color-light);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  margin-top: 1rem;
+  border-left: 3px solid var(--color-secondary);
+}
+
+.dynamic-field {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+/* ==================== ALERTAS ==================== */
+.instalaciones-estructuras-alert {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
   font-size: 0.85rem;
-  color: #6c757d;
-  margin-top: 5px;
 }
 
-/* Estilos para destacar el resultado final */
-.instalaciones-estructuras-resultado-final {
-  background-color: #f8fff8;
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+  color: #856404;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+}
+
+.alert-info {
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  color: #0c5460;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin-top: 0.75rem;
+}
+
+/* ==================== RESULTADOS ==================== */
+.result-card {
+  background-color: var(--color-white);
   border-left: 4px solid var(--color-secondary);
-  padding: 1.2rem;
-  margin-top: 1.5rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.result-card .card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+.result-card .card-body > div:last-child {
+  margin-top: auto;
+}
+
+.instalaciones-estructuras-result-item {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.instalaciones-estructuras-result-item:last-child {
+  border-bottom: none;
+}
+
+.instalaciones-estructuras-resultado-final {
+  background-color: var(--color-light);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .instalaciones-estructuras-resultado-final-titulo {
-  color: var(--color-primary);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-gray);
+  margin-bottom: 0.25rem;
 }
 
 .instalaciones-estructuras-resultado-final-valor {
-  color: var(--color-secondary);
-  font-weight: 700;
   font-size: 1.5rem;
-  margin-bottom: 0;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .instalaciones-estructuras-resultado-final-descripcion {
-  color: #6c757d;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--color-gray);
   margin-top: 0.5rem;
 }
 
-.instalaciones-estructuras-info-adicional {
-  background-color: #f8f9fa;
-  padding: 0.75rem;
-  border-radius: 5px;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.instalaciones-estructuras-ampliacion-fields {
-  background-color: #f0f8ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.instalaciones-estructuras-antecedente-fields {
-  background-color: #fff8f0;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.instalaciones-estructuras-refaccion-fields {
-  background-color: #fff0f5;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
-.instalaciones-estructuras-refaccion-ampliacion-fields {
-  background-color: #f0f0ff;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 15px;
-  border-left: 3px solid var(--color-secondary);
-}
-
 .instalaciones-estructuras-sub-calculo {
-  background-color: #f8f9fa;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 10px 0;
+  background-color: var(--color-light);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  margin: 0.75rem 0;
   border-left: 3px solid var(--color-secondary);
+  font-size: 0.85rem;
 }
 
-/* Estilos específicos para el formulario */
-.instalaciones-estructuras-form-label {
-  font-weight: 600;
+/* ==================== TÍTULOS ==================== */
+.text-center h2 {
   color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.6rem;
   margin-bottom: 0.5rem;
 }
 
-.instalaciones-estructuras-form-control {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.instalaciones-estructuras-form-control:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.25);
-}
-
-.instalaciones-estructuras-form-select {
-  border: 1px solid #BDC3C7;
-  border-radius: 5px;
-  padding: 0.75rem;
-  transition: all 0.3s ease;
-}
-
-.instalaciones-estructuras-form-select:focus {
-  border-color: var(--color-secondary);
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.25);
-}
-
-.instalaciones-estructuras-form-check-input:checked {
-  background-color: var(--color-secondary);
-  border-color: var(--color-secondary);
-}
-
-.instalaciones-estructuras-form-text {
-  color: #6c757d;
+.text-muted {
+  color: #848688 !important;
   font-size: 0.85rem;
-  margin-top: 0.25rem;
 }
 
-.instalaciones-estructuras-alert {
-  border: none;
-  border-radius: 5px;
-  padding: 1rem;
+/* ==================== GRID ==================== */
+.d-grid {
+  display: grid;
 }
 
-.instalaciones-estructuras-alert-info {
-  background-color: #D6EAF8;
-  color: var(--color-primary);
-  border-left: 4px solid var(--color-secondary);
-}
-
-.instalaciones-estructuras-alert-warning {
-  background-color: #FDEBD0;
-  color: #7D6608;
-  border-left: 4px solid #F39C12;
-}
-
-/* Botón de volver - MODIFICADO */
-.instalaciones-estructuras-back-button {
-  background-color: #7B9C6B !important;
-  border-color: #7B9C6B !important;
-  color: white !important;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  width: 100%;
-}
-
-.instalaciones-estructuras-back-button:hover {
-  background-color: #6b8a5c !important;
-  border-color: #6b8a5c !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: white !important;
-}
-
-/* Estilos para dispositivos móviles */
-@media (max-width: 768px) {
-  .instalaciones-estructuras-header {
-    padding: 1rem 0;
-  }
-  
-  .instalaciones-estructuras-card {
-    margin-bottom: 1rem;
-  }
-  
-  .instalaciones-estructuras-resultado-final-valor {
-    font-size: 1.3rem;
-  }
-  
-  .instalaciones-estructuras-btn-primary {
-    padding: 0.75rem 1.5rem;
-  }
-  
-  .instalaciones-estructuras-back-button {
-    padding: 0.75rem 1.5rem;
-  }
-}
-
-/* Animaciones */
-@keyframes instalaciones-estructuras-fadeIn {
+/* ==================== ANIMACIONES ==================== */
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -310,9 +327,109 @@
 }
 
 .instalaciones-estructuras-card {
-  animation: instalaciones-estructuras-fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .instalaciones-estructuras-result-item {
-  animation: instalaciones-estructuras-fadeIn 0.3s ease-out;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .image-container {
+    height: 150px;
+  }
+  
+  .calculate-button {
+    padding: 8px 16px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  .back-button-custom {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .instalaciones-estructuras-card-body {
+    padding: 1rem;
+  }
+  
+  .instalaciones-estructuras-resultado-final-valor {
+    font-size: 1.2rem;
+  }
+  
+  .text-center h2 {
+    font-size: 1.4rem;
+  }
+  
+  .text-muted {
+    font-size: 0.8rem;
+  }
+  
+  .instalaciones-estructuras-form-label {
+    font-size: 0.85rem;
+  }
+  
+  .instalaciones-estructuras-form-control,
+  .instalaciones-estructuras-form-select {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .image-container {
+    height: 120px;
+  }
+  
+  .calculate-button {
+    padding: 6px 12px !important;
+    font-size: 0.85rem !important;
+  }
+  
+  .back-button-custom {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
+  }
+  
+  .instalaciones-estructuras-card-header {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .instalaciones-estructuras-card-body {
+    padding: 0.85rem;
+  }
+  
+  .instalaciones-estructuras-resultado-final-valor {
+    font-size: 1rem;
+  }
+  
+  .instalaciones-estructuras-resultado-final-descripcion {
+    font-size: 0.7rem;
+  }
+  
+  .text-center h2 {
+    font-size: 1.2rem;
+  }
+  
+  .text-muted {
+    font-size: 0.7rem;
+  }
+  
+  .instalaciones-estructuras-form-label {
+    font-size: 0.8rem;
+  }
+  
+  .instalaciones-estructuras-form-control,
+  .instalaciones-estructuras-form-select {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .alert-warning,
+  .alert-info {
+    font-size: 0.75rem;
+    padding: 0.6rem;
+  }
 }
