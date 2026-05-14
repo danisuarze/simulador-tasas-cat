@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import './TareasTasaFijaC.css'; // Importamos el CSS
+import './TareasTasaFijaC.css';
 
 const TareasTasaFijaC = ({ onBack }) => {
   // Constantes
@@ -30,10 +30,13 @@ const TareasTasaFijaC = ({ onBack }) => {
   const [resultado, setResultado] = useState(null);
   const [acordeonAbierto, setAcordeonAbierto] = useState(false);
 
-  // Función para formatear números como moneda
-  const formatoMoneda = (numero) => {
-    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
-  };
+  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, []);
 
   // Calcular el valor cuando se selecciona una tarea
   useEffect(() => {
@@ -60,20 +63,41 @@ const TareasTasaFijaC = ({ onBack }) => {
 
   return (
     <div className="tareas-tasa-fija-container" style={{ position: 'relative', zIndex: 1000, minHeight: '100vh' }}>
+      {/* Imagen en la parte superior */}
+      <div className="container mt-3" style={{ position: 'relative', zIndex: 1001 }}>
+        <div className="card-media-container image-container mb-4">
+          <img 
+            src="/images/tasas_fijas.jpg" 
+            alt="Tareas con Tasa Fija"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
+        </div>
+      </div>
+
       {/* Botón Volver al Home */}
-      <div className="container mt-3 mb-4" style={{ position: 'relative', zIndex: 1001 }}>
+      <div className="container mt-2 mb-3" style={{ position: 'relative', zIndex: 1001 }}>
         <button 
-          className="btn instalaciones-estructuras-back-button"
+          className="btn back-button-custom"
           onClick={onBack}
           style={{ 
             backgroundColor: '#7B9C6B', 
             borderColor: '#7B9C6B', 
             color: 'white',
             position: 'relative',
-            zIndex: 1002
+            zIndex: 1002,
+            padding: '8px 20px',
+            fontSize: '0.9rem',
+            borderRadius: '8px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px'
           }}
         >
-          <FaArrowLeft className="me-2" />
+          <FaArrowLeft className="me-1" size={12} />
           Volver al Home
         </button>
       </div>
@@ -161,7 +185,7 @@ const TareasTasaFijaC = ({ onBack }) => {
                     {/* Botón para seleccionar otra tarea */}
                     <div className="text-center mt-4" style={{ position: 'relative', zIndex: 1004 }}>
                       <button 
-                        className="btn tareas-tasa-fija-btn-primary btn-primary"
+                        className="btn calculate-button"
                         onClick={seleccionarOtraTarea}
                         style={{ position: 'relative', zIndex: 1005 }}
                       >
@@ -184,6 +208,11 @@ const TareasTasaFijaC = ({ onBack }) => {
       </div>
     </div>
   );
+};
+
+// Función para formatear números como moneda
+const formatoMoneda = (numero) => {
+  return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
 };
 
 export default TareasTasaFijaC;
