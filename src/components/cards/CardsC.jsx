@@ -42,7 +42,7 @@ const CardsC = ({ onBack }) => {
     setActiveComponent(null);
   };
 
-  // Renderizar componente activo al 14/05/2026
+  // Renderizar componente
   const renderActiveComponent = () => {
     const components = {
       'ViviendaUnifamiliarC': <ViviendaUnifamiliarC onBack={handleBackToCards} />,
