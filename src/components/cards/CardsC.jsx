@@ -26,7 +26,7 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicItarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
 import "./CardsC.css"
@@ -53,7 +53,7 @@ const CardsC = ({ onBack }) => {
       'InstalacionesEstructurasC': <InstalacionesEstructurasC onBack={handleBackToCards} />,
       'EstudioPropuestaC': <EstudioPropuestaC onBack={handleBackToCards} />,
       'RepresentacionTecnicaC': <RepresentacionTecnicaC onBack={handleBackToCards} />,
-      'CartelPublicitarioC': <CartelPublicitarioC onBack={handleBackToCards} />,
+      'CartelPublicitarioC': <CartelPublicItarioC onBack={handleBackToCards} />,
       'TareasTasaFijaC': <TareasTasaFijaC onBack={handleBackToCards} />,
       'ViviendasIPVC': <ViviendasIPVC onBack={handleBackToCards} />,
       'ServiciosPremiumC': (
