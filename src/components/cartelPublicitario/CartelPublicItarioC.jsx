@@ -267,4 +267,4 @@ const CartelPublicitarioC = ({ onBack }) => {
   );
 };
 
-export default CartelPublicitarioC;
+export default CartelPublicItarioC;
