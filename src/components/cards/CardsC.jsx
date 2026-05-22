@@ -26,7 +26,7 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../CartelPublicitario/CartelPublicitarioC';
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicItarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
 import "./CardsC.css"
@@ -42,7 +42,7 @@ const CardsC = ({ onBack }) => {
     setActiveComponent(null);
   };
 
-  // Renderizar componente activo al 14/05/2026
+  // Renderizar componente
   const renderActiveComponent = () => {
     const components = {
       'ViviendaUnifamiliarC': <ViviendaUnifamiliarC onBack={handleBackToCards} />,
