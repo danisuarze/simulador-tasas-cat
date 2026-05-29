@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CardsC from '../cards/CardsC';
+import HonorariosC from '../honorarios/HonorariosC'; // ✅ Importamos el componente real
 import './PresentacionSimuladoresC.css';
 
 const PresentacionSimuladoresC = () => {
@@ -47,17 +48,7 @@ const PresentacionSimuladoresC = () => {
       case 'CardsC':
         return <CardsC onBack={handleBackClick} />;
       case 'Honorarios':
-        return (
-          <div className="componente-en-desarrollo">
-            <button onClick={handleBackClick} className="back-button">
-              ← Volver
-            </button>
-            <div className="development-content">
-              <h2>Simulador de Honorarios - En construcción</h2>
-              <p>Esta funcionalidad estará disponible próximamente.</p>
-            </div>
-          </div>
-        );
+        return <HonorariosC onBack={handleBackClick} />; // ✅ Ya no muestra "en construcción"
       default:
         return null;
     }
