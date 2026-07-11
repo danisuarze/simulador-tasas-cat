@@ -1,0 +1,42 @@
+.tasaciones-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calcular-btn {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  padding: 0.6rem 2rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.calcular-btn:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+}
+
+.resultado-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #7B9C6B;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.resultado-card h4 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.resultado-card h3 {
+  font-weight: bold;
+  margin-bottom: 0;
+}
