@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
-import './InstalacionesEstructurasC.css';
+import './instalacionesEstructurasC.css';
 
 const InstalacionesEstructurasC = ({ onBack }) => {
   // Constantes
