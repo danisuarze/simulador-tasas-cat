@@ -5,7 +5,7 @@ const JumbotronC = () => {
   return (
     <div className="jumbotron-final">
       <img 
-        src="public/images/logocat.png" 
+        src="public/images/LOGOCAT.png" 
         alt="Logo CAT" 
         className="final-logo"
       />
