@@ -13,7 +13,7 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicItarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
 import "./CardsC.css"
@@ -102,9 +102,9 @@ const CardsC = ({ onBack }) => {
         <h2 className="mb-0 main-title">Simulador de Tasas Retributivas</h2>
         <p className="mb-0 subtitle">Modalidad de calculo aprobada por Asamblea Ordinaria</p>
       </div>
-      <Row>
+      <Row className="justify-content-center">
         {cardData.map(card => (
-          <Col key={card.id} xs={12} md={6} lg={4} className="mb-4">
+          <Col key={card.id} xs={12} sm={6} md={6} lg={4} className="d-flex justify-content-center mb-4">
             <Card className="h-100 shadow-sm card-hover">
               <div className="card-media-container image-container">
                 {card.icon}

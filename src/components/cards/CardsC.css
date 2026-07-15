@@ -10,6 +10,8 @@
   display: flex;
   flex-direction: column;
   background-color: white;
+  width: 100%;
+  margin: 0 auto; /* Centra la card en su columna */
 }
 
 .card-hover:hover {
@@ -31,12 +33,21 @@
 .image-container {
   height: 160px;
   background-color: #f0f0f0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 /* Contenedor para iconos */
 .icon-container {
   height: 120px;
   background-color: #f8f9fa;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Imagen dentro del contenedor */
@@ -60,6 +71,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /* Títulos */
@@ -111,13 +123,16 @@
 .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center; /* Centra las columnas */
   margin: 0 -12px;
+  width: 100%;
 }
 
 .row > [class*='col-'] {
   display: flex;
   flex-direction: column;
   padding: 0 12px;
+  margin-bottom: 24px;
 }
 
 /* Main title */
@@ -138,7 +153,14 @@
   text-align: center;
 }
 
-/* Responsive */
+/* Responsive - Tablets y móviles */
+@media (max-width: 992px) {
+  .row > [class*='col-'] {
+    flex: 0 0 50%; /* 2 columnas en tablets */
+    max-width: 50%;
+  }
+}
+
 @media (max-width: 768px) {
   .image-container {
     height: 140px;
@@ -171,6 +193,16 @@
   
   .subtitle {
     font-size: 0.75rem;
+  }
+  
+  .row {
+    justify-content: center;
+  }
+  
+  .row > [class*='col-'] {
+    flex: 0 0 50%; /* 2 columnas en tablets */
+    max-width: 50%;
+    padding: 0 10px;
   }
 }
 
@@ -206,5 +238,24 @@
   
   .subtitle {
     font-size: 0.7rem;
+  }
+  
+  .row {
+    justify-content: center;
+    margin: 0 -8px;
+  }
+  
+  .row > [class*='col-'] {
+    flex: 0 0 100%; /* 1 columna en móviles */
+    max-width: 100%;
+    padding: 0 8px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center; /* Centra el contenido de la columna */
+  }
+  
+  .card-hover {
+    max-width: 400px; /* Ancho máximo para que no se estiren demasiado */
+    margin: 0 auto; /* Centra la card */
   }
 }
