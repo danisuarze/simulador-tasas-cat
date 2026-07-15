@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  min-height: 100vh;
+  background: #111B4D;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.content-area {
+  min-height: 400px;
+  padding: 20px;
+  background: #111B4D;
+  width: 100%;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content-area {
+    min-height: 300px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-area {
+    min-height: 250px;
+    padding: 10px;
+  }
+}
