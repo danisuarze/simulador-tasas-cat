@@ -1,81 +1,291 @@
+/* Fondo azul y centrado perfecto - VERSIÓN COMPACTA CON LOGO CENTRADO */
 .jumbotron-final {
   display: flex;
-  flex-direction: column;       
-  align-items: center;          
-  gap: 0.25rem;                 
-  background-color: #111B4D;
-  color: white;
-  padding: 0.8rem 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 15vh;
   width: 100%;
-  border-radius: 0;
-  font-family: sans-serif;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* transición hover bloque */
-  cursor: pointer;
+  background: #111B4D;
+  margin: 0;
+  padding: 0.5rem 0;
+  position: relative;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
 }
 
-.jumbotron-final:hover {
-  transform: translateY(-3px);    /* ligero levantamiento */
-  background-color: #1A286F;      /* cambio de tono sutil */
-}
-
-.final-logo {
-  max-width: 50px;              
-  height: auto;
-  padding-bottom: 20px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.jumbotron-final:hover .final-logo {
-  transform: scale(1.1);         /* logo crece ligeramente */
-  opacity: 0.95;
-}
-
-.final-text {
+/* Contenedor principal centrado - VERTICAL */
+.content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.1rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0.3rem 2rem;
+  gap: 0.15rem;
 }
 
-.final-title {
-  font-weight: 400;
-  font-size: 1.4rem;            
-  transition: color 0.3s ease, transform 0.3s ease;
+/* Wrapper del logo */
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.jumbotron-final:hover .final-title {
-  color: #7B9C6B;                /* título cambia a dorado */
-  transform: translateY(-1px);   /* pequeño movimiento */
+/* Efecto de brillo alrededor del logo - Reducido */
+.glow-ring {
+  position: relative;
+  display: inline-block;
+  padding: 0.2rem;
+  border-radius: 50%;
 }
 
-.final-paragraph {
-  font-weight: 300;
-  opacity: 0.8;
-  font-size: 0.7rem;            
+.glow-ring::before {
+  content: '';
+  position: absolute;
+  top: -0.2rem;
+  left: -0.2rem;
+  right: -0.2rem;
+  bottom: -0.2rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.2), transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+/* Animación de brillo activa - Más sutil */
+.glow-ring.active::before {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Logo - Tamaño reducido */
+.logo-image {
+  width: 50px;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
+
+/* Wrapper del texto - Centrado */
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
+  gap: 0.1rem;
+  width: 100%;
+}
+
+/* Título principal */
+.title-main {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
   margin: 0;
-  transition: opacity 0.3s ease;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  line-height: 1.2;
 }
 
-.jumbotron-final:hover .final-paragraph {
-  opacity: 0.85;                 /* leve aumento de visibilidad */
+/* Línea divisoria blanca */
+.divider-line {
+  width: 60%;
+  max-width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  margin: 0.05rem auto;
 }
 
-/* Responsivo */
-@media (min-width: 768px) {
-  .final-logo { max-width: 60px; }
-  .final-title { font-size: 1.6rem; }
-  .final-paragraph { font-size: 0.8rem; }
+/* Subtítulo */
+.subtitle-main {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 0;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-@media (min-width: 1200px) {
-  .final-logo { max-width: 70px; }
-  .final-title { font-size: 1.8rem; }
-  .final-paragraph { font-size: 0.9rem; }
+/* ===== RESPONSIVE ===== */
+
+/* Móviles */
+@media (max-width: 767px) {
+  .jumbotron-final {
+    min-height: 10vh;
+    padding: 0.2rem 0;
+  }
+  
+  .content-wrapper {
+    padding: 0.15rem 0.8rem;
+    gap: 0.1rem;
+  }
+  
+  .logo-image {
+    width: 32px;
+    min-width: 28px;
+  }
+  
+  .title-main {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .divider-line {
+    width: 50%;
+    max-width: 120px;
+    height: 1px;
+    margin: 0.04rem auto;
+  }
+  
+  .subtitle-main {
+    font-size: 0.6rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .glow-ring {
+    padding: 0.1rem;
+  }
+  
+  .glow-ring::before {
+    filter: blur(4px);
+    top: -0.1rem;
+    left: -0.1rem;
+    right: -0.1rem;
+    bottom: -0.1rem;
+  }
+  
+  .text-wrapper {
+    gap: 0.08rem;
+  }
 }
 
-@media (max-width: 576px) {
-  .final-logo { max-width: 40px; }
-  .final-title { font-size: 1.2rem; }
-  .final-paragraph { font-size: 0.65rem; }
+/* Móviles muy pequeños */
+@media (max-width: 380px) {
+  .jumbotron-final {
+    min-height: 8vh;
+    padding: 0.1rem 0;
+  }
+  
+  .logo-image {
+    width: 25px;
+    min-width: 22px;
+  }
+  
+  .title-main {
+    font-size: 0.55rem;
+  }
+  
+  .divider-line {
+    width: 40%;
+    max-width: 80px;
+    margin: 0.03rem auto;
+  }
+  
+  .subtitle-main {
+    font-size: 0.5rem;
+  }
+  
+  .content-wrapper {
+    padding: 0.1rem 0.5rem;
+    gap: 0.05rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .jumbotron-final {
+    min-height: 12vh;
+  }
+  
+  .logo-image {
+    width: 40px;
+  }
+  
+  .title-main {
+    font-size: 0.85rem;
+  }
+  
+  .subtitle-main {
+    font-size: 0.7rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+  .jumbotron-final {
+    min-height: 15vh;
+  }
+  
+  .logo-image {
+    width: 50px;
+  }
+  
+  .title-main {
+    font-size: 1rem;
+  }
+  
+  .subtitle-main {
+    font-size: 0.85rem;
+  }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1400px) {
+  .jumbotron-final {
+    min-height: 18vh;
+  }
+  
+  .logo-image {
+    width: 55px;
+  }
+  
+  .title-main {
+    font-size: 1.1rem;
+  }
+  
+  .subtitle-main {
+    font-size: 0.95rem;
+  }
+}
+
+/* ===== ACCESIBILIDAD ===== */
+@media (prefers-reduced-motion: reduce) {
+  .glow-ring.active::before {
+    animation: none;
+    opacity: 0.15;
+  }
+  
+  .logo-image {
+    transition: none;
+  }
+  
+  .logo-image:hover {
+    transform: none;
+  }
 }
