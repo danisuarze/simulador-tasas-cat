@@ -23,78 +23,23 @@
   text-align: center;
 }
 
-/* ===== BOTÓN VOLVER CON FLECHAS ===== */
-.back-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  cursor: pointer;
-  padding: 0.25rem 1rem;
-  border-radius: 6px;
-  background-color: rgba(123, 156, 107, 0.4);
+/* ===== BOTÓN VOLVER (estilo consistente con Honorarios) ===== */
+/* El botón usa la clase .btn-secondary de Bootstrap, 
+   pero podemos personalizar si queremos */
+.btn-secondary {
+  background-color: rgba(123, 156, 107, 0.4) !important;
+  border-color: rgba(123, 156, 107, 0.4) !important;
+  color: #ffffff !important;
   transition: background-color 0.3s ease;
-  margin-bottom: 0.5rem;
-  width: auto;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
-.back-wrapper:hover {
-  background-color: rgba(123, 156, 107, 0.6);
+.btn-secondary:hover {
+  background-color: rgba(123, 156, 107, 0.6) !important;
+  border-color: rgba(123, 156, 107, 0.6) !important;
 }
 
-.left-arrow {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-shrink: 0;
-  gap: 0;
-}
-
-.left-arrow .arrow-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-/* Animación solo en escritorio (≥ 769px) */
-@media (min-width: 769px) {
-  .left-arrow .arrow-1 {
-    animation: floatLeft1 2s ease-in-out infinite;
-  }
-  .left-arrow .arrow-2 {
-    animation: floatLeft2 2s ease-in-out infinite;
-  }
-}
-
-@keyframes floatLeft1 {
-  0%, 100% { transform: translateX(0) scale(1); opacity: 0.8; }
-  50% { transform: translateX(-0.3rem) scale(1.05); opacity: 1; }
-}
-
-@keyframes floatLeft2 {
-  0%, 100% { transform: translateX(0) scale(0.9); opacity: 0.4; }
-  50% { transform: translateX(-0.15rem) scale(1); opacity: 0.7; }
-}
-
-.back-text {
-  color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
-  white-space: nowrap;
-}
-
-.back-wrapper:hover .back-text {
-  opacity: 1;
-}
+/* Para móviles, podemos ajustar el tamaño si se desea,
+   pero Bootstrap ya maneja la responsividad */
 
 /* ===== FIN BOTÓN ===== */
 
@@ -208,9 +153,7 @@
   margin-bottom: 24px;
 }
 
-/* ===== RESPONSIVE ===== */
-
-/* Tablets y pantallas medianas */
+/* Responsive */
 @media (max-width: 992px) {
   .row > [class*='col-'] {
     flex: 0 0 50%;
@@ -218,7 +161,6 @@
   }
 }
 
-/* Móviles grandes (≤ 768px) - Botón muy pequeño */
 @media (max-width: 768px) {
   .image-container {
     height: 140px;
@@ -251,38 +193,10 @@
     padding: 0 10px;
   }
   .cards-container {
-    padding: 1.5rem 0.5rem;
-  }
-  
-  /* Botón minúsculo, casi invisible */
-  .back-wrapper {
-    padding: 0.05rem 0.4rem;
-    gap: 0.15rem;
-    border-radius: 3px;
-    background-color: rgba(123, 156, 107, 0.15);
-    margin-bottom: 0.1rem;
-  }
-  .left-arrow .arrow-icon {
-    width: 8px;
-    height: 8px;
-  }
-  .back-text {
-    font-size: 0.5rem;
-    letter-spacing: 0.2px;
-    opacity: 0.5;
-  }
-  .back-wrapper:hover {
-    background-color: rgba(123, 156, 107, 0.25);
-  }
-  /* Sin animación */
-  .left-arrow .arrow-1,
-  .left-arrow .arrow-2 {
-    animation: none !important;
-    transform: none !important;
+    padding: 1rem 0.5rem;
   }
 }
 
-/* Móviles pequeños (≤ 576px) - Una columna, botón aún más pequeño */
 @media (max-width: 576px) {
   .image-container {
     height: 120px;
@@ -323,32 +237,6 @@
     margin: 0 auto;
   }
   .cards-container {
-    padding: 1rem 0.3rem;
-  }
-  
-  /* Botón ultra pequeño */
-  .back-wrapper {
-    padding: 0.03rem 0.3rem;
-    gap: 0.1rem;
-    border-radius: 2px;
-    background-color: rgba(123, 156, 107, 0.1);
-    margin-bottom: 0.05rem;
-  }
-  .left-arrow .arrow-icon {
-    width: 6px;
-    height: 6px;
-  }
-  .back-text {
-    font-size: 0.45rem;
-    letter-spacing: 0.1px;
-    opacity: 0.4;
-  }
-  .back-wrapper:hover {
-    background-color: rgba(123, 156, 107, 0.2);
-  }
-  .left-arrow .arrow-1,
-  .left-arrow .arrow-2 {
-    animation: none !important;
-    transform: none !important;
+    padding: 0.5rem 0.3rem;
   }
 }
