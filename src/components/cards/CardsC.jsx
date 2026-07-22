@@ -96,19 +96,11 @@ const CardsC = ({ onBack }) => {
   ];
 
   return (
-    <Container className="my-5 cards-container" style={{ position: 'relative', zIndex: 1000, backgroundColor: '#111B4D', paddingTop: '1rem', paddingBottom: '2rem', borderRadius: '8px' }}>
+    <Container className="mt-2 mb-4 cards-container" style={{ position: 'relative', zIndex: 1000, backgroundColor: '#111B4D', paddingTop: '0.5rem', paddingBottom: '2rem', borderRadius: '8px' }}>
       <div className="text-center mb-2">
-        <div className="back-wrapper" onClick={onBack}>
-          <div className="double-arrow left-arrow">
-            <svg className="arrow-icon arrow-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="4,12 18,4 18,20" fill="#ffffff" opacity="0.8" />
-            </svg>
-            <svg className="arrow-icon arrow-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <polygon points="8,12 18,6 18,18" fill="#ffffff" opacity="0.4" />
-            </svg>
-          </div>
-          <span className="back-text">Volver</span>
-        </div>
+        <Button onClick={onBack} variant="secondary" className="mb-1">
+          <FaArrowLeft className="me-2" /> Volver al inicio
+        </Button>
         <h2 className="mb-0 main-title">Simulador de Tasas Retributivas</h2>
         <p className="mb-0 subtitle">Modalidad de calculo aprobada por Asamblea Ordinaria</p>
       </div>

@@ -43,9 +43,9 @@ const HonorariosC = ({ onBack }) => {
   ];
 
   return (
-    <Container className="my-5" style={{ position: 'relative', zIndex: 1000 }}>
-      <div className="text-center mb-4">
-        <Button onClick={onBack} variant="secondary" className="mb-3">
+    <Container className="mt-2 mb-4" style={{ position: 'relative', zIndex: 1000, paddingTop: '0.5rem' }}>
+      <div className="text-center mb-2">
+        <Button onClick={onBack} variant="secondary" className="mb-1">
           <FaArrowLeft className="me-2" /> Volver al inicio
         </Button>
         <h2 className="mb-0 main-title">Simulador de Honorarios</h2>
