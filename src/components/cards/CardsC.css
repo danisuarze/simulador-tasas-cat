@@ -1,4 +1,102 @@
-/* CardsC.css */
+/* Contenedor principal con fondo oscuro */
+.cards-container {
+  background-color: #111B4D !important;
+  border-radius: 8px;
+  padding: 2rem 1rem;
+}
+
+/* Main title - BLANCO */
+.main-title {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Subtitle - BLANCO o gris claro */
+.subtitle {
+  color: #e0e0e0 !important;
+  font-size: 0.85rem;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ===== BOTÓN VOLVER CON FLECHAS ===== */
+.back-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  padding: 0.25rem 1rem;
+  border-radius: 6px;
+  background-color: rgba(123, 156, 107, 0.4);
+  transition: background-color 0.3s ease;
+  margin-bottom: 0.5rem;
+  width: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.back-wrapper:hover {
+  background-color: rgba(123, 156, 107, 0.6);
+}
+
+.left-arrow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+}
+
+.left-arrow .arrow-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Animación solo en escritorio (≥ 769px) */
+@media (min-width: 769px) {
+  .left-arrow .arrow-1 {
+    animation: floatLeft1 2s ease-in-out infinite;
+  }
+  .left-arrow .arrow-2 {
+    animation: floatLeft2 2s ease-in-out infinite;
+  }
+}
+
+@keyframes floatLeft1 {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 0.8; }
+  50% { transform: translateX(-0.3rem) scale(1.05); opacity: 1; }
+}
+
+@keyframes floatLeft2 {
+  0%, 100% { transform: translateX(0) scale(0.9); opacity: 0.4; }
+  50% { transform: translateX(-0.15rem) scale(1); opacity: 0.7; }
+}
+
+.back-text {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.back-wrapper:hover .back-text {
+  opacity: 1;
+}
+
+/* ===== FIN BOTÓN ===== */
 
 /* Card */
 .card-hover {
@@ -11,7 +109,7 @@
   flex-direction: column;
   background-color: white;
   width: 100%;
-  margin: 0 auto; /* Centra la card en su columna */
+  margin: 0 auto;
 }
 
 .card-hover:hover {
@@ -19,7 +117,6 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Contenedor de medios (imagen o icono) - ARRIBA */
 .card-media-container {
   width: 100%;
   display: flex;
@@ -29,7 +126,6 @@
   background-color: #f8f9fa;
 }
 
-/* Contenedor para imágenes */
 .image-container {
   height: 160px;
   background-color: #f0f0f0;
@@ -40,31 +136,12 @@
   overflow: hidden;
 }
 
-/* Contenedor para iconos */
-.icon-container {
-  height: 120px;
-  background-color: #f8f9fa;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Imagen dentro del contenedor */
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Icono dentro del contenedor */
-.icon-container svg {
-  width: 50px;
-  height: 50px;
-  color: #1A286F;
-}
-
-/* Contenido textual - ABAJO */
 .card-body-content {
   padding: 1rem;
   background-color: white;
@@ -74,7 +151,6 @@
   width: 100%;
 }
 
-/* Títulos */
 .card-title {
   color: #333;
   font-weight: 700;
@@ -83,7 +159,6 @@
   line-height: 1.3;
 }
 
-/* Texto de la card */
 .card-text {
   color: #666;
   font-size: 0.75rem;
@@ -92,7 +167,6 @@
   flex: 1;
 }
 
-/* Estilos para el botón Calcular */
 .card-button {
   background-color: transparent !important;
   color: #1A286F !important;
@@ -119,11 +193,10 @@
   transform: translateY(0);
 }
 
-/* Asegurar que todas las cards tengan la misma altura */
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centra las columnas */
+  justify-content: center;
   margin: 0 -12px;
   width: 100%;
 }
@@ -135,127 +208,147 @@
   margin-bottom: 24px;
 }
 
-/* Main title */
-.main-title {
-  color: #040D3B;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
+/* ===== RESPONSIVE ===== */
 
-/* Subtitle */
-.subtitle {
-  color: #848688;
-  font-size: 0.85rem;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-/* Responsive - Tablets y móviles */
+/* Tablets y pantallas medianas */
 @media (max-width: 992px) {
   .row > [class*='col-'] {
-    flex: 0 0 50%; /* 2 columnas en tablets */
+    flex: 0 0 50%;
     max-width: 50%;
   }
 }
 
+/* Móviles grandes (≤ 768px) - Botón muy pequeño */
 @media (max-width: 768px) {
   .image-container {
     height: 140px;
   }
-  
-  .icon-container {
-    height: 100px;
-  }
-  
   .card-title {
     font-size: 0.85rem;
   }
-  
   .card-text {
     font-size: 0.7rem;
   }
-  
   .card-button {
     padding: 6px 10px;
     font-size: 0.7rem;
   }
-  
   .card-body-content {
     padding: 0.75rem;
   }
-  
   .main-title {
     font-size: 1.3rem;
   }
-  
   .subtitle {
     font-size: 0.75rem;
   }
-  
   .row {
     justify-content: center;
   }
-  
   .row > [class*='col-'] {
-    flex: 0 0 50%; /* 2 columnas en tablets */
+    flex: 0 0 50%;
     max-width: 50%;
     padding: 0 10px;
   }
+  .cards-container {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  /* Botón minúsculo, casi invisible */
+  .back-wrapper {
+    padding: 0.05rem 0.4rem;
+    gap: 0.15rem;
+    border-radius: 3px;
+    background-color: rgba(123, 156, 107, 0.15);
+    margin-bottom: 0.1rem;
+  }
+  .left-arrow .arrow-icon {
+    width: 8px;
+    height: 8px;
+  }
+  .back-text {
+    font-size: 0.5rem;
+    letter-spacing: 0.2px;
+    opacity: 0.5;
+  }
+  .back-wrapper:hover {
+    background-color: rgba(123, 156, 107, 0.25);
+  }
+  /* Sin animación */
+  .left-arrow .arrow-1,
+  .left-arrow .arrow-2 {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
+/* Móviles pequeños (≤ 576px) - Una columna, botón aún más pequeño */
 @media (max-width: 576px) {
   .image-container {
     height: 120px;
   }
-  
-  .icon-container {
-    height: 90px;
-  }
-  
   .card-title {
     font-size: 0.8rem;
   }
-  
   .card-text {
     font-size: 0.65rem;
   }
-  
   .card-button {
     padding: 5px 8px;
     font-size: 0.65rem;
   }
-  
   .card-body-content {
     padding: 0.6rem;
   }
-  
   .main-title {
     font-size: 1.1rem;
   }
-  
   .subtitle {
     font-size: 0.7rem;
   }
-  
   .row {
     justify-content: center;
     margin: 0 -8px;
   }
-  
   .row > [class*='col-'] {
-    flex: 0 0 100%; /* 1 columna en móviles */
+    flex: 0 0 100%;
     max-width: 100%;
     padding: 0 8px;
     margin-bottom: 16px;
     display: flex;
-    justify-content: center; /* Centra el contenido de la columna */
+    justify-content: center;
+  }
+  .card-hover {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .cards-container {
+    padding: 1rem 0.3rem;
   }
   
-  .card-hover {
-    max-width: 400px; /* Ancho máximo para que no se estiren demasiado */
-    margin: 0 auto; /* Centra la card */
+  /* Botón ultra pequeño */
+  .back-wrapper {
+    padding: 0.03rem 0.3rem;
+    gap: 0.1rem;
+    border-radius: 2px;
+    background-color: rgba(123, 156, 107, 0.1);
+    margin-bottom: 0.05rem;
+  }
+  .left-arrow .arrow-icon {
+    width: 6px;
+    height: 6px;
+  }
+  .back-text {
+    font-size: 0.45rem;
+    letter-spacing: 0.1px;
+    opacity: 0.4;
+  }
+  .back-wrapper:hover {
+    background-color: rgba(123, 156, 107, 0.2);
+  }
+  .left-arrow .arrow-1,
+  .left-arrow .arrow-2 {
+    animation: none !important;
+    transform: none !important;
   }
 }

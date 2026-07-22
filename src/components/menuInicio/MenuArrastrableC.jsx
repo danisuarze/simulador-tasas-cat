@@ -95,7 +95,15 @@ const MenuArrastrableC = ({ onSelectOption }) => {
                 />
               </svg>
             </div>
-            <span className="arrow-text text-blue">Desplegar</span>
+            {/* Nuevo contenedor con dos líneas de texto */}
+            <div className="arrow-text-container">
+              <span className="arrow-text text-blue arrow-text-line1">
+                Desplegar
+              </span>
+              <span className="text-blue arrow-text-line2">
+                Simulador de Cálculos
+              </span>
+            </div>
           </div>
         )}
       </div>

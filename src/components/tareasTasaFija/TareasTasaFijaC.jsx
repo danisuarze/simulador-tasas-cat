@@ -102,10 +102,11 @@ const TareasTasaFijaC = ({ onBack }) => {
         </button>
       </div>
 
+      {/* TÍTULO MODIFICADO A BLANCO */}
       <div className="tareas-tasa-fija-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
-          <h1 className="text-center mb-1">Tareas con Tasa Fija</h1>
-          <p className="text-center mb-0">Seleccione una tarea para ver su valor</p>
+          <h1 className="text-center mb-1" style={{ color: '#ffffff' }}>Tareas con Tasa Fija</h1>
+          <p className="text-center mb-0" style={{ color: '#e0e0e0' }}>Seleccione una tarea para ver su valor</p>
         </div>
       </div>
 

@@ -38,7 +38,7 @@ const JumbotronC = () => {
         <div className="text-wrapper">
           <h1 className="title-main">Colegio de Arquitectos de Tucumán</h1>
           <div className="divider-line"></div>
-          <p className="subtitle-main">Simulador de Cálculos</p>
+          <p className="subtitle-main">Bienvenidos</p>
         </div>
       </div>
     </div>
