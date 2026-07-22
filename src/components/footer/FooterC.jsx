@@ -25,7 +25,10 @@ const FooterC = () => {
         </div>
         <div className="footer-content">
           <p className="footer-text">
-            © 2025 Desarrollado por: DOS Diseño Web – danisuarze@gmail.com - Todos los derechos reservados
+            © 2025 | Todos los derechos reservados | Daniel Suarez Desarrollo Web | Contacto:{' '}
+            <a href="mailto:danisuarze@gmail.com" className="email-link">
+              danisuarze@gmail.com
+            </a>
           </p>
         </div>
       </div>

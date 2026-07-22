@@ -109,10 +109,11 @@ const CartelPublicitarioC = ({ onBack }) => {
         />
       </div>
 
+      {/* TÍTULO MODIFICADO A BLANCO */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0">Carteles Publicitarios</h2>
-          <p className="mb-0 text-muted">
+          <h2 className="mb-0" style={{ color: '#ffffff' }}>Carteles Publicitarios</h2>
+          <p className="mb-0" style={{ color: '#e0e0e0' }}>
             Ingrese la superficie total y presione calcular.
           </p>
         </div>

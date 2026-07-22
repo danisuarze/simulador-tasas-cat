@@ -143,10 +143,11 @@ const EstudioPropuestaC = ({ onBack }) => {
         />
       </div>
 
+      {/* TÍTULO MODIFICADO A BLANCO */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0">Estudio de Propuesta</h2>
-          <p className="mb-0 text-muted">
+          <h2 className="mb-0" style={{ color: '#ffffff' }}>Estudio de Propuesta</h2>
+          <p className="mb-0" style={{ color: '#e0e0e0' }}>
             Ingrese el monto de la licitación y presione calcular.
           </p>
         </div>

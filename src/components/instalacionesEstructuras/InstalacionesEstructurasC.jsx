@@ -548,10 +548,11 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         />
       </div>
 
+      {/* TÍTULO MODIFICADO A BLANCO */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0">Instalaciones y Estructuras</h2>
-          <p className="mb-0 text-muted">
+          <h2 className="mb-0" style={{ color: '#ffffff' }}>Instalaciones y Estructuras</h2>
+          <p className="mb-0" style={{ color: '#e0e0e0' }}>
             Complete el tipo de obra y cargue la/s superficie/s. Luego seleccione la tarea a realizar y presione calcular.
           </p>
         </div>

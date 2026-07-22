@@ -303,12 +303,9 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
       }
 
       // Aplicar tasa mínima cuando el cálculo es menor a TASA_MINIMA
-      // Solo para tareas que no son combinadas y excluyendo casos especiales
       const esTareaCombinada = tareaSeleccionada.includes("y") || tareaSeleccionada.includes(",");
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
       
-      // CORRECCIÓN: Aplicar tasa mínima a TODAS las tareas cuyo cálculo sea menor a TASA_MINIMA
-      // excepto cuando es Dirección Técnica sin avance (ya que puede ser 0)
       if (tasaCalculada < TASA_MINIMA && tasaCalculada > 0 && !esDireccionSinAvance) {
         detallesCalculo.push({
           tipo: "info",
@@ -753,10 +750,11 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         />
       </div>
 
+      {/* TÍTULO MODIFICADO A BLANCO */}
       <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
         <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0">Vivienda Unifamiliar</h2>
-          <p className="mb-0 text-muted">
+          <h2 className="mb-0" style={{ color: '#ffffff' }}>Vivienda Unifamiliar</h2>
+          <p className="mb-0" style={{ color: '#e0e0e0' }}>
             Complete el tipo de obra y cargue la/s superficie/s. Luego seleccione la tarea a realizar y presione calcular.
           </p>
         </div>
