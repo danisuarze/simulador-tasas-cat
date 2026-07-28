@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import './TareasTasaFijaC.css';
 
-const TareasTasaFijaC = ({ onBack }) => {
+const TareasTasaFijaC = ({ onBack, subTarea }) => {
   // Constantes
   const VPTR = 1250;
   
@@ -37,6 +37,17 @@ const TareasTasaFijaC = ({ onBack }) => {
       behavior: 'smooth'
     });
   }, []);
+
+  // Efecto para detectar la tarea desde la prop subTarea (buscador principal)
+  useEffect(() => {
+    if (subTarea) {
+      const tareaEncontrada = tareas.find(t => t.nombre === subTarea);
+      if (tareaEncontrada) {
+        setTareaSeleccionada(tareaEncontrada);
+        // El acordeón se cerrará automáticamente en el otro useEffect
+      }
+    }
+  }, [subTarea]);
 
   // Calcular el valor cuando se selecciona una tarea
   useEffect(() => {
@@ -102,7 +113,7 @@ const TareasTasaFijaC = ({ onBack }) => {
         </button>
       </div>
 
-      {/* TÍTULO MODIFICADO A BLANCO */}
+      {/* TÍTULO */}
       <div className="tareas-tasa-fija-header" style={{ position: 'relative', zIndex: 1001 }}>
         <div className="container">
           <h1 className="text-center mb-1" style={{ color: '#ffffff' }}>Tareas con Tasa Fija</h1>
