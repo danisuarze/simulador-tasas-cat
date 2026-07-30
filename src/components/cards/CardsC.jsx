@@ -21,13 +21,26 @@ import "./CardsC.css";
 
 const CardsC = ({ onBack }) => {
   const [activeComponent, setActiveComponent] = useState(null);
-  const [selectedSubOption, setSelectedSubOption] = useState(null); // para Tareas con tasa fija
-
-  // Estados para el buscador
+  const [selectedSubOption, setSelectedSubOption] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const [showSubSelect, setShowSubSelect] = useState(false);
 
-  // Mapeo de nombres de las cards a sus componentes (para el buscador)
+  const handleCalculateClick = (componentName, subOption = null) => {
+    setSelectedSubOption(subOption);
+    setActiveComponent(componentName);
+  };
+
+  const handleBackToCards = () => {
+    setActiveComponent(null);
+    setSelectedSubOption(null);
+    setSearchValue('');
+    setShowSubSelect(false);
+  };
+
+  const handleAccesoAutogestion = () => {
+    window.open('https://autogestion.catonline.org.ar/catautogestion.html', '_blank', 'noopener noreferrer');
+  };
+
   const componentMap = {
     'Vivienda Unifamiliar': 'ViviendaUnifamiliarC',
     'Edificios en Altura': 'EdificiosAlturaC',
@@ -42,7 +55,6 @@ const CardsC = ({ onBack }) => {
     'Tareas con tasa fija': 'TareasTasaFijaC'
   };
 
-  // Opciones del submenú (Tareas con tasa fija)
   const subOptions = [
     'CAMBIO DIRECCION TECNICA ENTRE ARQUITECTOS',
     'CAMBIO REPRES. TECNICO ENTRE ARQUITECTOS',
@@ -61,30 +73,11 @@ const CardsC = ({ onBack }) => {
     'VISADO DOCUMENTACION COMPLEMENTARIA'
   ];
 
-  const handleCalculateClick = (componentName, subOption = null) => {
-    setSelectedSubOption(subOption);
-    setActiveComponent(componentName);
-  };
-
-  const handleBackToCards = () => {
-    setActiveComponent(null);
-    setSelectedSubOption(null);
-    setSearchValue('');
-    setShowSubSelect(false);
-  };
-
-  const handleAccesoAutogestion = () => {
-    window.open('https://autogestion.catonline.org.ar/catautogestion.html', '_blank', 'noopener noreferrer');
-  };
-
-  // Manejo del cambio en el select principal
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
-
     if (value === 'Tareas con tasa fija') {
       setShowSubSelect(true);
-      // No activamos componente aún, esperamos que elija una subopción
       setActiveComponent(null);
       setSelectedSubOption(null);
     } else if (value === '') {
@@ -99,15 +92,10 @@ const CardsC = ({ onBack }) => {
     }
   };
 
-  // Manejo del cambio en el subselect
   const handleSubSearchChange = (e) => {
     const subValue = e.target.value;
     if (subValue) {
-      // Activamos TareasTasaFijaC con la subopción seleccionada
       handleCalculateClick('TareasTasaFijaC', subValue);
-      // Opcional: cerrar el submenú después de seleccionar
-      setShowSubSelect(false);
-      setSearchValue('Tareas con tasa fija');
     }
   };
 
@@ -125,7 +113,6 @@ const CardsC = ({ onBack }) => {
       'TareasTasaFijaC': <TareasTasaFijaC onBack={handleBackToCards} subTarea={selectedSubOption} />,
       'ViviendasIPVC': <ViviendasIPVC onBack={handleBackToCards} />
     };
-
     return components[activeComponent] || (
       <Container style={{ minHeight: '100vh', padding: '20px', position: 'relative', zIndex: 1000 }}>
         <div className="text-center mb-4">
@@ -140,12 +127,11 @@ const CardsC = ({ onBack }) => {
     );
   };
 
-  // Si hay un componente activo, lo renderizamos sin el grid ni el buscador
   if (activeComponent) {
     return renderActiveComponent();
   }
 
-  // Componentes de imagen (sin cambios)
+  // ===== COMPONENTES DE IMAGEN =====
   const ViviendaImage = () => <img src="/images/vivienda.jpg" alt="Vivienda" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
   const EdificiosAlturaImage = () => <img src="/images/edificios_altura.jpg" alt="Altura" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
   const EdificiosEspecialesImage = () => <img src="/images/edificios_especiales.jpg" alt="Especiales" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
@@ -159,6 +145,7 @@ const CardsC = ({ onBack }) => {
   const TareasTasaFijaImage = () => <img src="/images/tasas_fijas.jpg" alt="Tasa fija" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
   const AccesoAutogestionImage = () => <img src="/images/acceso_autogestion.png" alt="Autogestión" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
 
+  // ===== CARD DATA (DEFINIDA AQUÍ) =====
   const cardData = [
     { id:1, title:"Vivienda Unifamiliar", text:"Viviendas individuales", icon:<ViviendaImage />, component:"ViviendaUnifamiliarC", buttonText:"Calcular" },
     { id:2, title:"Edificios en Altura", text:"Que supere planta baja y 2 niveles...", icon:<EdificiosAlturaImage />, component:"EdificiosAlturaC", buttonText:"Calcular" },
@@ -177,14 +164,13 @@ const CardsC = ({ onBack }) => {
   return (
     <Container className="mt-2 mb-4 cards-container" style={{ position: 'relative', zIndex: 1000, backgroundColor: '#111B4D', paddingTop: '0.5rem', paddingBottom: '2rem', borderRadius: '8px' }}>
       
-      {/* Botón Volver al inicio */}
       <div className="text-center mb-2">
         <Button onClick={onBack} variant="secondary" className="mb-1">
           <FaArrowLeft className="me-2" /> Volver al inicio
         </Button>
       </div>
 
-      {/* BUSCADOR DESPLEGABLE */}
+      {/* Buscador */}
       <div className="buscador-container" style={{ backgroundColor: '#1e2a5e', padding: '1rem 1.5rem', borderRadius: '8px', marginBottom: '1.5rem' }}>
         <div className="d-flex align-items-center gap-2 flex-wrap">
           <FaSearch size={24} color="#ffffff" />
@@ -201,8 +187,6 @@ const CardsC = ({ onBack }) => {
               <option key={opt} value={opt}>{opt}</option>
             ))}
           </Form.Select>
-
-          {/* Submenú para Tareas con tasa fija */}
           {showSubSelect && (
             <Form.Select
               value=""
@@ -218,18 +202,16 @@ const CardsC = ({ onBack }) => {
         </div>
         {showSubSelect && (
           <div style={{ color: '#aac9ff', fontSize: '0.8rem', marginTop: '0.3rem', paddingLeft: '2.2rem' }}>
-            * Selecciona una tarea para calcular su valor
+            * Selecciona una tarea para calcular su honorario
           </div>
         )}
       </div>
 
-      {/* Título y subtítulo */}
       <div className="text-center mb-3">
-        <h2 className="mb-0 main-title" style={{ color: '#ffffff' }}>Simulador de Tasas Retributivas</h2>
-        <p className="mb-0 subtitle" style={{ color: '#c0d0f0' }}>Modalidad de calculo aprobada por Asamblea Ordinaria</p>
+        <h2 className="main-title-cards">Simulador de Tasas Retributivas</h2>
+        <p className="subtitle-cards">Modalidad de calculo aprobada por Asamblea Ordinaria</p>
       </div>
 
-      {/* Grid de Cards */}
       <Row className="justify-content-center">
         {cardData.map(card => (
           <Col key={card.id} xs={12} sm={6} md={6} lg={4} className="d-flex justify-content-center mb-4">

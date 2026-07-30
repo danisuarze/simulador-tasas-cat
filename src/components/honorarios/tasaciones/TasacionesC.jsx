@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Row, Col } from 'react-bootstrap';
 import { FaArrowLeft, FaCalculator } from 'react-icons/fa';
+import './TasacionesC.css';
 
 const TasacionesC = ({ onBack }) => {
+  // Estados
   const [vrRaw, setVrRaw] = useState('');
   const [valorJuegoRaw, setValorJuegoRaw] = useState('');
   const [vrDisplay, setVrDisplay] = useState('');
   const [valorJuegoDisplay, setValorJuegoDisplay] = useState('');
-  const [tipoHonorario, setTipoHonorario] = useState('1');
+  const [tipoHonorario, setTipoHonorario] = useState(''); // ← Ahora vacío
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState('');
 
+  // Formateadores
   const formatNumber = (numStr) => {
     if (!numStr) return '';
     const clean = numStr.toString().replace(/[^0-9]/g, '');
@@ -38,9 +41,9 @@ const TasacionesC = ({ onBack }) => {
     setValorJuegoDisplay(formatNumber(valorJuegoRaw));
   };
 
+  // Cálculos
   const calcularTasacionesRapidas = (vr, valorJuego) => {
     if (vr <= 0 || valorJuego <= 0) return 0;
-
     const limites = [
       { multiplo: 4, porcentaje: 0.0075 },
       { multiplo: 6, porcentaje: 0.0065 },
@@ -49,11 +52,9 @@ const TasacionesC = ({ onBack }) => {
       { multiplo: 280, porcentaje: 0.0045 },
       { multiplo: 400, porcentaje: 0.0040 },
     ];
-
     let resto = valorJuego;
     let total = 0;
     let limiteAnterior = 0;
-
     for (let i = 0; i < limites.length; i++) {
       const limiteActual = limites[i].multiplo * vr;
       const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
@@ -63,7 +64,6 @@ const TasacionesC = ({ onBack }) => {
       limiteAnterior = limiteActual;
       if (resto <= 0) break;
     }
-
     if (resto > 0) {
       total += resto * 0.0015;
     }
@@ -72,7 +72,6 @@ const TasacionesC = ({ onBack }) => {
 
   const calcularTerrenosSinEdificacion = (vr, valorJuego) => {
     if (vr <= 0 || valorJuego <= 0) return 0;
-
     const limites = [
       { multiplo: 4, porcentaje: 0.03 },
       { multiplo: 6, porcentaje: 0.025 },
@@ -81,11 +80,9 @@ const TasacionesC = ({ onBack }) => {
       { multiplo: 280, porcentaje: 0.01 },
       { multiplo: 400, porcentaje: 0.005 },
     ];
-
     let resto = valorJuego;
     let total = 0;
     let limiteAnterior = 0;
-
     for (let i = 0; i < limites.length; i++) {
       const limiteActual = limites[i].multiplo * vr;
       const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
@@ -95,9 +92,8 @@ const TasacionesC = ({ onBack }) => {
       limiteAnterior = limiteActual;
       if (resto <= 0) break;
     }
-
     if (resto > 0) {
-      total += resto * 0.0025; // 0.25%
+      total += resto * 0.0025;
     }
     return total;
   };
@@ -105,6 +101,13 @@ const TasacionesC = ({ onBack }) => {
   const handleCalcular = () => {
     const vrNum = parseFloat(vrRaw);
     const valorJuegoNum = parseFloat(valorJuegoRaw);
+
+    // Validar que se haya seleccionado un tipo
+    if (tipoHonorario === '') {
+      setError('Debe seleccionar un tipo de tasación.');
+      setResultado(null);
+      return;
+    }
 
     if (vrRaw === '' || valorJuegoRaw === '') {
       setError('Debe completar ambos campos.');
@@ -150,6 +153,36 @@ const TasacionesC = ({ onBack }) => {
         complejidadTexto = 'Complejidad media';
         descripcionTexto = 'Comprende tasaciones de terrenos sin mejoras, urbanos o rurales, sin confección de planos.';
         break;
+      case '3':
+        honorarios = calcularTerrenosSinEdificacion(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Terrenos sin edificación | Con confección de planos)';
+        complejidadTexto = 'Complejidad media - alta';
+        descripcionTexto = 'Comprende tasaciones de terrenos sin mejoras, urbanos o rurales, con confección de planos.';
+        break;
+      case '4':
+        honorarios = calcularTerrenosConEdificacion(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Terrenos con edificación)';
+        complejidadTexto = 'Complejidad alta';
+        descripcionTexto = 'Comprende tasaciones de terrenos con mejoras, edificaciones, construcciones o instalaciones existentes.';
+        break;
+      case '5':
+        honorarios = calcularComputosPlanoExistente(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Con cómputos sobre plano existente)';
+        complejidadTexto = 'Complejidad alta';
+        descripcionTexto = 'Comprende tasaciones que requieren cómputos detallados sobre planos existentes, con mediciones y análisis de superficies.';
+        break;
+      case '6':
+        honorarios = calcularPlanosEjecutar(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Sobre planos a ejecutar)';
+        complejidadTexto = 'Complejidad muy alta';
+        descripcionTexto = 'Comprende tasaciones sobre planos a ejecutar, que requieren análisis de proyectos, cálculos de materiales y proyecciones de costos.';
+        break;
+      case '7':
+        honorarios = calcularPlanoRelevado(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Sobre plano relevado en obra)';
+        complejidadTexto = 'Complejidad máxima';
+        descripcionTexto = 'Comprende tasaciones con relevamiento en obra, que requieren mediciones in situ, verificación de planos y análisis detallado de la construcción existente.';
+        break;
       default:
         honorarios = 0;
         concepto = 'Opción en desarrollo. Próximamente disponible.';
@@ -160,6 +193,119 @@ const TasacionesC = ({ onBack }) => {
     setResultado({ honorarios, concepto, vr: vrNum, valorJuego: valorJuegoNum, complejidadTexto, descripcionTexto });
   };
 
+  // Funciones de cálculo para opciones 4-7 (se mantienen igual que antes)
+  const calcularTerrenosConEdificacion = (vr, valorJuego) => {
+    if (vr <= 0 || valorJuego <= 0) return 0;
+    const limites = [
+      { multiplo: 4, porcentaje: 0.04 },
+      { multiplo: 6, porcentaje: 0.035 },
+      { multiplo: 50, porcentaje: 0.03 },
+      { multiplo: 60, porcentaje: 0.025 },
+      { multiplo: 280, porcentaje: 0.02 },
+      { multiplo: 400, porcentaje: 0.015 },
+    ];
+    let resto = valorJuego;
+    let total = 0;
+    let limiteAnterior = 0;
+    for (let i = 0; i < limites.length; i++) {
+      const limiteActual = limites[i].multiplo * vr;
+      const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
+      if (anchoTramo <= 0) break;
+      total += anchoTramo * limites[i].porcentaje;
+      resto -= anchoTramo;
+      limiteAnterior = limiteActual;
+      if (resto <= 0) break;
+    }
+    if (resto > 0) {
+      total += resto * 0.01;
+    }
+    return total;
+  };
+
+  const calcularComputosPlanoExistente = (vr, valorJuego) => {
+    if (vr <= 0 || valorJuego <= 0) return 0;
+    const limites = [
+      { multiplo: 4, porcentaje: 0.05 },
+      { multiplo: 6, porcentaje: 0.045 },
+      { multiplo: 50, porcentaje: 0.04 },
+      { multiplo: 60, porcentaje: 0.035 },
+      { multiplo: 280, porcentaje: 0.03 },
+      { multiplo: 400, porcentaje: 0.025 },
+    ];
+    let resto = valorJuego;
+    let total = 0;
+    let limiteAnterior = 0;
+    for (let i = 0; i < limites.length; i++) {
+      const limiteActual = limites[i].multiplo * vr;
+      const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
+      if (anchoTramo <= 0) break;
+      total += anchoTramo * limites[i].porcentaje;
+      resto -= anchoTramo;
+      limiteAnterior = limiteActual;
+      if (resto <= 0) break;
+    }
+    if (resto > 0) {
+      total += resto * 0.015;
+    }
+    return total;
+  };
+
+  const calcularPlanosEjecutar = (vr, valorJuego) => {
+    if (vr <= 0 || valorJuego <= 0) return 0;
+    const limites = [
+      { multiplo: 4, porcentaje: 0.06 },
+      { multiplo: 6, porcentaje: 0.055 },
+      { multiplo: 50, porcentaje: 0.05 },
+      { multiplo: 60, porcentaje: 0.045 },
+      { multiplo: 280, porcentaje: 0.04 },
+      { multiplo: 400, porcentaje: 0.035 },
+    ];
+    let resto = valorJuego;
+    let total = 0;
+    let limiteAnterior = 0;
+    for (let i = 0; i < limites.length; i++) {
+      const limiteActual = limites[i].multiplo * vr;
+      const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
+      if (anchoTramo <= 0) break;
+      total += anchoTramo * limites[i].porcentaje;
+      resto -= anchoTramo;
+      limiteAnterior = limiteActual;
+      if (resto <= 0) break;
+    }
+    if (resto > 0) {
+      total += resto * 0.0175;
+    }
+    return total;
+  };
+
+  const calcularPlanoRelevado = (vr, valorJuego) => {
+    if (vr <= 0 || valorJuego <= 0) return 0;
+    const limites = [
+      { multiplo: 4, porcentaje: 0.065 },
+      { multiplo: 6, porcentaje: 0.06 },
+      { multiplo: 50, porcentaje: 0.055 },
+      { multiplo: 60, porcentaje: 0.05 },
+      { multiplo: 280, porcentaje: 0.045 },
+      { multiplo: 400, porcentaje: 0.04 },
+    ];
+    let resto = valorJuego;
+    let total = 0;
+    let limiteAnterior = 0;
+    for (let i = 0; i < limites.length; i++) {
+      const limiteActual = limites[i].multiplo * vr;
+      const anchoTramo = Math.min(resto, limiteActual - limiteAnterior);
+      if (anchoTramo <= 0) break;
+      total += anchoTramo * limites[i].porcentaje;
+      resto -= anchoTramo;
+      limiteAnterior = limiteActual;
+      if (resto <= 0) break;
+    }
+    if (resto > 0) {
+      total += resto * 0.02;
+    }
+    return total;
+  };
+
   const formatearPesos = (numero) => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero).replace('ARS', '$');
   };
@@ -167,20 +313,37 @@ const TasacionesC = ({ onBack }) => {
   const getTipoTexto = () => {
     if (tipoHonorario === '1') return 'Tasaciones rápidas';
     if (tipoHonorario === '2') return 'Terrenos sin edificación | Sin confección de planos';
-    return `Opción ${tipoHonorario}`;
+    if (tipoHonorario === '3') return 'Terrenos sin edificación | Con confección de planos';
+    if (tipoHonorario === '4') return 'Terrenos con edificación';
+    if (tipoHonorario === '5') return 'Con cómputos sobre plano existente';
+    if (tipoHonorario === '6') return 'Sobre planos a ejecutar';
+    if (tipoHonorario === '7') return 'Sobre plano relevado en obra';
+    return 'Seleccione tipo de tasación';
   };
 
   return (
-    <Container className="my-4" style={{ maxWidth: '900px' }}>
+    <Container fluid className="tasaciones-container">
+      {/* Imagen superior */}
+      <div className="card-media-container image-container mb-4">
+        <img
+          src="/images/tasaciones.jpg"
+          alt="Tasaciones"
+          className="img-fluid"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/images/tasaciones.jpg';
+          }}
+        />
+      </div>
+
+      {/* Título y subtítulo */}
       <div className="text-center mb-4">
-        <Button onClick={onBack} variant="secondary" className="mb-3">
-          <FaArrowLeft className="me-2" /> Volver a especialidades
-        </Button>
         <h2 className="main-title">Tasaciones</h2>
         <p className="subtitle">Complete los datos para calcular honorarios</p>
       </div>
 
-      <div className="p-4 bg-white rounded shadow-sm">
+      {/* Formulario */}
+      <div className="form-card">
         <Form>
           <Row>
             <Col md={6}>
@@ -214,6 +377,7 @@ const TasacionesC = ({ onBack }) => {
           <Form.Group className="mb-4">
             <Form.Label>Tipo de honorarios *</Form.Label>
             <Form.Select value={tipoHonorario} onChange={(e) => setTipoHonorario(e.target.value)}>
+              <option value="" disabled>Seleccione el tipo de tasación a calcular</option>
               <option value="1">1.- Tasaciones rápidas</option>
               <option value="2">2.- Terrenos sin edificación | Sin confección de planos</option>
               <option value="3">3.- Terrenos sin edificación | Con confección de planos</option>
@@ -224,39 +388,55 @@ const TasacionesC = ({ onBack }) => {
             </Form.Select>
           </Form.Group>
 
-          {error && <Alert variant="danger">{error}</Alert>}
+          {error && (
+            <div style={{ color: '#dc3545', fontSize: '0.9rem', marginBottom: '1rem', textAlign: 'center' }}>
+              {error}
+            </div>
+          )}
 
           <div className="text-center">
-            <Button variant="primary" onClick={handleCalcular} className="card-button" style={{ padding: '0.6rem 2rem' }}>
+            <Button variant="primary" onClick={handleCalcular} className="calcular-btn">
               <FaCalculator className="me-2" /> Calcular honorarios
             </Button>
           </div>
         </Form>
 
         {resultado && (
-          <div className="mt-4 p-3 bg-light rounded" style={{ borderLeft: '5px solid #7B9C6B' }}>
+          <div className="resultado-card">
             <h4 className="text-center">Resultado del cálculo</h4>
-            <p className="text-center"><strong>VR (Valor de Referencia):</strong> {formatearPesos(resultado.vr)}</p>
-            <p className="text-center"><strong>Valor en juego:</strong> {formatearPesos(resultado.valorJuego)}</p>
-            <p className="text-center"><strong>Tipo seleccionado:</strong> {getTipoTexto()}</p>
+            <div className="resumen-datos">
+              <p><strong>VR (Valor de Referencia):</strong> {formatearPesos(resultado.vr)}</p>
+              <p><strong>Valor en juego:</strong> {formatearPesos(resultado.valorJuego)}</p>
+              <p><strong>Tipo seleccionado:</strong> {getTipoTexto()}</p>
+            </div>
             <hr />
             <div className="text-center">
               <p><strong>CONCEPTO</strong></p>
               <p><strong>Total de Cálculos de Honorarios</strong></p>
               <p>({getTipoTexto()})</p>
             </div>
-            <p className="text-center"><strong>Total:</strong> <strong style={{ fontSize: '1.5rem', color: '#15225a' }}>{formatearPesos(resultado.honorarios)}</strong></p>
+            <p className="text-center"><strong>Total:</strong> <strong className="total-valor">{formatearPesos(resultado.honorarios)}</strong></p>
 
             {(tipoHonorario === '1' || tipoHonorario === '2') && resultado.complejidadTexto && (
               <div className="mt-3 text-center">
                 <p><strong>{resultado.complejidadTexto}</strong></p>
-                <p style={{ fontSize: '0.85rem', color: '#6c757d', lineHeight: '1.4', marginBottom: '0.25rem' }}>
-                  {resultado.descripcionTexto}
-                </p>
+                <p className="descripcion-texto">{resultado.descripcionTexto}</p>
               </div>
             )}
           </div>
         )}
+      </div>
+
+      {/* Botón Volver al final (discreto) */}
+      <div className="text-center mt-4">
+        <Button
+          variant="outline-secondary"
+          size="sm"
+          onClick={onBack}
+          style={{ color: '#495057', borderColor: '#ced4da' }}
+        >
+          <FaArrowLeft className="me-2" /> Volver a especialidades
+        </Button>
       </div>
     </Container>
   );

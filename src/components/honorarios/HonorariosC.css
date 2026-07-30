@@ -1,12 +1,16 @@
-/* Contenedor principal con fondo oscuro */
-.cards-container {
+/* ============================================
+   HONORARIOS C - ESTILOS OSCUROS (igual que CardsC)
+   ============================================ */
+
+.honorarios-container {
   background-color: #111B4D !important;
   border-radius: 8px;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
+  min-height: 100vh;
 }
 
-/* ===== TÍTULOS BLANCOS SOBRE FONDO OSCURO ===== */
-.main-title-cards {
+/* ===== TÍTULOS BLANCOS ===== */
+.main-title-honorarios {
   color: #ffffff !important;
   font-weight: 700;
   font-size: 1.8rem;
@@ -14,7 +18,7 @@
   margin-bottom: 0.25rem;
 }
 
-.subtitle-cards {
+.subtitle-honorarios {
   color: #e0e0e0 !important;
   font-size: 1rem;
   text-align: center;
@@ -22,39 +26,21 @@
   margin: 0 auto;
 }
 
-/* Responsive para los títulos */
-@media (max-width: 768px) {
-  .main-title-cards {
-    font-size: 1.4rem;
-  }
-  .subtitle-cards {
-    font-size: 0.85rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .main-title-cards {
-    font-size: 1.2rem;
-  }
-  .subtitle-cards {
-    font-size: 0.75rem;
-  }
-}
-
 /* ===== BOTÓN VOLVER ===== */
-.btn-secondary {
+.btn-volver-honorarios {
   background-color: rgba(123, 156, 107, 0.4) !important;
   border-color: rgba(123, 156, 107, 0.4) !important;
   color: #ffffff !important;
   transition: background-color 0.3s ease;
 }
 
-.btn-secondary:hover {
+.btn-volver-honorarios:hover {
   background-color: rgba(123, 156, 107, 0.6) !important;
   border-color: rgba(123, 156, 107, 0.6) !important;
+  color: #ffffff !important;
 }
 
-/* ===== CARDS ===== */
+/* ===== CARDS (igual que CardsC) ===== */
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: none;
@@ -164,7 +150,7 @@
   margin-bottom: 24px;
 }
 
-/* Responsive */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 992px) {
   .row > [class*='col-'] {
     flex: 0 0 50%;
@@ -189,21 +175,13 @@
   .card-body-content {
     padding: 0.75rem;
   }
-  .main-title {
-    font-size: 1.3rem;
+  .main-title-honorarios {
+    font-size: 1.4rem;
   }
-  .subtitle {
-    font-size: 0.75rem;
+  .subtitle-honorarios {
+    font-size: 0.85rem;
   }
-  .row {
-    justify-content: center;
-  }
-  .row > [class*='col-'] {
-    flex: 0 0 50%;
-    max-width: 50%;
-    padding: 0 10px;
-  }
-  .cards-container {
+  .honorarios-container {
     padding: 1rem 0.5rem;
   }
 }
@@ -225,11 +203,11 @@
   .card-body-content {
     padding: 0.6rem;
   }
-  .main-title {
-    font-size: 1.1rem;
+  .main-title-honorarios {
+    font-size: 1.2rem;
   }
-  .subtitle {
-    font-size: 0.7rem;
+  .subtitle-honorarios {
+    font-size: 0.75rem;
   }
   .row {
     justify-content: center;
@@ -247,7 +225,7 @@
     max-width: 400px;
     margin: 0 auto;
   }
-  .cards-container {
+  .honorarios-container {
     padding: 0.5rem 0.3rem;
   }
 }
