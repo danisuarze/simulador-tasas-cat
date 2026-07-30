@@ -1,0 +1,231 @@
+/* ============================================
+   HONORARIOS C - ESTILOS OSCUROS (igual que CardsC)
+   ============================================ */
+
+.honorarios-container {
+  background-color: #111B4D !important;
+  border-radius: 8px;
+  padding: 1.5rem 1rem;
+  min-height: 100vh;
+}
+
+/* ===== TÍTULOS BLANCOS ===== */
+.main-title-honorarios {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle-honorarios {
+  color: #e0e0e0 !important;
+  font-size: 1rem;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== BOTÓN VOLVER ===== */
+.btn-volver-honorarios {
+  background-color: rgba(123, 156, 107, 0.4) !important;
+  border-color: rgba(123, 156, 107, 0.4) !important;
+  color: #ffffff !important;
+  transition: background-color 0.3s ease;
+}
+
+.btn-volver-honorarios:hover {
+  background-color: rgba(123, 156, 107, 0.6) !important;
+  border-color: rgba(123, 156, 107, 0.6) !important;
+  color: #ffffff !important;
+}
+
+/* ===== CARDS (igual que CardsC) ===== */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-media-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f8f9fa;
+}
+
+.image-container {
+  height: 160px;
+  background-color: #f0f0f0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-body-content {
+  padding: 1rem;
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card-title {
+  color: #333;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.card-text {
+  color: #666;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.card-button {
+  background-color: transparent !important;
+  color: #1A286F !important;
+  border: 2px solid #1A286F !important;
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  cursor: pointer;
+}
+
+.card-button:hover {
+  background-color: #1A286F !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 40, 111, 0.2);
+}
+
+.card-button:active {
+  background-color: #1A286F !important;
+  color: white !important;
+  transform: translateY(0);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 -12px;
+  width: 100%;
+}
+
+.row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  margin-bottom: 24px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 992px) {
+  .row > [class*='col-'] {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .image-container {
+    height: 140px;
+  }
+  .card-title {
+    font-size: 0.85rem;
+  }
+  .card-text {
+    font-size: 0.7rem;
+  }
+  .card-button {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+  .card-body-content {
+    padding: 0.75rem;
+  }
+  .main-title-honorarios {
+    font-size: 1.4rem;
+  }
+  .subtitle-honorarios {
+    font-size: 0.85rem;
+  }
+  .honorarios-container {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .image-container {
+    height: 120px;
+  }
+  .card-title {
+    font-size: 0.8rem;
+  }
+  .card-text {
+    font-size: 0.65rem;
+  }
+  .card-button {
+    padding: 5px 8px;
+    font-size: 0.65rem;
+  }
+  .card-body-content {
+    padding: 0.6rem;
+  }
+  .main-title-honorarios {
+    font-size: 1.2rem;
+  }
+  .subtitle-honorarios {
+    font-size: 0.75rem;
+  }
+  .row {
+    justify-content: center;
+    margin: 0 -8px;
+  }
+  .row > [class*='col-'] {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0 8px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  .card-hover {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .honorarios-container {
+    padding: 0.5rem 0.3rem;
+  }
+}

@@ -1,0 +1,306 @@
+/* ============================================
+   ENCARGOS PROFESIONALES - ESTILOS COMPLETOS
+   ============================================ */
+
+/* --- Contenedor principal --- */
+.encargos-container {
+  padding: 1rem 2rem;
+  background-color: #f0f4f8;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* --- Imagen --- */
+.card-media-container {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+/* --- Títulos --- */
+.main-title {
+  font-weight: 700;
+  color: #040D3B !important;
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #495057 !important;
+  margin-bottom: 0;
+}
+
+/* --- Tarjeta del formulario --- */
+.form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Botón Volver (sólido, sin opacidad) --- */
+.btn-volver-encargos {
+  background-color: #7B9C6B !important;
+  border: none !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-volver-encargos:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+  color: #ffffff !important;
+}
+
+/* --- Botón Calcular --- */
+.calcular-btn {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  padding: 0.6rem 2rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #ffffff !important;
+}
+
+.calcular-btn:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+}
+
+/* --- Mensaje de error general --- */
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* --- Tarjeta de resultados --- */
+.resultado-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #7B9C6B;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.resultado-card h4 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.resumen-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.resumen-datos p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #212529 !important;
+}
+
+.total-valor {
+  font-size: 1.5rem;
+  color: #15225a;
+}
+
+.descripcion-texto {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+/* --- Tabla de 3 columnas --- */
+.tabla-tres-columnas {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.encabezados {
+  display: table-row;
+  background-color: #e9ecef;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  color: #212529 !important;
+}
+
+.encabezados > div {
+  display: table-cell;
+  padding: 0.7rem 0.5rem;
+  text-align: center;
+  border-bottom: 2px solid #dee2e6;
+  color: #212529 !important;
+}
+
+.fila {
+  display: table-row;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.fila:last-child {
+  border-bottom: none;
+}
+
+.fila > div {
+  display: table-cell;
+  padding: 0.6rem 0.5rem;
+  vertical-align: middle;
+  text-align: center;
+  color: #212529 !important;
+}
+
+.col-concepto {
+  text-align: left;
+  font-weight: 500;
+  color: #2c3e4e !important;
+  padding-left: 1rem;
+}
+
+.col-total {
+  font-weight: 600;
+  color: #1a6392 !important;
+}
+
+.col-parcial {
+  font-weight: 600;
+  color: #15225a !important;
+}
+
+.fila.total-item {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.fila.total-item .col-total {
+  color: #0d4b73 !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+/* Tablets y móviles grandes */
+@media (max-width: 768px) {
+  .encargos-container {
+    padding: 0.5rem 0.5rem;
+  }
+  .main-title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  .form-card {
+    padding: 1rem;
+  }
+  .image-container img {
+    max-height: 200px;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+  .encargos-container {
+    padding: 0.5rem 0.3rem;
+  }
+  .main-title {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 0.75rem;
+  }
+  .form-card {
+    padding: 0.8rem;
+  }
+  .image-container img {
+    max-height: 150px;
+  }
+
+  /* ===== TABLA EN MODO BLOQUE ===== */
+  .tabla-tres-columnas,
+  .encabezados,
+  .fila,
+  .fila > div {
+    display: block;
+  }
+
+  .encabezados {
+    display: none;
+  }
+
+  .fila {
+    margin-bottom: 0.8rem;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 0.5rem;
+    background: white;
+  }
+
+  .fila > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #f1f3f5;
+    text-align: left;
+  }
+
+  .fila > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Etiquetas para cada columna en modo móvil */
+  .col-concepto::before {
+    content: "Concepto: ";
+    font-weight: 600;
+  }
+  .col-total::before {
+    content: "Encargo Total: ";
+    font-weight: 600;
+  }
+  .col-parcial::before {
+    content: "Encargo Parcial: ";
+    font-weight: 600;
+  }
+
+  /* Ajuste para el resumen de datos */
+  .resumen-datos {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}

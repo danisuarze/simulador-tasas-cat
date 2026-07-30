@@ -1,0 +1,165 @@
+/* ============================================
+   TASACIONES C - ESTILOS CLAROS Y RESPONSIVOS
+   ============================================ */
+
+.tasaciones-container {
+  padding: 1rem 2rem;
+  background-color: #f0f4f8;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ===== IMAGEN ===== */
+.card-media-container {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+/* ===== TÍTULOS ===== */
+.main-title {
+  font-weight: 700;
+  color: #040D3B !important;
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #495057 !important;
+  margin-bottom: 0;
+}
+
+/* ===== TARJETA DEL FORMULARIO ===== */
+.form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ===== BOTÓN VOLVER (corregido) ===== */
+.btn-volver-tasaciones {
+  background-color: #7B9C6B !important;
+  border: none !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-volver-tasaciones:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+  color: #ffffff !important;
+}
+
+/* ===== BOTÓN CALCULAR ===== */
+.calcular-btn {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  padding: 0.6rem 2rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #ffffff !important;
+}
+
+.calcular-btn:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+}
+
+/* ===== TARJETA DE RESULTADOS ===== */
+.resultado-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #7B9C6B;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.resultado-card h4 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.resumen-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.resumen-datos p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #212529 !important;
+}
+
+.total-valor {
+  font-size: 1.5rem;
+  color: #15225a;
+}
+
+.descripcion-texto {
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+  margin-bottom: 0.25rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .tasaciones-container {
+    padding: 0.5rem 0.5rem;
+  }
+  .main-title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  .form-card {
+    padding: 1rem;
+  }
+  .image-container img {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .main-title {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 0.75rem;
+  }
+  .form-card {
+    padding: 0.8rem;
+  }
+  .tasaciones-container {
+    padding: 0.5rem 0.3rem;
+  }
+  .image-container img {
+    max-height: 150px;
+  }
+}

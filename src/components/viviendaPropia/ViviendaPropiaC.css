@@ -1,0 +1,115 @@
+/* Estilos para el botón volver personalizado */
+.back-button-custom {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-button-custom:hover {
+  background-color: #6b8a5c !important;
+  border-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.4);
+  color: white !important;
+}
+
+.back-button-custom:focus {
+  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5);
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
+}
+
+/* Asegurar que el botón sea siempre visible */
+.result-card .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.result-card .card-body > div:last-child {
+  margin-top: auto;
+}
+
+/* Estilos para resultados */
+.result-item {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.resultado-final {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-left: 4px solid #7B9C6B;
+}
+
+.resultado-final-titulo {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+
+.resultado-final-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #7B9C6B;
+  margin-bottom: 0.5rem;
+}
+
+.resultado-final-descripcion {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Responsive adjustments para el botón */
+@media (max-width: 768px) {
+  .back-button-custom {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+  
+  .resultado-final-valor {
+    font-size: 1.3rem;
+  }
+}
+
+/* Estilos para alertas informativas */
+.alert-info {
+  background-color: #e8f4fd;
+  border-color: #b8daff;
+  color: #004085;
+}
+
+/* Estilos para campos de formulario */
+.form-control:focus {
+  border-color: #7B9C6B;
+  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: #7B9C6B;
+  border-color: #7B9C6B;
+}
+
+/* Estilos para cards */
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  font-weight: 600;
+}

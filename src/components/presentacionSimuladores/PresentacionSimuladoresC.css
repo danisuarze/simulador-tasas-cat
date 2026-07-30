@@ -1,0 +1,179 @@
+.presentacion-container {
+  position: relative;
+  width: 100%;
+  min-height: 70vh;           /* Reducido ~22% (antes 90vh) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;            /* Reducido a la mitad (antes 1rem) */
+  background-image: url('/images/sedecat.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  z-index: 0;
+}
+
+.cards-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;                 /* Reducido (antes 1.5rem) */
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  width: 300px;              /* Ligeramente más compacta (antes 320px) */
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 20px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-image-container {
+  width: 100%;
+  height: 220px;             /* Reducido ligeramente (antes 240px) */
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.card:hover .card-image {
+  transform: scale(1.05);
+}
+
+.card-title-overlay {
+  text-align: center;
+  padding: 0.8rem;           /* Reducido (antes 1rem) */
+  background: rgba(0, 0, 0, 0.7);
+  margin-top: -50px;         /* Ajustado para compensar la altura menor */
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+}
+
+.card-title-overlay h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;        /* Ligeramente más pequeño (antes 1.2rem) */
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .presentacion-container {
+    padding: 0.3rem;
+    min-height: 65vh;
+  }
+  .cards-wrapper {
+    gap: 0.8rem;
+  }
+  .card {
+    width: 260px;
+  }
+  .card-image-container {
+    height: 190px;
+  }
+  .card-title-overlay {
+    padding: 0.6rem;
+    margin-top: -45px;
+  }
+  .card-title-overlay h3 {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .presentacion-container {
+    padding: 0.2rem;
+    min-height: 60vh;
+  }
+  .card {
+    width: 240px;
+  }
+  .card-image-container {
+    height: 175px;
+  }
+  .card-title-overlay {
+    padding: 0.5rem;
+    margin-top: -40px;
+  }
+  .card-title-overlay h3 {
+    font-size: 0.85rem;
+  }
+}
+
+/* Estilos del componente "En construcción" (se mantienen igual) */
+.componente-en-desarrollo {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 2rem;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-5px);
+}
+
+.development-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 3rem;
+  border-radius: 20px;
+  max-width: 500px;
+}
+
+.development-content h2 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.development-content p {
+  color: #666;
+  font-size: 1.1rem;
+}
