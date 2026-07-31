@@ -9,7 +9,7 @@ const TasacionesC = ({ onBack }) => {
   const [valorJuegoRaw, setValorJuegoRaw] = useState('');
   const [vrDisplay, setVrDisplay] = useState('');
   const [valorJuegoDisplay, setValorJuegoDisplay] = useState('');
-  const [tipoHonorario, setTipoHonorario] = useState(''); // ← Ahora vacío
+  const [tipoHonorario, setTipoHonorario] = useState('');
   const [resultado, setResultado] = useState(null);
   const [error, setError] = useState('');
 
@@ -533,8 +533,111 @@ const TasacionesC = ({ onBack }) => {
     return total;
   };
 
+  const handleCalcular = () => {
+    const vrNum = parseFloat(vrRaw);
+    const valorJuegoNum = parseFloat(valorJuegoRaw);
+
+    if (tipoHonorario === '') {
+      setError('Debe seleccionar un tipo de tasación.');
+      setResultado(null);
+      return;
+    }
+
+    if (vrRaw === '' || valorJuegoRaw === '') {
+      setError('Debe completar ambos campos.');
+      setResultado(null);
+      return;
+    }
+
+    if (vrNum < 1000000) {
+      setError('El Valor de Referencia (VR) no puede ser menor a $1.000.000.');
+      setResultado(null);
+      return;
+    }
+
+    if (isNaN(vrNum) || vrNum <= 0) {
+      setError('Debe ingresar un Valor de Referencia (VR) válido (mayor a 0).');
+      setResultado(null);
+      return;
+    }
+
+    if (isNaN(valorJuegoNum) || valorJuegoNum <= 0) {
+      setError('Debe ingresar un Valor en juego válido (mayor a 0).');
+      setResultado(null);
+      return;
+    }
+
+    setError('');
+
+    let honorarios = 0;
+    let concepto = '';
+    let complejidadTexto = '';
+    let descripcionTexto = '';
+
+    switch (tipoHonorario) {
+      case '1':
+        honorarios = calcularTasacionesRapidas(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Tasaciones rápidas)';
+        complejidadTexto = 'Complejidad baja';
+        descripcionTexto = 'Comprende tasaciones de carácter expeditivo, de tipo extrajudicial, con o sin informe escrito, en las cuales no se requiere fundamentación detallada.';
+        break;
+      case '2':
+        honorarios = calcularTerrenosSinEdificacion(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Terrenos sin edificación | Sin confección de planos)';
+        complejidadTexto = 'Complejidad media';
+        descripcionTexto = 'Comprende tasaciones de terrenos sin mejoras, urbanos o rurales, sin confección de planos.';
+        break;
+      case '3':
+        honorarios = calcularTerrenosSinEdificacion(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Terrenos sin edificación | Con confección de planos)';
+        complejidadTexto = 'Complejidad media - alta';
+        descripcionTexto = 'Comprende tasaciones de terrenos sin mejoras, urbanos o rurales, con confección de planos.';
+        break;
+      case '4':
+        honorarios = calcularTerrenosConEdificacion(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Terrenos con edificación)';
+        complejidadTexto = 'Complejidad alta';
+        descripcionTexto = 'Comprende tasaciones de terrenos con mejoras, edificaciones, construcciones o instalaciones existentes.';
+        break;
+      case '5':
+        honorarios = calcularComputosPlanoExistente(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Con cómputos sobre plano existente)';
+        complejidadTexto = 'Complejidad alta';
+        descripcionTexto = 'Comprende tasaciones que requieren cómputos detallados sobre planos existentes, con mediciones y análisis de superficies.';
+        break;
+      case '6':
+        honorarios = calcularPlanosEjecutar(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Sobre planos a ejecutar)';
+        complejidadTexto = 'Complejidad muy alta';
+        descripcionTexto = 'Comprende tasaciones sobre planos a ejecutar, que requieren análisis de proyectos, cálculos de materiales y proyecciones de costos.';
+        break;
+      case '7':
+        honorarios = calcularPlanoRelevado(vrNum, valorJuegoNum);
+        concepto = 'Total de honorarios calculados (Sobre plano relevado en obra)';
+        complejidadTexto = 'Complejidad máxima';
+        descripcionTexto = 'Comprende tasaciones con relevamiento en obra, que requieren mediciones in situ, verificación de planos y análisis detallado de la construcción existente.';
+        break;
+      default:
+        honorarios = 0;
+        concepto = 'Opción en desarrollo. Próximamente disponible.';
+        complejidadTexto = '';
+        descripcionTexto = '';
+    }
+
+    setResultado({
+      honorarios,
+      concepto,
+      vr: vrNum,
+      valorJuego: valorJuegoNum,
+      complejidadTexto,
+      descripcionTexto,
+    });
+  };
+
   const formatearPesos = (numero) => {
-    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero).replace('ARS', '$');
+    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' })
+      .format(numero)
+      .replace('ARS', '$');
   };
 
   const getTipoTexto = () => {
@@ -604,7 +707,9 @@ const TasacionesC = ({ onBack }) => {
           <Form.Group className="mb-4">
             <Form.Label>Tipo de honorarios *</Form.Label>
             <Form.Select value={tipoHonorario} onChange={(e) => setTipoHonorario(e.target.value)}>
-              <option value="" disabled>Seleccione el tipo de tasación a calcular</option>
+              <option value="" disabled>
+                Seleccione el tipo de tasación a calcular
+              </option>
               <option value="1">1.- Tasaciones rápidas</option>
               <option value="2">2.- Terrenos sin edificación | Sin confección de planos</option>
               <option value="3">3.- Terrenos sin edificación | Con confección de planos</option>
@@ -632,14 +737,24 @@ const TasacionesC = ({ onBack }) => {
           <div className="resultado-card">
             <h4 className="text-center">Resultado del cálculo</h4>
             <div className="resumen-datos">
-              <p><strong>VR (Valor de Referencia):</strong> {formatearPesos(resultado.vr)}</p>
-              <p><strong>Valor en juego:</strong> {formatearPesos(resultado.valorJuego)}</p>
-              <p><strong>Tipo seleccionado:</strong> {getTipoTexto()}</p>
+              <p>
+                <strong>VR (Valor de Referencia):</strong> {formatearPesos(resultado.vr)}
+              </p>
+              <p>
+                <strong>Valor en juego:</strong> {formatearPesos(resultado.valorJuego)}
+              </p>
+              <p>
+                <strong>Tipo seleccionado:</strong> {getTipoTexto()}
+              </p>
             </div>
             <hr />
             <div className="text-center">
-              <p><strong>CONCEPTO</strong></p>
-              <p><strong>Total de Cálculos de Honorarios</strong></p>
+              <p>
+                <strong>CONCEPTO</strong>
+              </p>
+              <p>
+                <strong>Total de Cálculos de Honorarios</strong>
+              </p>
               <p>({getTipoTexto()})</p>
             </div>
 
@@ -662,7 +777,9 @@ const TasacionesC = ({ onBack }) => {
 
             {(resultado.tipoHonorario === '1' || resultado.tipoHonorario === '2' || resultado.tipoHonorario === '4' || resultado.tipoHonorario === '5' || resultado.tipoHonorario === '6' || resultado.tipoHonorario === '7') && resultado.complejidadTexto && (
               <div className="mt-3 text-center">
-                <p><strong>{resultado.complejidadTexto}</strong></p>
+                <p>
+                  <strong>{resultado.complejidadTexto}</strong>
+                </p>
                 <p className="descripcion-texto">{resultado.descripcionTexto}</p>
               </div>
             )}
