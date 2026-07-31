@@ -1,0 +1,127 @@
+{
+  "hash": "8fcfea09",
+  "configHash": "3fc9507f",
+  "lockfileHash": "65ae6968",
+  "browserHash": "293ad5dc",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "795372fd",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "54a7c7a6",
+      "needsInterop": true
+    },
+    "bootstrap/dist/js/bootstrap.bundle.js": {
+      "src": "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js",
+      "file": "bootstrap_dist_js_bootstrap__bundle__js.js",
+      "fileHash": "9588fd17",
+      "needsInterop": true
+    },
+    "@fortawesome/react-fontawesome": {
+      "src": "../../node_modules/@fortawesome/react-fontawesome/dist/index.js",
+      "file": "@fortawesome_react-fontawesome.js",
+      "fileHash": "5e9a75f0",
+      "needsInterop": false
+    },
+    "@fortawesome/free-brands-svg-icons": {
+      "src": "../../node_modules/@fortawesome/free-brands-svg-icons/index.mjs",
+      "file": "@fortawesome_free-brands-svg-icons.js",
+      "fileHash": "097a6c6f",
+      "needsInterop": false
+    },
+    "@fortawesome/free-solid-svg-icons": {
+      "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
+      "file": "@fortawesome_free-solid-svg-icons.js",
+      "fileHash": "db80b852",
+      "needsInterop": false
+    },
+    "react-bootstrap/Container": {
+      "src": "../../node_modules/react-bootstrap/esm/Container.js",
+      "file": "react-bootstrap_Container.js",
+      "fileHash": "c94149bc",
+      "needsInterop": false
+    },
+    "react-bootstrap/Row": {
+      "src": "../../node_modules/react-bootstrap/esm/Row.js",
+      "file": "react-bootstrap_Row.js",
+      "fileHash": "31abe6e1",
+      "needsInterop": false
+    },
+    "react-bootstrap/Col": {
+      "src": "../../node_modules/react-bootstrap/esm/Col.js",
+      "file": "react-bootstrap_Col.js",
+      "fileHash": "66d9e94a",
+      "needsInterop": false
+    },
+    "react-bootstrap/Card": {
+      "src": "../../node_modules/react-bootstrap/esm/Card.js",
+      "file": "react-bootstrap_Card.js",
+      "fileHash": "577afcb0",
+      "needsInterop": false
+    },
+    "react-bootstrap/Button": {
+      "src": "../../node_modules/react-bootstrap/esm/Button.js",
+      "file": "react-bootstrap_Button.js",
+      "fileHash": "d049a723",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "21fb978e",
+      "needsInterop": false
+    },
+    "react-bootstrap/Form": {
+      "src": "../../node_modules/react-bootstrap/esm/Form.js",
+      "file": "react-bootstrap_Form.js",
+      "fileHash": "b61f2360",
+      "needsInterop": false
+    },
+    "react-bootstrap": {
+      "src": "../../node_modules/react-bootstrap/esm/index.js",
+      "file": "react-bootstrap.js",
+      "fileHash": "977bbc18",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-ADYJBKAC": {
+      "file": "chunk-ADYJBKAC.js"
+    },
+    "chunk-IIT576ZH": {
+      "file": "chunk-IIT576ZH.js"
+    },
+    "package-ZYMLWEGX": {
+      "file": "package-ZYMLWEGX.js"
+    },
+    "chunk-3ELWVSU6": {
+      "file": "chunk-3ELWVSU6.js"
+    },
+    "chunk-W7I2R4PH": {
+      "file": "chunk-W7I2R4PH.js"
+    },
+    "chunk-LL3LRR3V": {
+      "file": "chunk-LL3LRR3V.js"
+    },
+    "chunk-5LED3R7S": {
+      "file": "chunk-5LED3R7S.js"
+    },
+    "chunk-FPPD6NO7": {
+      "file": "chunk-FPPD6NO7.js"
+    },
+    "chunk-P7OK6MOX": {
+      "file": "chunk-P7OK6MOX.js"
+    },
+    "chunk-3VDXVL42": {
+      "file": "chunk-3VDXVL42.js"
+    },
+    "chunk-5WRI5ZAA": {
+      "file": "chunk-5WRI5ZAA.js"
+    }
+  }
+}
