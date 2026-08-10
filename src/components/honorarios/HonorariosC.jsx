@@ -42,7 +42,7 @@ const HonorariosC = ({ onBack }) => {
     { 
       id: 1, 
       title: "Tasaciones", 
-      text: "Los honorarios por tasaciones se determinan sobre el valor del bien", 
+      text: "Determinación del valor de un bien inmueble a partir de un análisis técnico, económico y normativo", 
       image: "/images/tasaciones.jpg" 
     },
     { 
@@ -53,26 +53,26 @@ const HonorariosC = ({ onBack }) => {
     },
     { 
       id: 3, 
-      title: "Honorarios Especialidad 3", 
-      text: "Descripción genérica para la especialidad 3", 
-      image: "/images/honorarios3.jpg" 
+      title: "Consultas | Arbitrajes | Pericias", 
+      text: "Prestaciones profesionales vinculadas al asesoramiento técnico, la resolución de conflictos y la intervención en procesos de carácter legal o administrativo", 
+      image: "/images/pericias.jpg" 
     },
     { 
       id: 4, 
-      title: "Honorarios Especialidad 4", 
-      text: "Descripción genérica para la especialidad 4", 
-      image: "/images/honorarios4.jpg" 
+      title: "Representaciones técnicas", 
+      text: "Prestación profesional mediante la cual el arquitecto actua en nombre de un tercero", 
+      image: "/images/repres_tecnica.jpg" 
     },
     { 
       id: 5, 
-      title: "Honorarios Especialidad 5", 
-      text: "Descripción genérica para la especialidad 5", 
-      image: "/images/honorarios5.jpg" 
+      title: "Planeamiento y programación urbano territorial", 
+      text: "Prestación profesional orientada a la organización, regulación y proyección del territorio en sus distintas escalas", 
+      image: "/images/propuesta_urbana.jpg" 
     },
     { 
       id: 6, 
-      title: "Honorarios Especialidad 6", 
-      text: "Descripción genérica para la especialidad 6", 
+      title: "Medición y cómputo de obras de arquitectura", 
+      text: "Prestación profesional orientada a la cuantificación sistemática de los elementos que integran un proyecto arquitectónico", 
       image: "/images/honorarios6.jpg" 
     }
   ];
