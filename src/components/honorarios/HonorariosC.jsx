@@ -1,4 +1,4 @@
-// src/components/honorarios/HonorariosC.jsx (modificado)
+// src/components/honorarios/HonorariosC.jsx
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,16 +10,17 @@ import GenericHonorarioC from './GenericHonorarioC';
 import TasacionesC from './tasaciones/TasacionesC';
 import EncargosProfesionalesC from './encargosProfesionales/EncargosProfesionalesC';
 import ConsultasC from './consultas/ConsultasC';
-import ArbitrajesPericiasC from './arbitrajesPericias/ArbitrajesPericiasC'; // NUEVO
+import ArbitrajesPericiasC from './arbitrajesPericias/ArbitrajesPericiasC';
+import RepresentacionesTecnicasC from './representacionesTecnicas/RepresentacionesTecnicasC';
 import './HonorariosC.css';
 
 const HonorariosC = ({ onBack }) => {
   const [activeSubComponent, setActiveSubComponent] = useState(null);
   const [activeTitle, setActiveTitle] = useState('');
 
-  const handleSubClick = (title) => {
+  const handleSubClick = (id, title) => {
+    setActiveSubComponent(id);
     setActiveTitle(title);
-    setActiveSubComponent(title);
   };
 
   const handleBackToSubCards = () => {
@@ -28,19 +29,20 @@ const HonorariosC = ({ onBack }) => {
   };
 
   const renderSubComponent = () => {
-    if (activeTitle === "Tasaciones") {
-      return <TasacionesC onBack={handleBackToSubCards} />;
+    switch (activeSubComponent) {
+      case 1:
+        return <TasacionesC onBack={handleBackToSubCards} />;
+      case 2:
+        return <EncargosProfesionalesC onBack={handleBackToSubCards} />;
+      case 3:
+        return <ConsultasC onBack={handleBackToSubCards} />;
+      case 4:
+        return <RepresentacionesTecnicasC onBack={handleBackToSubCards} />;
+      case 6:
+        return <ArbitrajesPericiasC onBack={handleBackToSubCards} />;
+      default:
+        return <GenericHonorarioC onBack={handleBackToSubCards} title={activeTitle} />;
     }
-    if (activeTitle === "Encargos Profesionales") {
-      return <EncargosProfesionalesC onBack={handleBackToSubCards} />;
-    }
-    if (activeTitle === "Consultas") {
-      return <ConsultasC onBack={handleBackToSubCards} />;
-    }
-    if (activeTitle === "Arbitrajes y Pericias") { // NUEVO
-      return <ArbitrajesPericiasC onBack={handleBackToSubCards} />;
-    }
-    return <GenericHonorarioC onBack={handleBackToSubCards} title={activeTitle} />;
   };
 
   if (activeSubComponent) {
@@ -80,9 +82,9 @@ const HonorariosC = ({ onBack }) => {
     },
     {
       id: 6,
-      title: "Arbitrajes y Pericias",  // ← ANTES ERA "Medición y cómputo..."
+      title: "Arbitrajes y Pericias",
       text: "Prestaciones profesionales relacionadas con arbitrajes, pericias y asesoramiento técnico en conflictos",
-      image: "/images/Arbitrajes_pericias.JPG" // Puede ser una imagen nueva o reutilizar /images/pericias.jpg
+      image: "/images/Arbitrajes_pericias.JPG"
     }
   ];
 
@@ -110,7 +112,7 @@ const HonorariosC = ({ onBack }) => {
                 <h3 className="text-center card-title">{card.title}</h3>
                 <p className="text-center card-text">{card.text}</p>
                 <div className="text-center">
-                  <Button className="card-button" onClick={() => handleSubClick(card.title)}>
+                  <Button className="card-button" onClick={() => handleSubClick(card.id, card.title)}>
                     Calcular
                   </Button>
                 </div>

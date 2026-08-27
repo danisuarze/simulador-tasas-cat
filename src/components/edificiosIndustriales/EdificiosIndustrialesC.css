@@ -1,10 +1,10 @@
 /* ============================================
-   VIVIENDA UNIFAMILIAR - ESTILOS UNIFICADOS
-   Mismo look & feel que Simulador de Honorarios
+   EDIFICIOS INDUSTRIALES - ESTILOS UNIFICADOS
+   Mismo look & feel que Vivienda Unifamiliar
    ============================================ */
 
 /* --- Contenedor principal --- */
-.vivienda-container {
+.industriales-container {
   padding: 1rem 2rem;
   background-color: #f0f4f8;
   min-height: 100vh;
@@ -280,7 +280,7 @@ hr {
    ============================================ */
 
 @media (max-width: 768px) {
-  .vivienda-container {
+  .industriales-container {
     padding: 0.5rem;
   }
 
@@ -317,7 +317,7 @@ hr {
 }
 
 @media (max-width: 576px) {
-  .vivienda-container {
+  .industriales-container {
     padding: 0.3rem;
   }
 

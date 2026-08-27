@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
-import './instalacionesEstructurasC.css';
+import './InstalacionesEstructurasC.css';
 
 const InstalacionesEstructurasC = ({ onBack }) => {
   // Constantes
@@ -20,7 +20,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
   const [avanceInstalaciones, setAvanceInstalaciones] = useState('');
   const [resultados, setResultados] = useState(null);
 
-  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  // Efecto para scroll al inicio
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -28,7 +28,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
     });
   }, []);
 
-  // Efecto para limpiar resultados cuando cambian los campos de entrada
+  // Efecto para limpiar resultados
   useEffect(() => {
     setResultados(null);
   }, [
@@ -62,7 +62,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
     return valorBase * PORCENTAJE_INSTALACIONES;
   };
 
-  // Función para calcular resultados
+  // Función para calcular resultados (manteniendo toda la lógica original)
   const calcularInstalaciones = () => {
     let m2 = 0;
     let avance = parseFloat(avanceInstalaciones) || 0;
@@ -73,7 +73,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       const ampliacion = parseFloat(m2Ampliacion) || 0;
       const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
       
-      // Validar que la ampliación sea mayor a 0
       if (ampliacion <= 0) {
         setResultados({
           error: "Por favor, ingrese un valor válido para la superficie de ampliación (debe ser mayor a 0)."
@@ -81,7 +80,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         return;
       }
       
-      // Validar que el antecedente no sea mayor a la superficie construida (solo si construida > 0)
       if (construida > 0 && antecedente > construida) {
         setResultados({
           error: `Error: La superficie de antecedente (${antecedente} m²) no puede ser mayor que la superficie construida (${construida} m²).`
@@ -146,6 +144,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       contenido: `Aplicación 30% instalaciones: ${formatoMoneda(m2 * VPTR)} × 30% = ${formatoMoneda(valorConPorcentaje)}`
     });
 
+    // ===== LÓGICA DE CÁLCULO COMPLETA (idéntica al original) =====
     // Para obra construida
     if (tipoObra === 'construida') {
       const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
@@ -212,7 +211,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
     else if (tipoObra === 'nueva') {
       let tasaCalculada = 0;
 
-      // Cálculo específico para cada tipo de tarea
       if (tareaSeleccionada === "Anteproyecto") {
         tasaCalculada = valorConPorcentaje * 0.4;
         detallesCalculo.push({ tipo: "porcentaje", contenido: "40%" });
@@ -280,7 +278,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         });
       }
 
-      // Aplicar tasa mínima cuando el cálculo es menor a TASA_MINIMA
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
       
       if (tasaCalculada < TASA_MINIMA && tasaCalculada > 0 && !esDireccionSinAvance) {
@@ -305,7 +302,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       let relevamientoAplicaMinima = false;
       let relevamientoOriginal = 0;
       
-      // Solo calcular relevamiento si hay superficie construida
       if (construida > 0) {
         let superficieRelevamiento = construida - antecedente;
         
@@ -365,7 +361,7 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         tasaRelevamiento = 0;
       }
       
-      // Calcular la parte de obra nueva (ampliación)
+      // Calcular ampliación
       const valorConPorcentajeAmpliacion = calcularValorConPorcentaje(ampliacion);
       let tasaAmpliacion = 0;
       let ampliacionAplicaMinima = false;
@@ -451,7 +447,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         });
       }
 
-      // Verificar si la ampliación debe aplicar tasa mínima
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
       
       if (ampliacionOriginal < TASA_MINIMA && ampliacionOriginal > 0 && !esDireccionSinAvance) {
@@ -464,7 +459,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
       
       tasaAmpliacion = ampliacionAplicaMinima ? TASA_MINIMA : ampliacionOriginal;
       
-      // Calcular tasa total
       let tasaTotal = tasaRelevamiento + tasaAmpliacion;
       let totalAplicaMinima = false;
       
@@ -479,7 +473,6 @@ const InstalacionesEstructurasC = ({ onBack }) => {
         tasaRetributiva = tasaTotal;
       }
       
-      // Construir mensaje de servicio
       const partes = [];
       if (construida > 0) {
         partes.push(`Relevamiento${relevamientoAplicaMinima ? " (tasa mínima)" : ""}`);
@@ -530,335 +523,291 @@ const InstalacionesEstructurasC = ({ onBack }) => {
   const mostrarAvanceField = tipoObra === 'nueva' || tipoObra === 'ampliacion';
 
   return (
-    <div className="container my-4" style={{ 
-      position: 'relative',
-      zIndex: 1000,
-      minHeight: '100vh'
-    }}>
-      {/* Imagen en la parte superior */}
+    <Container fluid className="instalaciones-container">
+      {/* Imagen superior */}
       <div className="card-media-container image-container mb-4">
         <img 
           src="/images/instalaciones.jpg" 
           alt="Instalaciones y Estructuras"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
+          className="img-fluid"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/images/instalaciones.jpg';
           }}
         />
       </div>
 
-      {/* TÍTULO MODIFICADO A BLANCO */}
-      <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
-        <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0" style={{ color: '#ffffff' }}>Instalaciones y Estructuras</h2>
-          <p className="mb-0" style={{ color: '#e0e0e0' }}>
-            Complete el tipo de obra y cargue la/s superficie/s. Luego seleccione la tarea a realizar y presione calcular.
-          </p>
+      {/* Título y subtítulo */}
+      <div className="text-center mb-4">
+        <h2 className="main-title">Instalaciones y Estructuras</h2>
+        <p className="subtitle">
+          Complete el tipo de obra y cargue la/s superficie/s. Luego seleccione la tarea a realizar y presione calcular.
+        </p>
+      </div>
+
+      {/* Formulario - UNA SOLA COLUMNA */}
+      <div className="form-card">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="mb-3">
+              <label htmlFor="tipoObraInstalaciones" className="form-label">Tipo de Obra</label>
+              <select 
+                className="form-select" 
+                id="tipoObraInstalaciones" 
+                value={tipoObra}
+                onChange={(e) => setTipoObra(e.target.value)}
+              >
+                <option value="nueva">Obra Nueva</option>
+                <option value="construida">Obra Construida</option>
+                <option value="ampliacion">Construida y Ampliación</option>
+              </select>
+              {tipoObra === 'ampliacion' && (
+                <div className="form-text text-muted mt-2">
+                  <small>La superficie construida puede ser 0 si no hay construcción existente. En ese caso, solo se calculará la ampliación (sin relevamiento).</small>
+                </div>
+              )}
+            </div>
+            
+            {mostrarCamposBasicos && (
+              <div className="mb-3" id="m2BasicoField">
+                <label htmlFor="m2Instalaciones" className="form-label">Metros cuadrados (m²)</label>
+                <input 
+                  type="number" 
+                  className="form-control" 
+                  id="m2Instalaciones" 
+                  placeholder="Ingrese los m² de construcción" 
+                  min="0"
+                  value={m2Instalaciones}
+                  onChange={(e) => setM2Instalaciones(e.target.value)}
+                />
+              </div>
+            )}
+            
+            {mostrarAmpliacionFields && (
+              <div id="ampliacionFields" className="ampliacion-fields">
+                <div className="mb-3">
+                  <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="m2Construida" 
+                    placeholder="Superficie ya construida (puede ser 0)" 
+                    min="0"
+                    value={m2Construida}
+                    onChange={(e) => setM2Construida(e.target.value)}
+                  />
+                  <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
+                </div>
+                
+                <div className="mb-3">
+                  <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="m2Ampliacion" 
+                    placeholder="Superficie a ampliar" 
+                    min="0"
+                    value={m2Ampliacion}
+                    onChange={(e) => setM2Ampliacion(e.target.value)}
+                  />
+                </div>
+                
+                <div className="mb-3">
+                  <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="m2AntecedenteAmpliacion" 
+                    placeholder="Superficie de antecedente (opcional)" 
+                    min="0"
+                    value={m2AntecedenteAmpliacion}
+                    onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                  />
+                  <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
+                </div>
+              </div>
+            )}
+            
+            {mostrarAntecedenteFields && (
+              <div id="antecedenteFields" className="antecedente-fields">
+                <div className="mb-3">
+                  <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
+                  <input 
+                    type="number" 
+                    className="form-control" 
+                    id="m2AntecedenteConstruida" 
+                    placeholder="Superficie de antecedente (opcional)" 
+                    min="0"
+                    value={m2AntecedenteConstruida}
+                    onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                  />
+                  <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
+                </div>
+              </div>
+            )}
+            
+            {mostrarTareasField && (
+              <div className="mb-3 dynamic-field" id="tareasInstalacionesField">
+                <label className="form-label">Seleccione las tareas:</label>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instAnteproyecto" 
+                    value="Anteproyecto" 
+                    checked={tareaSeleccionada === "Anteproyecto"}
+                    onChange={() => setTareaSeleccionada("Anteproyecto")}
+                  />
+                  <label className="form-check-label" htmlFor="instAnteproyecto">Anteproyecto</label>
+                </div>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instProyecto" 
+                    value="Proyecto" 
+                    checked={tareaSeleccionada === "Proyecto"}
+                    onChange={() => setTareaSeleccionada("Proyecto")}
+                  />
+                  <label className="form-check-label" htmlFor="instProyecto">Proyecto</label>
+                </div>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instDireccion" 
+                    value="Dirección Técnica" 
+                    checked={tareaSeleccionada === "Dirección Técnica"}
+                    onChange={() => setTareaSeleccionada("Dirección Técnica")}
+                  />
+                  <label className="form-check-label" htmlFor="instDireccion">Dirección Técnica</label>
+                </div>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instAnteproyectoProyecto" 
+                    value="Anteproyecto y Proyecto" 
+                    checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
+                    onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
+                  />
+                  <label className="form-check-label" htmlFor="instAnteproyectoProyecto">Anteproyecto y Proyecto</label>
+                </div>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instProyectoDireccion" 
+                    value="Proyecto y Dirección Técnica" 
+                    checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
+                    onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
+                  />
+                  <label className="form-check-label" htmlFor="instProyectoDireccion">Proyecto y Dirección Técnica</label>
+                </div>
+                <div className="form-check task-item">
+                  <input 
+                    className="form-check-input" 
+                    type="radio" 
+                    name="tareaInstalaciones" 
+                    id="instCompleto" 
+                    value="Anteproyecto, Proyecto y Dirección Técnica" 
+                    checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
+                    onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
+                  />
+                  <label className="form-check-label" htmlFor="instCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
+                </div>
+              </div>
+            )}
+            
+            {mostrarAvanceField && (
+              <div className="mb-3" id="avanceField">
+                <label htmlFor="avanceInstalaciones" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
+                <input 
+                  type="number" 
+                  className="form-control" 
+                  id="avanceInstalaciones" 
+                  placeholder="Sin avance de obra (0%)" 
+                  min="0" 
+                  max="100"
+                  value={avanceInstalaciones}
+                  onChange={(e) => setAvanceInstalaciones(e.target.value)}
+                />
+                <div className="form-text">Ingrese 0 si no hay avance de obra.</div>
+              </div>
+            )}
+            
+            {/* Botón Calcular (verde, ancho completo) */}
+            <div className="d-grid">
+              <button 
+                className="calculate-button" 
+                onClick={calcularInstalaciones}
+              >
+                Calcular
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="row" style={{ position: 'relative', zIndex: 1001 }}>
-        <div className="col-lg-6">
-          <div className="card" style={{ position: 'relative', zIndex: 1002 }}>
-            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
-              <h5 className="mb-0">Datos de Entrada</h5>
+      {/* Tarjeta de resultados */}
+      <div className="resultado-card mt-4">
+        <h4 className="text-center">Resultados - Instalaciones y Estructuras</h4>
+        {resultados ? (
+          resultados.error ? (
+            <div className="alert alert-warning text-center">
+              {resultados.error}
             </div>
-            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-              <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
-                <label htmlFor="tipoObraInstalaciones" className="form-label">Tipo de Obra</label>
-                <select 
-                  className="form-select" 
-                  id="tipoObraInstalaciones" 
-                  value={tipoObra}
-                  onChange={(e) => setTipoObra(e.target.value)}
-                  style={{ position: 'relative', zIndex: 1005 }}
-                >
-                  <option value="nueva">Obra Nueva</option>
-                  <option value="construida">Obra Construida</option>
-                  <option value="ampliacion">Construida y Ampliación</option>
-                </select>
-                {tipoObra === 'ampliacion' && (
-                  <div className="form-text text-muted mt-2">
-                    <small>La superficie construida puede ser 0 si no hay construcción existente. En ese caso, solo se calculará la ampliación (sin relevamiento).</small>
-                  </div>
-                )}
+          ) : (
+            <div id="resultadosInstalaciones">
+              {resultados.html.map((item, index) => (
+                <div key={index} className="result-item">
+                  <strong>{item.label}:</strong> {item.value}
+                </div>
+              ))}
+              
+              <hr />
+              
+              <div className="resultado-final">
+                <div className="resultado-final-titulo">Tasa Retributiva Final</div>
+                <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
+                <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
               </div>
               
-              {mostrarCamposBasicos && (
-                <div className="mb-3" id="m2BasicoField" style={{ position: 'relative', zIndex: 1004 }}>
-                  <label htmlFor="m2Instalaciones" className="form-label">Metros cuadrados (m²)</label>
-                  <input 
-                    type="number" 
-                    className="form-control" 
-                    id="m2Instalaciones" 
-                    placeholder="Ingrese los m² de construcción" 
-                    min="0"
-                    value={m2Instalaciones}
-                    onChange={(e) => setM2Instalaciones(e.target.value)}
-                    style={{ position: 'relative', zIndex: 1005 }}
-                  />
-                </div>
-              )}
-              
-              {mostrarAmpliacionFields && (
-                <div id="ampliacionFields" className="ampliacion-fields" style={{ position: 'relative', zIndex: 1004 }}>
-                  <div className="mb-3">
-                    <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
-                    <input 
-                      type="number" 
-                      className="form-control" 
-                      id="m2Construida" 
-                      placeholder="Superficie ya construida (puede ser 0)" 
-                      min="0"
-                      value={m2Construida}
-                      onChange={(e) => setM2Construida(e.target.value)}
-                      style={{ position: 'relative', zIndex: 1005 }}
-                    />
-                    <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
-                  </div>
-                  
-                  <div className="mb-3">
-                    <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
-                    <input 
-                      type="number" 
-                      className="form-control" 
-                      id="m2Ampliacion" 
-                      placeholder="Superficie a ampliar" 
-                      min="0"
-                      value={m2Ampliacion}
-                      onChange={(e) => setM2Ampliacion(e.target.value)}
-                      style={{ position: 'relative', zIndex: 1005 }}
-                    />
-                  </div>
-                  
-                  <div className="mb-3">
-                    <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
-                    <input 
-                      type="number" 
-                      className="form-control" 
-                      id="m2AntecedenteAmpliacion" 
-                      placeholder="Superficie de antecedente (opcional)" 
-                      min="0"
-                      value={m2AntecedenteAmpliacion}
-                      onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
-                      style={{ position: 'relative', zIndex: 1005 }}
-                    />
-                    <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
-                  </div>
-                </div>
-              )}
-              
-              {mostrarAntecedenteFields && (
-                <div id="antecedenteFields" className="antecedente-fields" style={{ position: 'relative', zIndex: 1004 }}>
-                  <div className="mb-3">
-                    <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
-                    <input 
-                      type="number" 
-                      className="form-control" 
-                      id="m2AntecedenteConstruida" 
-                      placeholder="Superficie de antecedente (opcional)" 
-                      min="0"
-                      value={m2AntecedenteConstruida}
-                      onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
-                      style={{ position: 'relative', zIndex: 1005 }}
-                    />
-                    <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
-                  </div>
-                </div>
-              )}
-              
-              {mostrarTareasField && (
-                <div className="mb-3 dynamic-field" id="tareasInstalacionesField" style={{ position: 'relative', zIndex: 1004 }}>
-                  <label className="form-label">Seleccione las tareas:</label>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instAnteproyecto" 
-                      value="Anteproyecto" 
-                      checked={tareaSeleccionada === "Anteproyecto"}
-                      onChange={() => setTareaSeleccionada("Anteproyecto")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instAnteproyecto">Anteproyecto</label>
-                  </div>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instProyecto" 
-                      value="Proyecto" 
-                      checked={tareaSeleccionada === "Proyecto"}
-                      onChange={() => setTareaSeleccionada("Proyecto")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instProyecto">Proyecto</label>
-                  </div>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instDireccion" 
-                      value="Dirección Técnica" 
-                      checked={tareaSeleccionada === "Dirección Técnica"}
-                      onChange={() => setTareaSeleccionada("Dirección Técnica")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instDireccion">Dirección Técnica</label>
-                  </div>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instAnteproyectoProyecto" 
-                      value="Anteproyecto y Proyecto" 
-                      checked={tareaSeleccionada === "Anteproyecto y Proyecto"}
-                      onChange={() => setTareaSeleccionada("Anteproyecto y Proyecto")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instAnteproyectoProyecto">Anteproyecto y Proyecto</label>
-                  </div>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instProyectoDireccion" 
-                      value="Proyecto y Dirección Técnica" 
-                      checked={tareaSeleccionada === "Proyecto y Dirección Técnica"}
-                      onChange={() => setTareaSeleccionada("Proyecto y Dirección Técnica")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instProyectoDireccion">Proyecto y Dirección Técnica</label>
-                  </div>
-                  <div className="form-check task-item" style={{ position: 'relative', zIndex: 1005 }}>
-                    <input 
-                      className="form-check-input" 
-                      type="radio" 
-                      name="tareaInstalaciones" 
-                      id="instCompleto" 
-                      value="Anteproyecto, Proyecto y Dirección Técnica" 
-                      checked={tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica"}
-                      onChange={() => setTareaSeleccionada("Anteproyecto, Proyecto y Dirección Técnica")}
-                      style={{ position: 'relative', zIndex: 1006 }}
-                    />
-                    <label className="form-check-label" htmlFor="instCompleto">Anteproyecto, Proyecto y Dirección Técnica</label>
-                  </div>
-                </div>
-              )}
-              
-              {mostrarAvanceField && (
-                <div className="mb-3" id="avanceField" style={{ position: 'relative', zIndex: 1004 }}>
-                  <label htmlFor="avanceInstalaciones" className="form-label">% Avance de Obra (solo para Dirección Técnica)</label>
-                  <input 
-                    type="number" 
-                    className="form-control" 
-                    id="avanceInstalaciones" 
-                    placeholder="Sin avance de obra (0%)" 
-                    min="0" 
-                    max="100"
-                    value={avanceInstalaciones}
-                    onChange={(e) => setAvanceInstalaciones(e.target.value)}
-                    style={{ position: 'relative', zIndex: 1005 }}
-                  />
-                  <div className="form-text">Ingrese 0 si no hay avance de obra.</div>
-                </div>
-              )}
-              
-              <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
-                <button 
-                  className="calculate-button" 
-                  onClick={calcularInstalaciones}
-                  style={{ position: 'relative', zIndex: 1006 }}
+              <div className="mt-4 pt-3 border-top">
+                <Button 
+                  onClick={onBack}
+                  className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
                 >
-                  Calcular
-                </button>
+                  <FaArrowLeft className="me-2" />
+                  Volver al Menú Principal
+                </Button>
               </div>
             </div>
-          </div>
-        </div>
-        
-        <div className="col-lg-6">
-          <div className="card result-card" style={{ position: 'relative', zIndex: 1002 }}>
-            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
-              <h5 className="mb-0">Resultados - Instalaciones y Estructuras</h5>
-            </div>
-            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-              {resultados ? (
-                resultados.error ? (
-                  <div className="alert alert-warning text-center" style={{ position: 'relative', zIndex: 1004 }}>
-                    {resultados.error}
-                  </div>
-                ) : (
-                  <div id="resultadosInstalaciones" style={{ position: 'relative', zIndex: 1004 }}>
-                    {resultados.html.map((item, index) => (
-                      <div key={index} className="result-item">
-                        <strong>{item.label}:</strong> {item.value}
-                      </div>
-                    ))}
-                    
-                    <hr />
-                    
-                    <div className="resultado-final">
-                      <div className="resultado-final-titulo">Tasa Retributiva Final</div>
-                      <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
-                      <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
-                    </div>
-                    
-                    <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
-                      <Button 
-                        onClick={onBack}
-                        className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
-                        style={{
-                          backgroundColor: '#7B9C6B',
-                          borderColor: '#7B9C6B',
-                          color: 'white',
-                          padding: '0.75rem 1.5rem',
-                          fontSize: '1rem',
-                          fontWeight: '600'
-                        }}
-                      >
-                        <FaArrowLeft className="me-2" />
-                        Volver al Menú Principal
-                      </Button>
-                    </div>
-                  </div>
-                )
-              ) : (
-                <div style={{ position: 'relative', zIndex: 1004 }}>
-                  <p className="text-center text-muted">
-                    Ingrese los datos y haga clic en calcular para ver los resultados
-                  </p>
-                  
-                  <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
-                    <Button 
-                      onClick={onBack}
-                      className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
-                      style={{
-                        backgroundColor: '#7B9C6B',
-                        borderColor: '#7B9C6B',
-                        color: 'white',
-                        padding: '0.75rem 1.5rem',
-                        fontSize: '1rem',
-                        fontWeight: '600'
-                      }}
-                    >
-                      <FaArrowLeft className="me-2" />
-                      Volver al Menú Principal
-                    </Button>
-                  </div>
-                </div>
-              )}
+          )
+        ) : (
+          <div>
+            <p className="text-center text-muted">
+              Ingrese los datos y haga clic en calcular para ver los resultados
+            </p>
+            
+            <div className="mt-4 pt-3 border-top">
+              <Button 
+                onClick={onBack}
+                className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+              >
+                <FaArrowLeft className="me-2" />
+                Volver al Menú Principal
+              </Button>
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </div>
+    </Container>
   );
 };
 

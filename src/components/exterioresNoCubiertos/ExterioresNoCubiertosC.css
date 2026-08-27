@@ -1,77 +1,30 @@
-/* Estilos para el botón volver personalizado */
-.back-button-custom {
-  background-color: #7B9C6B !important;
-  border-color: #7B9C6B !important;
-  color: white !important;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* ============================================
+   EXTERIORES NO CUBIERTOS - ESTILOS UNIFICADOS
+   Mismo look & feel que Vivienda y otros componentes
+   ============================================ */
+
+/* --- Contenedor principal --- */
+.exteriores-container {
+  padding: 1rem 2rem;
+  background-color: #f0f4f8;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.back-button-custom:hover {
-  background-color: #6b8a5c !important;
-  border-color: #6b8a5c !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.4);
-  color: white !important;
-}
-
-.back-button-custom:focus {
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5);
-  background-color: #7B9C6B !important;
-  border-color: #7B9C6B !important;
-  color: white !important;
-}
-
-/* Estilos para el botón Calcular unificado */
-.calculate-button {
-  background-color: #1A286F !important;
-  color: white !important;
-  border: none !important;
-  border-radius: 8px !important;
-  padding: 10px 20px !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  width: 100% !important;
-  cursor: pointer !important;
-  transition: all 0.3s ease !important;
-}
-
-.calculate-button:hover {
-  background-color: #15225a !important;
-  transform: translateY(-2px);
-}
-
-.calculate-button:active {
-  transform: translateY(0);
-}
-
-/* Asegurar que el botón sea siempre visible */
-.result-card .card-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.result-card .card-body > div:last-child {
-  margin-top: auto;
-}
-
-/* Contenedor de imagen */
+/* --- Imagen superior --- */
 .card-media-container {
   width: 100%;
+  border-radius: 15px;
   overflow: hidden;
+  background-color: #e9ecef;
+  margin-bottom: 1.5rem;
 }
 
 .image-container {
   height: 200px;
-  border-radius: 12px;
+  border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1.5rem;
 }
 
 .image-container img {
@@ -80,236 +33,314 @@
   object-fit: cover;
 }
 
-/* Estilos para las cards de datos */
-.card {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 1rem;
+/* --- Títulos --- */
+.main-title {
+  font-weight: 700;
+  color: #040D3B !important;
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
 }
 
-.card-header {
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 12px 16px;
-  font-weight: 600;
+.subtitle {
   font-size: 1rem;
+  color: #495057 !important;
+  margin-bottom: 0;
+  text-align: center;
 }
 
-.card-body {
-  padding: 20px;
+/* --- Tarjeta del formulario --- */
+.form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
-/* Formularios */
+/* --- Tarjeta de resultados --- */
+.resultado-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 1.5rem auto 0;
+  width: 100%;
+}
+
+.resultado-card h4 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* --- Etiquetas --- */
 .form-label {
-  font-weight: 500;
-  margin-bottom: 5px;
-  color: #333;
-  font-size: 0.9rem;
+  font-weight: 600;
+  color: #15225a;
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
 }
 
-.form-control, .form-select {
-  border-radius: 6px;
+/* --- Inputs y selects --- */
+.form-control,
+.form-select {
+  border-radius: 8px;
   border: 1px solid #ced4da;
-  padding: 8px 12px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.95rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  font-size: 0.9rem;
 }
 
-.form-control:focus, .form-select:focus {
-  border-color: #1A286F;
+.form-control:focus,
+.form-select:focus {
+  border-color: #15225a;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(26, 40, 111, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(21, 34, 90, 0.15);
 }
 
 .form-text {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: #6c757d;
-  margin-top: 4px;
+  margin-top: 0.25rem;
 }
 
-/* Checkboxes y radios */
+/* --- Checkboxes y radios --- */
 .form-check {
-  margin-bottom: 8px;
+  margin-bottom: 0.6rem;
 }
 
 .form-check-input {
-  margin-right: 8px;
+  margin-right: 0.5rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
 }
 
 .form-check-input:checked {
-  background-color: #1A286F;
-  border-color: #1A286F;
+  background-color: #15225a;
+  border-color: #15225a;
 }
 
 .form-check-label {
-  font-size: 0.85rem;
-  color: #333;
+  font-weight: 400;
+  color: #212529;
+  cursor: pointer;
 }
 
-/* Alertas */
-.alert-info {
-  background-color: #d1ecf1;
-  border-color: #bee5eb;
-  color: #0c5460;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  margin-top: 10px;
+/* --- Botón Calcular (verde, ancho completo) --- */
+.calculate-button {
+  background-color: #7B9C6B !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 0.7rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.calculate-button:hover {
+  background-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.3);
+}
+
+.calculate-button:active {
+  transform: translateY(0);
+}
+
+/* --- Botón Volver (verde, ancho completo) --- */
+.back-button-custom {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  color: white !important;
+  padding: 0.6rem 1.5rem !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.back-button-custom:hover {
+  background-color: #6b8a5c !important;
+  border-color: #6b8a5c !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 156, 107, 0.3);
+  color: white !important;
+}
+
+/* --- Items de resultados --- */
+.result-item {
+  margin-bottom: 0.5rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 0.95rem;
+  color: #212529;
+}
+
+.result-item strong {
+  color: #15225a;
+}
+
+/* --- Bloque de resultado final --- */
+.resultado-final {
+  background-color: #f8f9fa;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
+  border-left: 5px solid #7B9C6B;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.resultado-final-titulo {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resultado-final-valor {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #15225a;
+  margin: 0.2rem 0;
+}
+
+.resultado-final-descripcion {
+  font-size: 0.85rem;
+  color: #495057;
+  margin-top: 0.3rem;
+}
+
+/* --- Mensaje de error --- */
 .alert-warning {
   background-color: #fff3cd;
   border-color: #ffeeba;
   color: #856404;
-  padding: 12px;
-  border-radius: 8px;
-}
-
-/* Resultados */
-.result-item {
-  margin-bottom: 8px;
-  padding: 4px 0;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 0.9rem;
-}
-
-.resultado-final {
-  background-color: #f8f9fa;
-  padding: 15px;
+  padding: 0.75rem 1rem;
   border-radius: 8px;
   text-align: center;
-  margin-top: 15px;
 }
 
-.resultado-final-titulo {
-  font-size: 0.85rem;
-  color: #6c757d;
-  margin-bottom: 5px;
+/* --- Separadores --- */
+hr {
+  border-top: 1px solid #dee2e6;
+  margin: 1rem 0;
 }
 
-.resultado-final-valor {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1A286F;
+/* --- Campos dinámicos --- */
+.dynamic-field {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed #dee2e6;
 }
 
-.resultado-final-descripcion {
-  font-size: 0.8rem;
-  color: #6c757d;
-  margin-top: 5px;
+.ampliacion-fields,
+.antecedente-fields {
+  margin-top: 0.5rem;
 }
 
-/* Grid */
-.d-grid {
-  display: grid;
-}
-
-/* Títulos principales */
-.text-center h2 {
-  color: #040D3B;
-  font-weight: 700;
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-}
-
-.text-muted {
-  color: #848688 !important;
-  font-size: 0.9rem;
-}
-
-/* Responsive */
+/* --- Responsive --- */
 @media (max-width: 768px) {
-  .back-button-custom {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+  .exteriores-container {
+    padding: 0.5rem;
   }
-  
+
   .image-container {
     height: 150px;
   }
-  
-  .calculate-button {
-    padding: 8px 16px !important;
-    font-size: 0.9rem !important;
+
+  .form-card,
+  .resultado-card {
+    padding: 1rem;
   }
-  
-  .card-body {
-    padding: 15px;
-  }
-  
-  .form-label {
-    font-size: 0.85rem;
-  }
-  
-  .form-control, .form-select {
-    font-size: 0.85rem;
-    padding: 6px 10px;
-  }
-  
-  .resultado-final-valor {
-    font-size: 1.2rem;
-  }
-  
-  .text-center h2 {
+
+  .main-title {
     font-size: 1.5rem;
   }
-  
-  .text-muted {
-    font-size: 0.8rem;
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .calculate-button {
+    padding: 0.6rem 1.5rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .back-button-custom {
+    padding: 0.5rem 1.2rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .resultado-final-valor {
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 576px) {
+  .exteriores-container {
+    padding: 0.3rem;
+  }
+
   .image-container {
     height: 120px;
   }
-  
+
+  .form-card,
+  .resultado-card {
+    padding: 0.8rem;
+  }
+
+  .main-title {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+  }
+
+  .form-label {
+    font-size: 0.85rem;
+  }
+
+  .form-control,
+  .form-select {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
   .calculate-button {
-    padding: 6px 12px !important;
+    padding: 0.5rem 1rem !important;
     font-size: 0.85rem !important;
   }
-  
-  .card-header {
-    padding: 10px 12px;
-    font-size: 0.9rem;
+
+  .back-button-custom {
+    padding: 0.4rem 1rem !important;
+    font-size: 0.8rem !important;
   }
-  
-  .card-body {
-    padding: 12px;
-  }
-  
-  .form-label {
-    font-size: 0.8rem;
-  }
-  
-  .form-control, .form-select {
-    font-size: 0.8rem;
-    padding: 5px 8px;
-  }
-  
-  .result-item {
-    font-size: 0.8rem;
-  }
-  
+
   .resultado-final-valor {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
-  
-  .resultado-final-descripcion {
-    font-size: 0.7rem;
+
+  .resultado-final {
+    padding: 0.8rem;
   }
-  
-  .text-center h2 {
-    font-size: 1.3rem;
-  }
-  
-  .text-muted {
-    font-size: 0.7rem;
-  }
-  
-  .alert-info {
-    font-size: 0.75rem;
-    padding: 8px;
+
+  .result-item {
+    font-size: 0.85rem;
   }
 }
