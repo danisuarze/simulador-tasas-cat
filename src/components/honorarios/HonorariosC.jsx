@@ -1,3 +1,4 @@
+// src/components/honorarios/HonorariosC.jsx (modificado)
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -8,6 +9,8 @@ import { FaArrowLeft } from 'react-icons/fa';
 import GenericHonorarioC from './GenericHonorarioC';
 import TasacionesC from './tasaciones/TasacionesC';
 import EncargosProfesionalesC from './encargosProfesionales/EncargosProfesionalesC';
+import ConsultasC from './consultas/ConsultasC';
+import ArbitrajesPericiasC from './arbitrajesPericias/ArbitrajesPericiasC'; // NUEVO
 import './HonorariosC.css';
 
 const HonorariosC = ({ onBack }) => {
@@ -31,6 +34,12 @@ const HonorariosC = ({ onBack }) => {
     if (activeTitle === "Encargos Profesionales") {
       return <EncargosProfesionalesC onBack={handleBackToSubCards} />;
     }
+    if (activeTitle === "Consultas") {
+      return <ConsultasC onBack={handleBackToSubCards} />;
+    }
+    if (activeTitle === "Arbitrajes y Pericias") { // NUEVO
+      return <ArbitrajesPericiasC onBack={handleBackToSubCards} />;
+    }
     return <GenericHonorarioC onBack={handleBackToSubCards} title={activeTitle} />;
   };
 
@@ -39,41 +48,41 @@ const HonorariosC = ({ onBack }) => {
   }
 
   const subCards = [
-    { 
-      id: 1, 
-      title: "Tasaciones", 
-      text: "Determinación del valor de un bien inmueble a partir de un análisis técnico, económico y normativo", 
-      image: "/images/tasaciones.jpg" 
+    {
+      id: 1,
+      title: "Tasaciones",
+      text: "Determinación del valor de un bien inmueble a partir de un análisis técnico, económico y normativo",
+      image: "/images/tasaciones.jpg"
     },
-    { 
-      id: 2, 
-      title: "Encargos Profesionales", 
-      text: "Honorarios por encargos y/o servicios profesionales de arquitectura", 
+    {
+      id: 2,
+      title: "Encargos Profesionales",
+      text: "Honorarios por encargos y/o servicios profesionales de arquitectura",
       image: "/images/Encargo_prof.jpg"
     },
-    { 
-      id: 3, 
-      title: "Consultas | Arbitrajes | Pericias", 
-      text: "Prestaciones profesionales vinculadas al asesoramiento técnico, la resolución de conflictos y la intervención en procesos de carácter legal o administrativo", 
-      image: "/images/pericias.jpg" 
+    {
+      id: 3,
+      title: "Consultas",
+      text: "Prestaciones profesionales vinculadas al asesoramiento técnico",
+      image: "/images/consultas.jpg"
     },
-    { 
-      id: 4, 
-      title: "Representaciones técnicas", 
-      text: "Prestación profesional mediante la cual el arquitecto actua en nombre de un tercero", 
-      image: "/images/repres_tecnica.jpg" 
+    {
+      id: 4,
+      title: "Representaciones técnicas",
+      text: "Prestación profesional mediante la cual el arquitecto actua en nombre de un tercero",
+      image: "/images/repres_tecnica.jpg"
     },
-    { 
-      id: 5, 
-      title: "Planeamiento y programación urbano territorial", 
-      text: "Prestación profesional orientada a la organización, regulación y proyección del territorio en sus distintas escalas", 
-      image: "/images/propuesta_urbana.jpg" 
+    {
+      id: 5,
+      title: "Planeamiento y programación urbano territorial",
+      text: "Prestación profesional orientada a la organización, regulación y proyección del territorio en sus distintas escalas",
+      image: "/images/propuesta_urbana.jpg"
     },
-    { 
-      id: 6, 
-      title: "Medición y cómputo de obras de arquitectura", 
-      text: "Prestación profesional orientada a la cuantificación sistemática de los elementos que integran un proyecto arquitectónico", 
-      image: "/images/honorarios6.jpg" 
+    {
+      id: 6,
+      title: "Arbitrajes y Pericias",  // ← ANTES ERA "Medición y cómputo..."
+      text: "Prestaciones profesionales relacionadas con arbitrajes, pericias y asesoramiento técnico en conflictos",
+      image: "/images/Arbitrajes_pericias.JPG" // Puede ser una imagen nueva o reutilizar /images/pericias.jpg
     }
   ];
 

@@ -1,0 +1,291 @@
+/* ============================================
+   ARBITRAJES Y PERICIAS - ESTILOS COMPLETOS
+   Basado en Encargos Profesionales
+   ============================================ */
+
+/* --- Contenedor principal --- */
+.arbitrajes-container {
+  padding: 1rem 2rem;
+  background-color: #f0f4f8;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* --- Imagen --- */
+.card-media-container {
+  width: 100%;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+/* --- Títulos --- */
+.main-title {
+  font-weight: 700;
+  color: #040D3B !important;
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #495057 !important;
+  margin-bottom: 0;
+}
+
+/* --- Tarjeta del formulario --- */
+.form-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* --- Botón Volver --- */
+.btn-volver-arbitrajes {
+  background-color: #7B9C6B !important;
+  border: none !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-volver-arbitrajes:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+  color: #ffffff !important;
+}
+
+/* --- Botón Calcular --- */
+.calcular-btn {
+  background-color: #7B9C6B !important;
+  border-color: #7B9C6B !important;
+  padding: 0.6rem 2rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  color: #ffffff !important;
+}
+
+.calcular-btn:hover {
+  background-color: #6b8a5c !important;
+  transform: scale(1.02);
+}
+
+/* --- Mensaje de error --- */
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* --- Tarjeta de resultados --- */
+.resultado-card {
+  background-color: #f8f9fa;
+  border-left: 5px solid #7B9C6B;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+.resultado-card h4 {
+  color: #040D3B;
+  margin-bottom: 1rem;
+}
+
+.resumen-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.resumen-datos p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #212529 !important;
+}
+
+/* ============================================
+   DESGLOSE DE HONORARIOS - ESCRITORIO
+   ============================================ */
+.desglose-honorarios {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.fila-desglose {
+  display: grid;
+  grid-template-columns: 1fr 160px; /* Concepto flexible | Monto fijo */
+  gap: 1.5rem;
+  align-items: baseline;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.fila-desglose:last-of-type {
+  border-bottom: none;
+}
+
+.fila-desglose .concepto {
+  font-size: 0.95rem;
+  color: #212529;
+  text-align: left;
+}
+
+.fila-desglose .monto {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #15225a;
+  text-align: right;
+  justify-self: end;
+}
+
+/* Fila de total (destacada) */
+.fila-desglose.total {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid #7B9C6B;
+}
+
+.fila-desglose.total .concepto {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #040D3B;
+}
+
+.fila-desglose.total .monto {
+  font-size: 1.3rem;
+  color: #040D3B;
+  font-weight: 700;
+}
+
+/* ============================================
+   MONTO MÍNIMO SUGERIDO (centrado, más pequeño)
+   ============================================ */
+.monto-minimo-container {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #dee2e6;
+}
+
+.monto-minimo-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.monto-minimo-text strong {
+  color: #495057;
+}
+
+/* ============================================
+   RESPONSIVE - TABLETS Y MÓVILES GRANDES
+   ============================================ */
+@media (max-width: 768px) {
+  .arbitrajes-container {
+    padding: 0.5rem;
+  }
+  .main-title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  .form-card {
+    padding: 1rem;
+  }
+  .image-container img {
+    max-height: 200px;
+  }
+
+  /* En móvil, las filas se vuelven bloque con flex */
+  .fila-desglose {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.3rem 0;
+  }
+
+  .fila-desglose .concepto {
+    font-size: 0.85rem;
+    flex: 0 0 100%;
+    margin-bottom: 0.1rem;
+  }
+
+  .fila-desglose .monto {
+    font-size: 0.85rem;
+    text-align: left;
+    justify-self: start;
+  }
+
+  .fila-desglose.total .monto {
+    font-size: 1.1rem;
+  }
+
+  .monto-minimo-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================
+   RESPONSIVE - MÓVILES PEQUEÑOS
+   ============================================ */
+@media (max-width: 576px) {
+  .arbitrajes-container {
+    padding: 0.3rem;
+  }
+  .main-title {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 0.75rem;
+  }
+  .form-card {
+    padding: 0.8rem;
+  }
+  .image-container img {
+    max-height: 150px;
+  }
+
+  .resumen-datos {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .fila-desglose .concepto {
+    font-size: 0.8rem;
+  }
+  .fila-desglose .monto {
+    font-size: 0.8rem;
+  }
+  .fila-desglose.total .monto {
+    font-size: 1rem;
+  }
+
+  .monto-minimo-text {
+    font-size: 0.75rem;
+  }
+}
