@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import { FaArrowLeft } from 'react-icons/fa';
 import './EstudioPropuestaC.css';
 
@@ -12,7 +12,7 @@ const EstudioPropuestaC = ({ onBack }) => {
   const [montoObra, setMontoObra] = useState('');
   const [resultados, setResultados] = useState(null);
 
-  // Efecto para hacer scroll al inicio de la página cuando se monta el componente
+  // Efecto para hacer scroll al inicio
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -42,7 +42,6 @@ const EstudioPropuestaC = ({ onBack }) => {
     }
 
     let html = [];
-    let detallesCalculo = [];
     
     html.push({ label: "Monto de Licitación", value: formatoMoneda(monto) });
     html.push({ label: "VPTR", value: formatoMoneda(VPTR) });
@@ -57,215 +56,149 @@ const EstudioPropuestaC = ({ onBack }) => {
     const limite2 = 100000 * VPTR;
     const limite3 = 1000000 * VPTR;
 
-    detallesCalculo.push({
-      tipo: "info",
-      contenido: `Límite 1: ${formatoMoneda(limite1)} (10,000 × VPTR)`
-    });
-    detallesCalculo.push({
-      tipo: "info",
-      contenido: `Límite 2: ${formatoMoneda(limite2)} (100,000 × VPTR)`
-    });
-    detallesCalculo.push({
-      tipo: "info",
-      contenido: `Límite 3: ${formatoMoneda(limite3)} (1,000,000 × VPTR)`
-    });
-
     // Calcular según los rangos especificados
     if (monto <= limite1) {
       // Monto menor a 10,000*VPTR -> Tasa mínima
       tasaRetributiva = TASA_MINIMA;
       rangoAplicado = `Monto ≤ ${formatoMoneda(limite1)}`;
-      detallesCalculo.push({
-        tipo: "calculo",
-        contenido: `Aplicación de Tasa Mínima: ${formatoMoneda(TASA_MINIMA)} (20 × VPTR)`
-      });
     } else if (monto > limite1 && monto <= limite2) {
       // Monto entre 10,000*VPTR y 100,000*VPTR -> 0.03%
       tasaRetributiva = monto * 0.0003; // 0.03%
       rangoAplicado = `${formatoMoneda(limite1)} < Monto ≤ ${formatoMoneda(limite2)}`;
-      detallesCalculo.push({
-        tipo: "calculo",
-        contenido: `Cálculo: ${formatoMoneda(monto)} × 0.03% = ${formatoMoneda(tasaRetributiva)}`
-      });
     } else if (monto > limite2 && monto <= limite3) {
       // Monto entre 100,000*VPTR y 1,000,000*VPTR -> 0.02%
       tasaRetributiva = monto * 0.0002; // 0.02%
       rangoAplicado = `${formatoMoneda(limite2)} < Monto ≤ ${formatoMoneda(limite3)}`;
-      detallesCalculo.push({
-        tipo: "calculo",
-        contenido: `Cálculo: ${formatoMoneda(monto)} × 0.02% = ${formatoMoneda(tasaRetributiva)}`
-      });
     } else {
       // Monto mayor a 1,000,000*VPTR -> 0.01%
       tasaRetributiva = monto * 0.0001; // 0.01%
       rangoAplicado = `Monto > ${formatoMoneda(limite3)}`;
-      detallesCalculo.push({
-        tipo: "calculo",
-        contenido: `Cálculo: ${formatoMoneda(monto)} × 0.01% = ${formatoMoneda(tasaRetributiva)}`
-      });
     }
 
     html.push({ label: "Rango aplicado", value: rangoAplicado });
 
     // Aplicar tasa mínima si el cálculo es menor (solo para los casos de porcentaje)
     if (monto > limite1 && tasaRetributiva < TASA_MINIMA) {
-      detallesCalculo.push({
-        tipo: "info",
-        contenido: `Aplicación de Tasa Mínima: El cálculo inicial (${formatoMoneda(tasaRetributiva)}) es menor que la tasa mínima establecida (${formatoMoneda(TASA_MINIMA)}), por lo que se aplica la tasa mínima.`
-      });
       tasaRetributiva = TASA_MINIMA;
     }
 
     setResultados({
       html,
-      detallesCalculo,
       tasaRetributiva,
       descripcionServicio
     });
   };
 
   return (
-    <div className="container my-4" style={{ 
-      position: 'relative',
-      zIndex: 1000,
-      minHeight: '100vh'
-    }}>
-      {/* Imagen en la parte superior */}
+    <Container fluid className="estudio-propuesta-container">
+      {/* Imagen superior */}
       <div className="card-media-container image-container mb-4">
         <img 
           src="/images/estudio_propuesta.jpg" 
           alt="Estudio de Propuesta"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
+          className="img-fluid"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/images/estudio_propuesta.jpg';
           }}
         />
       </div>
 
-      {/* TÍTULO MODIFICADO A BLANCO */}
-      <div className="text-center mb-4" style={{ position: 'relative', zIndex: 1001 }}>
-        <div style={{ position: 'relative', zIndex: 1001 }}>
-          <h2 className="mb-0" style={{ color: '#ffffff' }}>Estudio de Propuesta</h2>
-          <p className="mb-0" style={{ color: '#e0e0e0' }}>
-            Ingrese el monto de la licitación y presione calcular.
-          </p>
+      {/* Título y subtítulo */}
+      <div className="text-center mb-4">
+        <h2 className="main-title">Estudio de Propuesta</h2>
+        <p className="subtitle">
+          Ingrese el monto de la licitación y presione calcular.
+        </p>
+      </div>
+
+      {/* Formulario - UNA SOLA COLUMNA */}
+      <div className="form-card">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="mb-3">
+              <label htmlFor="montoObraEstudioPropuesta" className="form-label">
+                Monto de Licitación ($)
+              </label>
+              <input 
+                type="number" 
+                className="form-control" 
+                id="montoObraEstudioPropuesta" 
+                placeholder="Ingrese el monto de la licitación" 
+                min="0"
+                step="0.01"
+                value={montoObra}
+                onChange={(e) => setMontoObra(e.target.value)}
+              />
+            </div>
+            
+            {/* Botón Calcular (verde, ancho completo) */}
+            <div className="d-grid">
+              <button 
+                className="calculate-button" 
+                onClick={calcularEstudioPropuesta}
+              >
+                Calcular
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="row" style={{ position: 'relative', zIndex: 1001 }}>
-        <div className="col-lg-6">
-          <div className="card" style={{ position: 'relative', zIndex: 1002 }}>
-            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
-              <h5 className="mb-0">Datos de Entrada</h5>
+      {/* Tarjeta de resultados */}
+      <div className="resultado-card mt-4">
+        <h4 className="text-center">Resultados - Estudio de Propuesta</h4>
+        {resultados ? (
+          resultados.error ? (
+            <div className="alert alert-warning text-center">
+              {resultados.error}
             </div>
-            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-              <div className="mb-3" style={{ position: 'relative', zIndex: 1004 }}>
-                <label htmlFor="montoObraEstudioPropuesta" className="form-label">
-                  Monto de Licitación ($)
-                </label>
-                <input 
-                  type="number" 
-                  className="form-control" 
-                  id="montoObraEstudioPropuesta" 
-                  placeholder="Ingrese el monto de la licitación" 
-                  min="0"
-                  step="0.01"
-                  value={montoObra}
-                  onChange={(e) => setMontoObra(e.target.value)}
-                  style={{ position: 'relative', zIndex: 1005 }}
-                />
+          ) : (
+            <div id="resultadosEstudioPropuesta">
+              {resultados.html.map((item, index) => (
+                <div key={index} className="result-item">
+                  <strong>{item.label}:</strong> {item.value}
+                </div>
+              ))}
+              
+              <hr />
+              
+              <div className="resultado-final">
+                <div className="resultado-final-titulo">Tasa Retributiva Final</div>
+                <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
+                <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
               </div>
               
-              <div className="d-grid" style={{ position: 'relative', zIndex: 1005 }}>
-                <button 
-                  className="calculate-button" 
-                  onClick={calcularEstudioPropuesta}
-                  style={{ position: 'relative', zIndex: 1006 }}
+              <div className="mt-4 pt-3 border-top">
+                <Button 
+                  onClick={onBack}
+                  className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
                 >
-                  Calcular
-                </button>
+                  <FaArrowLeft className="me-2" />
+                  Volver al Menú Principal
+                </Button>
               </div>
             </div>
-          </div>
-        </div>
-        
-        <div className="col-lg-6">
-          <div className="card result-card" style={{ position: 'relative', zIndex: 1002 }}>
-            <div className="card-header" style={{ position: 'relative', zIndex: 1003 }}>
-              <h5 className="mb-0">Resultados - Estudio de Propuesta</h5>
-            </div>
-            <div className="card-body" style={{ position: 'relative', zIndex: 1003 }}>
-              {resultados ? (
-                resultados.error ? (
-                  <div className="alert alert-warning text-center" style={{ position: 'relative', zIndex: 1004 }}>
-                    {resultados.error}
-                  </div>
-                ) : (
-                  <div id="resultadosEstudioPropuesta" style={{ position: 'relative', zIndex: 1004 }}>
-                    {resultados.html.map((item, index) => (
-                      <div key={index} className="result-item">
-                        <strong>{item.label}:</strong> {item.value}
-                      </div>
-                    ))}
-                    
-                    <hr />
-                    
-                    <div className="resultado-final">
-                      <div className="resultado-final-titulo">Tasa Retributiva Final</div>
-                      <div className="resultado-final-valor">{formatoMoneda(resultados.tasaRetributiva)}</div>
-                      <div className="resultado-final-descripcion">{resultados.descripcionServicio}</div>
-                    </div>
-                    
-                    <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
-                      <Button 
-                        onClick={onBack}
-                        className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
-                        style={{
-                          backgroundColor: '#7B9C6B',
-                          borderColor: '#7B9C6B',
-                          color: 'white',
-                          padding: '0.75rem 1.5rem',
-                          fontSize: '1rem',
-                          fontWeight: '600'
-                        }}
-                      >
-                        <FaArrowLeft className="me-2" />
-                        Volver al Menú Principal
-                      </Button>
-                    </div>
-                  </div>
-                )
-              ) : (
-                <div style={{ position: 'relative', zIndex: 1004 }}>
-                  <p className="text-center text-muted">
-                    Ingrese el monto de la licitación y haga clic en calcular para ver los resultados
-                  </p>
-                  
-                  <div className="mt-4 pt-3 border-top" style={{ position: 'relative', zIndex: 1005 }}>
-                    <Button 
-                      onClick={onBack}
-                      className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
-                      style={{
-                        backgroundColor: '#7B9C6B',
-                        borderColor: '#7B9C6B',
-                        color: 'white',
-                        padding: '0.75rem 1.5rem',
-                        fontSize: '1rem',
-                        fontWeight: '600'
-                      }}
-                    >
-                      <FaArrowLeft className="me-2" />
-                      Volver al Menú Principal
-                    </Button>
-                  </div>
-                </div>
-              )}
+          )
+        ) : (
+          <div>
+            <p className="text-center text-muted">
+              Ingrese el monto de la licitación y haga clic en calcular para ver los resultados
+            </p>
+            
+            <div className="mt-4 pt-3 border-top">
+              <Button 
+                onClick={onBack}
+                className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
+              >
+                <FaArrowLeft className="me-2" />
+                Volver al Menú Principal
+              </Button>
             </div>
           </div>
-        </div>
+        )}
       </div>
-    </div>
+    </Container>
   );
 };
 
