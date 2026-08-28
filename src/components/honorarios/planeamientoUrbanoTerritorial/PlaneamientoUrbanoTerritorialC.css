@@ -1,6 +1,5 @@
 /* ============================================
    PLANEAMIENTO URBANO TERRITORIAL - ESTILOS COMPLETOS
-   Basado en Consultas y Encargos
    ============================================ */
 
 .planeamiento-container {
@@ -17,14 +16,21 @@
   background-color: #e9ecef;
 }
 
-.image-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  max-height: 300px;
+/* ===== IMAGEN CON ALTURA FIJA (como en Vivienda) ===== */
+.image-container {
+  height: 200px; /* ← NUEVO: altura fija para evitar zoom */
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== TÍTULOS ===== */
 .main-title {
   font-weight: 700;
   color: #040D3B !important;
@@ -38,6 +44,7 @@
   margin-bottom: 0;
 }
 
+/* ===== TARJETAS ===== */
 .form-card {
   background: white;
   padding: 2rem;
@@ -48,37 +55,10 @@
   width: 100%;
 }
 
-/* ===== BOTÓN VOLVER (TRANSPARENTE CON HOVER VERDE OSCURO) ===== */
-.btn-volver-planeamiento {
-  background-color: transparent !important;
-  border: 2px solid #7B9C6B !important;
-  color: #7B9C6B !important;
-  opacity: 1 !important;
-  font-weight: 600 !important;
-  padding: 0.5rem 1.5rem !important;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-  transition: all 0.2s ease !important;
-}
-
-.btn-volver-planeamiento:hover {
-  background-color: #7B9C6B !important;
-  color: #ffffff !important;
-  transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(123, 156, 107, 0.3) !important;
-}
-
-.btn-volver-planeamiento:focus,
-.btn-volver-planeamiento:active {
-  background-color: #7B9C6B !important;
-  color: #ffffff !important;
-  box-shadow: 0 0 0 0.2rem rgba(123, 156, 107, 0.5) !important;
-}
-
-/* ===== BOTÓN CALCULAR (VERDE) ===== */
+/* ===== BOTÓN CALCULAR ===== */
 .calcular-btn {
   background-color: #7B9C6B !important;
-  border: none !important;
+  border-color: #7B9C6B !important;
   padding: 0.6rem 2rem;
   font-weight: 600;
   transition: all 0.2s;
@@ -194,8 +174,8 @@
   .form-card {
     padding: 1rem;
   }
-  .image-container img {
-    max-height: 200px;
+  .image-container {
+    height: 150px; /* Ajuste en tablets */
   }
   .etapa-item {
     flex-wrap: wrap;
@@ -229,8 +209,8 @@
   .form-card {
     padding: 0.8rem;
   }
-  .image-container img {
-    max-height: 150px;
+  .image-container {
+    height: 120px; /* Ajuste en móviles pequeños */
   }
   .etapa-concepto {
     font-size: 0.8rem;

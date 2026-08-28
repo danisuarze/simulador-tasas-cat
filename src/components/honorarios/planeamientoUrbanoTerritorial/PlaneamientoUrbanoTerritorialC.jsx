@@ -347,7 +347,7 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
           )}
 
           <div className="d-grid">
-            <Button onClick={handleCalcular} className="calcular-btn">
+            <Button variant="primary" onClick={handleCalcular} className="calcular-btn">
               <FaCalculator className="me-2" /> Calcular honorarios
             </Button>
           </div>
@@ -406,12 +406,13 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
               </p>
             </div>
 
-            {/* Botón Volver dentro de resultados - ahora transparente como en Tasaciones */}
+            {/* ===== BOTÓN VOLVER CON ESTILO HONORARIOS (como en Tasaciones) ===== */}
             <div className="text-center mt-4">
               <Button
                 variant="outline-secondary"
+                size="sm"
                 onClick={onBack}
-                className="btn-volver-planeamiento"
+                style={{ color: '#495057', borderColor: '#ced4da' }}
               >
                 <FaArrowLeft className="me-2" /> Volver a especialidades
               </Button>
@@ -420,13 +421,14 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
         )}
       </div>
 
-      {/* Botón Volver fuera de resultados - transparente como en Tasaciones */}
+      {/* ===== BOTÓN VOLVER SIN RESULTADOS (ESTILO HONORARIOS) ===== */}
       {!resultado && (
         <div className="text-center mt-4">
           <Button
             variant="outline-secondary"
+            size="sm"
             onClick={onBack}
-            className="btn-volver-planeamiento"
+            style={{ color: '#495057', borderColor: '#ced4da' }}
           >
             <FaArrowLeft className="me-2" /> Volver a especialidades
           </Button>
