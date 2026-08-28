@@ -1,5 +1,6 @@
 /* ============================================
-   ENCARGOS PROFESIONALES - ESTILOS COMPLETOS
+   ENCARGOS PROFESIONALES - ESTILOS UNIFICADOS
+   Mismo look & feel que el resto del simulador
    ============================================ */
 
 /* --- Contenedor principal --- */
@@ -16,14 +17,20 @@
   border-radius: 15px;
   overflow: hidden;
   background-color: #e9ecef;
+  margin-bottom: 1.5rem;
+}
+
+.image-container {
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .image-container img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
   object-fit: cover;
-  max-height: 300px;
 }
 
 /* --- Títulos --- */
@@ -32,12 +39,14 @@
   color: #040D3B !important;
   font-size: 2rem;
   margin-bottom: 0.25rem;
+  text-align: center;
 }
 
 .subtitle {
   font-size: 1rem;
   color: #495057 !important;
   margin-bottom: 0;
+  text-align: center;
 }
 
 /* --- Tarjeta del formulario --- */
@@ -51,7 +60,7 @@
   width: 100%;
 }
 
-/* --- Botón Volver (sólido, sin opacidad) --- */
+/* --- Botón Volver --- */
 .btn-volver-encargos {
   background-color: #7B9C6B !important;
   border: none !important;
@@ -78,6 +87,7 @@
   font-weight: 600;
   transition: all 0.2s;
   color: #ffffff !important;
+  border-radius: 50px !important;
 }
 
 .calcular-btn:hover {
@@ -124,19 +134,51 @@
   color: #212529 !important;
 }
 
-.total-valor {
+/* ============================================
+   PARCIALES - MEDICIÓN Y CÓMPUTO (opción 2)
+   ============================================ */
+.total-destacado {
+  text-align: center;
   font-size: 1.5rem;
+  font-weight: 700;
   color: #15225a;
+  margin-bottom: 1.5rem;
 }
 
-.descripcion-texto {
-  font-size: 0.85rem;
-  color: #6c757d;
-  line-height: 1.4;
-  margin-bottom: 0.25rem;
+.parciales-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
 }
 
-/* --- Tabla de 3 columnas --- */
+.parcial-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.4rem 0.3rem;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 0.95rem;
+}
+
+.parcial-item:last-child {
+  border-bottom: none;
+}
+
+.parcial-item .parcial-concepto {
+  color: #212529;
+  flex: 1;
+  padding-right: 1rem;
+}
+
+.parcial-item .parcial-valor {
+  font-weight: 600;
+  color: #15225a;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* --- Tabla de 3 columnas (opciones 1 y 3) --- */
 .tabla-tres-columnas {
   display: table;
   width: 100%;
@@ -219,39 +261,44 @@
   .encargos-container {
     padding: 0.5rem 0.5rem;
   }
+
   .main-title {
     font-size: 1.5rem;
   }
+
   .subtitle {
     font-size: 0.85rem;
   }
+
   .form-card {
     padding: 1rem;
   }
-  .image-container img {
-    max-height: 200px;
-  }
-}
 
-/* Móviles pequeños */
-@media (max-width: 576px) {
-  .encargos-container {
-    padding: 0.5rem 0.3rem;
-  }
-  .main-title {
-    font-size: 1.2rem;
-  }
-  .subtitle {
-    font-size: 0.75rem;
-  }
-  .form-card {
-    padding: 0.8rem;
-  }
-  .image-container img {
-    max-height: 150px;
+  .image-container {
+    height: 150px;
   }
 
-  /* ===== TABLA EN MODO BLOQUE ===== */
+  .total-destacado {
+    font-size: 1.3rem;
+  }
+
+  .parcial-item {
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .parcial-item .parcial-concepto {
+    flex: 0 0 100%;
+    padding-right: 0;
+  }
+
+  .parcial-item .parcial-valor {
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+
+  /* Tabla en modo bloque */
   .tabla-tres-columnas,
   .encabezados,
   .fila,
@@ -283,7 +330,6 @@
     border-bottom: none;
   }
 
-  /* Etiquetas para cada columna en modo móvil */
   .col-concepto::before {
     content: "Concepto: ";
     font-weight: 600;
@@ -297,10 +343,66 @@
     font-weight: 600;
   }
 
-  /* Ajuste para el resumen de datos */
   .resumen-datos {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+  .encargos-container {
+    padding: 0.3rem;
+  }
+
+  .main-title {
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+  }
+
+  .form-card {
+    padding: 0.8rem;
+  }
+
+  .image-container {
+    height: 120px;
+  }
+
+  .total-destacado {
+    font-size: 1.1rem;
+  }
+
+  .parcial-item {
+    font-size: 0.8rem;
+  }
+
+  .parcial-item .parcial-concepto {
+    font-size: 0.8rem;
+  }
+
+  .parcial-item .parcial-valor {
+    font-size: 0.8rem;
+  }
+
+  .calcular-btn {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .btn-volver-encargos {
+    padding: 0.4rem 1rem !important;
+    font-size: 0.8rem !important;
+  }
+
+  .resultado-card {
+    padding: 0.8rem;
+  }
+
+  .resumen-datos p {
+    font-size: 0.85rem;
   }
 }

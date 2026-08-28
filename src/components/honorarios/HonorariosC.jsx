@@ -12,6 +12,7 @@ import EncargosProfesionalesC from './encargosProfesionales/EncargosProfesionale
 import ConsultasC from './consultas/ConsultasC';
 import ArbitrajesPericiasC from './arbitrajesPericias/ArbitrajesPericiasC';
 import RepresentacionesTecnicasC from './representacionesTecnicas/RepresentacionesTecnicasC';
+import PlaneamientoUrbanoTerritorialC from './planeamientoUrbanoTerritorial/PlaneamientoUrbanoTerritorialC'; // <-- NUEVO
 import './HonorariosC.css';
 
 const HonorariosC = ({ onBack }) => {
@@ -38,6 +39,8 @@ const HonorariosC = ({ onBack }) => {
         return <ConsultasC onBack={handleBackToSubCards} />;
       case 4:
         return <RepresentacionesTecnicasC onBack={handleBackToSubCards} />;
+      case 5: // <-- NUEVO: Planeamiento Urbano Territorial
+        return <PlaneamientoUrbanoTerritorialC onBack={handleBackToSubCards} />;
       case 6:
         return <ArbitrajesPericiasC onBack={handleBackToSubCards} />;
       default:
