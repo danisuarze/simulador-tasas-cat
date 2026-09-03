@@ -9,7 +9,8 @@ const RepresentacionTecnicaC = ({ onBack }) => {
   const TASA_MINIMA = 20 * VPTR; // $25,000
 
   // Estados
-  const [montoObra, setMontoObra] = useState('');
+  const [montoObraRaw, setMontoObraRaw] = useState('');
+  const [montoObraDisplay, setMontoObraDisplay] = useState('');
   const [avanceObra, setAvanceObra] = useState('');
   const [resultados, setResultados] = useState(null);
 
@@ -21,16 +22,32 @@ const RepresentacionTecnicaC = ({ onBack }) => {
   // Efecto para limpiar resultados
   useEffect(() => {
     setResultados(null);
-  }, [montoObra, avanceObra]);
+  }, [montoObraRaw, avanceObra]);
 
-  // Formateador
+  // Formateador de números con separador de miles (punto)
+  const formatNumber = (numStr) => {
+    if (!numStr) return '';
+    const clean = numStr.toString().replace(/[^0-9]/g, '');
+    if (clean === '') return '';
+    return parseInt(clean, 10).toLocaleString('es-AR');
+  };
+
+  // Handler para el monto
+  const handleMontoChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoObraRaw(raw);
+    setMontoObraDisplay(formatNumber(raw));
+  };
+  const handleMontoBlur = () => setMontoObraDisplay(formatNumber(montoObraRaw));
+
+  // Formateador de moneda
   const formatoMoneda = (numero) => {
     return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(numero);
   };
 
   // Cálculo
   const calcularRepresentacionTecnica = () => {
-    const monto = parseFloat(montoObra) || 0;
+    const monto = parseFloat(montoObraRaw) || 0;
     const avance = parseFloat(avanceObra) || 0;
     
     if (monto <= 0) {
@@ -128,14 +145,13 @@ const RepresentacionTecnicaC = ({ onBack }) => {
                 Monto de Licitación ($)
               </label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="montoObraRepresentacion" 
                 placeholder="Ingrese el monto de la licitación" 
-                min="0"
-                step="0.01"
-                value={montoObra}
-                onChange={(e) => setMontoObra(e.target.value)}
+                value={montoObraDisplay}
+                onChange={handleMontoChange}
+                onBlur={handleMontoBlur}
               />
             </div>
             

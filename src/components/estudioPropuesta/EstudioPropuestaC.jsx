@@ -8,8 +8,9 @@ const EstudioPropuestaC = ({ onBack }) => {
   const VPTR = 1250;
   const TASA_MINIMA = 20 * VPTR; // $25,000
 
-  // Estados
-  const [montoObra, setMontoObra] = useState('');
+  // Estado raw (sin formato) y display (con formato)
+  const [montoObraRaw, setMontoObraRaw] = useState('');
+  const [montoObraDisplay, setMontoObraDisplay] = useState('');
   const [resultados, setResultados] = useState(null);
 
   // Efecto para hacer scroll al inicio
@@ -23,7 +24,26 @@ const EstudioPropuestaC = ({ onBack }) => {
   // Efecto para limpiar resultados cuando cambia el monto
   useEffect(() => {
     setResultados(null);
-  }, [montoObra]);
+  }, [montoObraRaw]);
+
+  // Formateador de números con separador de miles (punto)
+  const formatNumber = (numStr) => {
+    if (!numStr) return '';
+    const clean = numStr.toString().replace(/[^0-9]/g, '');
+    if (clean === '') return '';
+    return parseInt(clean, 10).toLocaleString('es-AR');
+  };
+
+  // Handler para el input
+  const handleMontoChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoObraRaw(raw);
+    setMontoObraDisplay(formatNumber(raw));
+  };
+
+  const handleMontoBlur = () => {
+    setMontoObraDisplay(formatNumber(montoObraRaw));
+  };
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -32,7 +52,7 @@ const EstudioPropuestaC = ({ onBack }) => {
 
   // Función para calcular resultados
   const calcularEstudioPropuesta = () => {
-    const monto = parseFloat(montoObra) || 0;
+    const monto = parseFloat(montoObraRaw) || 0;
     
     if (monto <= 0) {
       setResultados({
@@ -121,14 +141,13 @@ const EstudioPropuestaC = ({ onBack }) => {
                 Monto de Licitación ($)
               </label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="montoObraEstudioPropuesta" 
                 placeholder="Ingrese el monto de la licitación" 
-                min="0"
-                step="0.01"
-                value={montoObra}
-                onChange={(e) => setMontoObra(e.target.value)}
+                value={montoObraDisplay}
+                onChange={handleMontoChange}
+                onBlur={handleMontoBlur}
               />
             </div>
             

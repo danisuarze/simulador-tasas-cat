@@ -8,16 +8,27 @@ const EdificiosAlturaC = ({ onBack }) => {
   const VPTR = 1250;
   const TASA_MINIMA = 20 * VPTR; // $25,000
 
-  // Estados (igual que antes)
+  // Estados raw (sin formato)
   const [tipoObra, setTipoObra] = useState('nueva');
-  const [m2Vivienda, setM2Vivienda] = useState('');
-  const [m2Construida, setM2Construida] = useState('');
-  const [m2Ampliacion, setM2Ampliacion] = useState('');
-  const [m2AntecedenteAmpliacion, setM2AntecedenteAmpliacion] = useState('');
-  const [m2AntecedenteConstruida, setM2AntecedenteConstruida] = useState('');
-  const [montoRefaccion, setMontoRefaccion] = useState('');
-  const [montoRefaccionAmpliacion, setMontoRefaccionAmpliacion] = useState('');
-  const [m2AmpliacionRefaccion, setM2AmpliacionRefaccion] = useState('');
+  const [m2ViviendaRaw, setM2ViviendaRaw] = useState('');
+  const [m2ConstruidaRaw, setM2ConstruidaRaw] = useState('');
+  const [m2AmpliacionRaw, setM2AmpliacionRaw] = useState('');
+  const [m2AntecedenteAmpliacionRaw, setM2AntecedenteAmpliacionRaw] = useState('');
+  const [m2AntecedenteConstruidaRaw, setM2AntecedenteConstruidaRaw] = useState('');
+  const [montoRefaccionRaw, setMontoRefaccionRaw] = useState('');
+  const [montoRefaccionAmpliacionRaw, setMontoRefaccionAmpliacionRaw] = useState('');
+  const [m2AmpliacionRefaccionRaw, setM2AmpliacionRefaccionRaw] = useState('');
+  
+  // Estados display (con formato)
+  const [m2ViviendaDisplay, setM2ViviendaDisplay] = useState('');
+  const [m2ConstruidaDisplay, setM2ConstruidaDisplay] = useState('');
+  const [m2AmpliacionDisplay, setM2AmpliacionDisplay] = useState('');
+  const [m2AntecedenteAmpliacionDisplay, setM2AntecedenteAmpliacionDisplay] = useState('');
+  const [m2AntecedenteConstruidaDisplay, setM2AntecedenteConstruidaDisplay] = useState('');
+  const [montoRefaccionDisplay, setMontoRefaccionDisplay] = useState('');
+  const [montoRefaccionAmpliacionDisplay, setMontoRefaccionAmpliacionDisplay] = useState('');
+  const [m2AmpliacionRefaccionDisplay, setM2AmpliacionRefaccionDisplay] = useState('');
+
   const [tareaSeleccionada, setTareaSeleccionada] = useState('Anteproyecto');
   const [avanceVivienda, setAvanceVivienda] = useState('');
   const [resultados, setResultados] = useState(null);
@@ -27,17 +38,83 @@ const EdificiosAlturaC = ({ onBack }) => {
     setResultados(null);
   }, [
     tipoObra,
-    m2Vivienda,
-    m2Construida,
-    m2Ampliacion,
-    m2AntecedenteAmpliacion,
-    m2AntecedenteConstruida,
-    montoRefaccion,
-    montoRefaccionAmpliacion,
-    m2AmpliacionRefaccion,
+    m2ViviendaRaw,
+    m2ConstruidaRaw,
+    m2AmpliacionRaw,
+    m2AntecedenteAmpliacionRaw,
+    m2AntecedenteConstruidaRaw,
+    montoRefaccionRaw,
+    montoRefaccionAmpliacionRaw,
+    m2AmpliacionRefaccionRaw,
     tareaSeleccionada,
     avanceVivienda
   ]);
+
+  // Formateador de números con separador de miles (punto)
+  const formatNumber = (numStr) => {
+    if (!numStr) return '';
+    const clean = numStr.toString().replace(/[^0-9]/g, '');
+    if (clean === '') return '';
+    return parseInt(clean, 10).toLocaleString('es-AR');
+  };
+
+  // Handlers para cada campo de superficie
+  const handleM2ViviendaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2ViviendaRaw(raw);
+    setM2ViviendaDisplay(formatNumber(raw));
+  };
+  const handleM2ViviendaBlur = () => setM2ViviendaDisplay(formatNumber(m2ViviendaRaw));
+
+  const handleM2ConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2ConstruidaRaw(raw);
+    setM2ConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2ConstruidaBlur = () => setM2ConstruidaDisplay(formatNumber(m2ConstruidaRaw));
+
+  const handleM2AmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AmpliacionRaw(raw);
+    setM2AmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AmpliacionBlur = () => setM2AmpliacionDisplay(formatNumber(m2AmpliacionRaw));
+
+  const handleM2AntecedenteAmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteAmpliacionRaw(raw);
+    setM2AntecedenteAmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteAmpliacionBlur = () => setM2AntecedenteAmpliacionDisplay(formatNumber(m2AntecedenteAmpliacionRaw));
+
+  const handleM2AntecedenteConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteConstruidaRaw(raw);
+    setM2AntecedenteConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteConstruidaBlur = () => setM2AntecedenteConstruidaDisplay(formatNumber(m2AntecedenteConstruidaRaw));
+
+  const handleM2AmpliacionRefaccionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AmpliacionRefaccionRaw(raw);
+    setM2AmpliacionRefaccionDisplay(formatNumber(raw));
+  };
+  const handleM2AmpliacionRefaccionBlur = () => setM2AmpliacionRefaccionDisplay(formatNumber(m2AmpliacionRefaccionRaw));
+
+  // Handlers para montos en pesos (también con formato)
+  const handleMontoRefaccionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoRefaccionRaw(raw);
+    setMontoRefaccionDisplay(formatNumber(raw));
+  };
+  const handleMontoRefaccionBlur = () => setMontoRefaccionDisplay(formatNumber(montoRefaccionRaw));
+
+  const handleMontoRefaccionAmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoRefaccionAmpliacionRaw(raw);
+    setMontoRefaccionAmpliacionDisplay(formatNumber(raw));
+  };
+  const handleMontoRefaccionAmpliacionBlur = () => setMontoRefaccionAmpliacionDisplay(formatNumber(montoRefaccionAmpliacionRaw));
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -73,16 +150,16 @@ const EdificiosAlturaC = ({ onBack }) => {
     return total;
   };
 
-  // Función para calcular resultados (la misma lógica, sin cambios)
+  // Función para calcular resultados (la misma lógica, usando los raw)
   const calcularVivienda = () => {
     let m2 = 0;
     let avance = parseFloat(avanceVivienda) || 0;
     
     // Validaciones según el tipo de obra
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       if (ampliacion <= 0) {
         setResultados({
@@ -100,7 +177,7 @@ const EdificiosAlturaC = ({ onBack }) => {
       
       m2 = construida + ampliacion;
     } else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       
       if (monto <= 0) {
         setResultados({
@@ -109,8 +186,8 @@ const EdificiosAlturaC = ({ onBack }) => {
         return;
       }
     } else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       if (monto <= 0 || ampliacion <= 0) {
         setResultados({
@@ -119,7 +196,7 @@ const EdificiosAlturaC = ({ onBack }) => {
         return;
       }
     } else {
-      m2 = parseFloat(m2Vivienda) || 0;
+      m2 = parseFloat(m2ViviendaRaw) || 0;
       
       if (m2 <= 0) {
         setResultados({
@@ -132,26 +209,26 @@ const EdificiosAlturaC = ({ onBack }) => {
     let html = [];
     let detallesCalculo = [];
     
-    // Mostrar información específica para cada tipo de obra (igual que antes)
+    // Mostrar información específica para cada tipo de obra
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       html.push({ label: "Superficie Construida", value: `${construida} m²` });
       html.push({ label: "Superficie Ampliación", value: `${ampliacion} m²` });
       html.push({ label: "Superficie Total", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       html.push({ label: "Metros cuadrados", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       html.push({ label: "Monto de Obra", value: formatoMoneda(monto) });
     } else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       html.push({ label: "Monto de Refacción", value: formatoMoneda(monto) });
       html.push({ label: "Superficie de Ampliación", value: `${ampliacion} m²` });
@@ -170,16 +247,9 @@ const EdificiosAlturaC = ({ onBack }) => {
     let descripcionServicio = "";
 
     // ===== CÁLCULOS (exactamente igual que el original) =====
-    // Aquí va toda la lógica de cálculo que ya tenías.
-    // Para evitar repetir el código extenso, mantengo la misma lógica.
-    // (He copiado el bloque completo de tu código original).
-    // En la respuesta completa pondré todo el bloque.
-    
-    // (Por brevedad en este ejemplo, pongo el bloque de cálculo completo en la versión final)
-    // ------------------------------------------------------------------
     // Para obra construida
     if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       let superficieRelevamiento = m2 - antecedente;
       
       html.push({ label: "Superficie a Relevar", value: `${m2} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
@@ -244,29 +314,30 @@ const EdificiosAlturaC = ({ onBack }) => {
     }
     // Para obra de ampliación
     else if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       let tasaRelevamiento = 0;
       let relevamientoAplicaMinima = false;
+      let relevamientoOriginal = 0;
       
       if (construida > 0) {
         let superficieRelevamiento = construida - antecedente;
+        
         html.push({ label: "Superficie a Relevar", value: `${construida} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
         
         if (superficieRelevamiento <= 0) {
+          relevamientoOriginal = 0;
           relevamientoAplicaMinima = true;
-          tasaRelevamiento = TASA_MINIMA;
         } else {
-          let relevamientoOriginal = calcularTasaRelevamiento(superficieRelevamiento);
+          relevamientoOriginal = calcularTasaRelevamiento(superficieRelevamiento);
           if (relevamientoOriginal < TASA_MINIMA) {
             relevamientoAplicaMinima = true;
-            tasaRelevamiento = TASA_MINIMA;
-          } else {
-            tasaRelevamiento = relevamientoOriginal;
           }
         }
+        
+        tasaRelevamiento = relevamientoAplicaMinima ? TASA_MINIMA : relevamientoOriginal;
       } else {
         html.push({ label: "Superficie a Relevar", value: "0 m² (sin construcción existente)" });
         tasaRelevamiento = 0;
@@ -276,33 +347,36 @@ const EdificiosAlturaC = ({ onBack }) => {
       let valorBaseAmpliacion = calcularPorTramos(ampliacion);
       let tasaAmpliacion = 0;
       let ampliacionAplicaMinima = false;
+      let ampliacionOriginal = 0;
       
       if (tareaSeleccionada === "Anteproyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.4;
+        ampliacionOriginal = valorBaseAmpliacion * 0.4;
       }
       else if (tareaSeleccionada === "Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6;
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
       }
       else if (tareaSeleccionada === "Dirección Técnica") {
         const porcentajeRestante = (100 - avance) / 100;
-        tasaAmpliacion = valorBaseAmpliacion * 0.4 * porcentajeRestante;
+        ampliacionOriginal = valorBaseAmpliacion * 0.4 * porcentajeRestante;
       }
       else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0;
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6;
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0;
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
       }
 
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
       
-      if (tasaAmpliacion < TASA_MINIMA && tasaAmpliacion > 0 && !esDireccionSinAvance) {
+      if (ampliacionOriginal < TASA_MINIMA && ampliacionOriginal > 0 && !esDireccionSinAvance) {
         ampliacionAplicaMinima = true;
-        tasaAmpliacion = TASA_MINIMA;
+        ampliacionOriginal = TASA_MINIMA;
       }
+      
+      tasaAmpliacion = ampliacionOriginal;
       
       let tasaTotal = tasaRelevamiento + tasaAmpliacion;
       let totalAplicaMinima = false;
@@ -332,10 +406,19 @@ const EdificiosAlturaC = ({ onBack }) => {
       
       html.push({ label: "Tasa Relevamiento", value: formatoMoneda(tasaRelevamiento) + (relevamientoAplicaMinima ? " (mínima)" : "") });
       html.push({ label: "Tasa Ampliación", value: formatoMoneda(tasaAmpliacion) + (ampliacionAplicaMinima ? " (mínima)" : "") });
+      if (relevamientoAplicaMinima && relevamientoOriginal > 0) {
+        html.push({ label: "Tasa Relevamiento (original)", value: formatoMoneda(relevamientoOriginal) });
+      }
+      if (ampliacionAplicaMinima && ampliacionOriginal > 0) {
+        html.push({ label: "Tasa Ampliación (original)", value: formatoMoneda(ampliacionOriginal) });
+      }
+      if (totalAplicaMinima && tasaTotal > 0) {
+        html.push({ label: "Tasa Total (original)", value: formatoMoneda(tasaTotal) });
+      }
     }
     // Para obra de refacción
     else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       let tasaCalculada = monto * 0.01;
       descripcionServicio = "Anteproyecto, Proyecto y Dirección Técnica por monto de obra";
       
@@ -348,8 +431,8 @@ const EdificiosAlturaC = ({ onBack }) => {
     }
     // Para obra de refacción y ampliación
     else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       const tasaRefaccionOriginal = monto * 0.01;
       let tasaRefaccion = tasaRefaccionOriginal;
@@ -363,33 +446,36 @@ const EdificiosAlturaC = ({ onBack }) => {
       let valorBaseAmpliacion = calcularPorTramos(ampliacion);
       let tasaAmpliacion = 0;
       let ampliacionAplicaMinima = false;
+      let ampliacionOriginal = 0;
       
       if (tareaSeleccionada === "Anteproyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.4;
+        ampliacionOriginal = valorBaseAmpliacion * 0.4;
       }
       else if (tareaSeleccionada === "Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6;
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
       }
       else if (tareaSeleccionada === "Dirección Técnica") {
         const porcentajeRestante = (100 - avance) / 100;
-        tasaAmpliacion = valorBaseAmpliacion * 0.4 * porcentajeRestante;
+        ampliacionOriginal = valorBaseAmpliacion * 0.4 * porcentajeRestante;
       }
       else if (tareaSeleccionada === "Anteproyecto y Proyecto") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0;
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
       }
       else if (tareaSeleccionada === "Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 0.6;
+        ampliacionOriginal = valorBaseAmpliacion * 0.6;
       }
       else if (tareaSeleccionada === "Anteproyecto, Proyecto y Dirección Técnica") {
-        tasaAmpliacion = valorBaseAmpliacion * 1.0;
+        ampliacionOriginal = valorBaseAmpliacion * 1.0;
       }
 
       const esDireccionSinAvance = (tareaSeleccionada === "Dirección Técnica" && avance === 0);
       
-      if (tasaAmpliacion < TASA_MINIMA && tasaAmpliacion > 0 && !esDireccionSinAvance) {
+      if (ampliacionOriginal < TASA_MINIMA && ampliacionOriginal > 0 && !esDireccionSinAvance) {
         ampliacionAplicaMinima = true;
-        tasaAmpliacion = TASA_MINIMA;
+        ampliacionOriginal = TASA_MINIMA;
       }
+      
+      tasaAmpliacion = ampliacionOriginal;
       
       let tasaTotal = tasaRefaccion + tasaAmpliacion;
       let totalAplicaMinima = false;
@@ -409,6 +495,15 @@ const EdificiosAlturaC = ({ onBack }) => {
       html.push({ label: "Valor Base Ampliación", value: formatoMoneda(valorBaseAmpliacion) });
       html.push({ label: "Tasa Refacción", value: formatoMoneda(tasaRefaccion) + (refaccionAplicaMinima ? " (mínima)" : "") });
       html.push({ label: "Tasa Ampliación", value: formatoMoneda(tasaAmpliacion) + (ampliacionAplicaMinima ? " (mínima)" : "") });
+      if (refaccionAplicaMinima && tasaRefaccionOriginal > 0) {
+        html.push({ label: "Tasa Refacción (original)", value: formatoMoneda(tasaRefaccionOriginal) });
+      }
+      if (ampliacionAplicaMinima && ampliacionOriginal > 0) {
+        html.push({ label: "Tasa Ampliación (original)", value: formatoMoneda(ampliacionOriginal) });
+      }
+      if (totalAplicaMinima && tasaTotal > 0) {
+        html.push({ label: "Tasa Total (original)", value: formatoMoneda(tasaTotal) });
+      }
     }
 
     setResultados({
@@ -437,10 +532,10 @@ const EdificiosAlturaC = ({ onBack }) => {
         <img 
           src="/images/edificios_altura.jpg" 
           alt="Edificios en Altura"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover'
+          className="img-fluid"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/images/edificios_altura.jpg';
           }}
         />
       </div>
@@ -480,13 +575,13 @@ const EdificiosAlturaC = ({ onBack }) => {
           <div className="mb-3">
             <label htmlFor="m2Vivienda" className="form-label">Metros cuadrados (m²)</label>
             <input 
-              type="number" 
+              type="text" 
               className="form-control" 
               id="m2Vivienda" 
               placeholder="Ingrese los m² de construcción" 
-              min="0"
-              value={m2Vivienda}
-              onChange={(e) => setM2Vivienda(e.target.value)}
+              value={m2ViviendaDisplay}
+              onChange={handleM2ViviendaChange}
+              onBlur={handleM2ViviendaBlur}
             />
           </div>
         )}
@@ -496,13 +591,13 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mb-3">
               <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="m2Construida" 
                 placeholder="Superficie ya construida (puede ser 0)" 
-                min="0"
-                value={m2Construida}
-                onChange={(e) => setM2Construida(e.target.value)}
+                value={m2ConstruidaDisplay}
+                onChange={handleM2ConstruidaChange}
+                onBlur={handleM2ConstruidaBlur}
               />
               <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
             </div>
@@ -510,26 +605,26 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mb-3">
               <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="m2Ampliacion" 
                 placeholder="Superficie a ampliar" 
-                min="0"
-                value={m2Ampliacion}
-                onChange={(e) => setM2Ampliacion(e.target.value)}
+                value={m2AmpliacionDisplay}
+                onChange={handleM2AmpliacionChange}
+                onBlur={handleM2AmpliacionBlur}
               />
             </div>
             
             <div className="mb-3">
               <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="m2AntecedenteAmpliacion" 
                 placeholder="Superficie de antecedente (opcional)" 
-                min="0"
-                value={m2AntecedenteAmpliacion}
-                onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                value={m2AntecedenteAmpliacionDisplay}
+                onChange={handleM2AntecedenteAmpliacionChange}
+                onBlur={handleM2AntecedenteAmpliacionBlur}
               />
               <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
             </div>
@@ -541,13 +636,13 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mb-3">
               <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="m2AntecedenteConstruida" 
                 placeholder="Superficie de antecedente (opcional)" 
-                min="0"
-                value={m2AntecedenteConstruida}
-                onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                value={m2AntecedenteConstruidaDisplay}
+                onChange={handleM2AntecedenteConstruidaChange}
+                onBlur={handleM2AntecedenteConstruidaBlur}
               />
               <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
             </div>
@@ -559,13 +654,13 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mb-3">
               <label htmlFor="montoRefaccion" className="form-label">Monto de Obra en $</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="montoRefaccion" 
                 placeholder="Ingrese el monto total de la refacción" 
-                min="0"
-                value={montoRefaccion}
-                onChange={(e) => setMontoRefaccion(e.target.value)}
+                value={montoRefaccionDisplay}
+                onChange={handleMontoRefaccionChange}
+                onBlur={handleMontoRefaccionBlur}
               />
             </div>
           </div>
@@ -576,26 +671,26 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mb-3">
               <label htmlFor="montoRefaccionAmpliacion" className="form-label">Monto de Refacción en $</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="montoRefaccionAmpliacion" 
                 placeholder="Ingrese el monto total de la refacción" 
-                min="0"
-                value={montoRefaccionAmpliacion}
-                onChange={(e) => setMontoRefaccionAmpliacion(e.target.value)}
+                value={montoRefaccionAmpliacionDisplay}
+                onChange={handleMontoRefaccionAmpliacionChange}
+                onBlur={handleMontoRefaccionAmpliacionBlur}
               />
             </div>
             
             <div className="mb-3">
               <label htmlFor="m2AmpliacionRefaccion" className="form-label">Superficie de Ampliación (m²)</label>
               <input 
-                type="number" 
+                type="text" 
                 className="form-control" 
                 id="m2AmpliacionRefaccion" 
                 placeholder="Superficie a ampliar" 
-                min="0"
-                value={m2AmpliacionRefaccion}
-                onChange={(e) => setM2AmpliacionRefaccion(e.target.value)}
+                value={m2AmpliacionRefaccionDisplay}
+                onChange={handleM2AmpliacionRefaccionChange}
+                onBlur={handleM2AmpliacionRefaccionBlur}
               />
             </div>
           </div>
@@ -719,8 +814,8 @@ const EdificiosAlturaC = ({ onBack }) => {
       </div>
 
       {/* Resultados */}
-      <div className="resultado-card">
-        <h4>Resultados - Edificios en Altura</h4>
+      <div className="resultado-card mt-4">
+        <h4 className="text-center">Resultados - Edificios en Altura</h4>
         {resultados ? (
           resultados.error ? (
             <div className="alert alert-warning text-center">
@@ -745,7 +840,7 @@ const EdificiosAlturaC = ({ onBack }) => {
               <div className="mt-4 pt-3 border-top">
                 <Button 
                   onClick={onBack}
-                  className="back-button-custom"
+                  className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
                 >
                   <FaArrowLeft className="me-2" />
                   Volver al Menú Principal
@@ -762,7 +857,7 @@ const EdificiosAlturaC = ({ onBack }) => {
             <div className="mt-4 pt-3 border-top">
               <Button 
                 onClick={onBack}
-                className="back-button-custom"
+                className="back-button-custom d-inline-flex align-items-center justify-content-center w-100"
               >
                 <FaArrowLeft className="me-2" />
                 Volver al Menú Principal

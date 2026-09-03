@@ -63,37 +63,10 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
     setPresupuestoDisplay(formatNumber(presupuestoRaw));
   };
 
-  // Cálculo por población (acumulativo)
+  // ===== CÁLCULO CORREGIDO: 0.75% del VR por habitante =====
   const calcularPorPoblacion = (vr, habitantes) => {
     if (vr <= 0 || habitantes <= 0) return 0;
-
-    const tramos = [
-      { limite: 10000, porcentaje: 0.0075 },
-      { limite: 20000, porcentaje: 0.0060 },
-      { limite: 30000, porcentaje: 0.0045 },
-      { limite: 40000, porcentaje: 0.0030 },
-      { limite: 50000, porcentaje: 0.0030 },
-      { limite: 100000, porcentaje: 0.0018 },
-      { limite: 200000, porcentaje: 0.0015 },
-      { limite: 500000, porcentaje: 0.0014 },
-      { limite: Infinity, porcentaje: 0.0008 },
-    ];
-
-    let total = 0;
-    let restantes = habitantes;
-    let anterior = 0;
-
-    for (let i = 0; i < tramos.length; i++) {
-      const actual = tramos[i].limite;
-      const ancho = Math.min(restantes, actual - anterior);
-      if (ancho <= 0) break;
-      total += ancho * vr * tramos[i].porcentaje;
-      restantes -= ancho;
-      anterior = actual;
-      if (restantes <= 0) break;
-    }
-
-    return total;
+    return vr * 0.0075 * habitantes;
   };
 
   // Cálculo por presupuesto (15%)
@@ -161,7 +134,7 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
 
     if (opcionCalculo === 'poblacion') {
       base = calcularPorPoblacion(vrNum, habitantesNum);
-      descripcionBase = `Cálculo por población (${habitantesNum} habitantes)`;
+      descripcionBase = `Cálculo por población (0.75% del VR × ${habitantesNum} habitantes)`;
     } else {
       base = calcularPorPresupuesto(presupuestoNum);
       descripcionBase = `Cálculo por presupuesto (15% del monto)`;
@@ -313,7 +286,7 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
                     onBlur={handleHabitantesBlur}
                   />
                   <Form.Text className="text-muted">
-                    Tasa básica mínima por habitante, aplicada en forma acumulativa según tabla de tramos.
+                    El honorario base es el 0.75% del VR multiplicado por la cantidad de habitantes.
                   </Form.Text>
                 </Form.Group>
               </Col>
@@ -406,7 +379,7 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
               </p>
             </div>
 
-            {/* ===== BOTÓN VOLVER CON ESTILO HONORARIOS (como en Tasaciones) ===== */}
+            {/* Botón Volver */}
             <div className="text-center mt-4">
               <Button
                 variant="outline-secondary"
@@ -421,7 +394,7 @@ const PlaneamientoUrbanoTerritorialC = ({ onBack }) => {
         )}
       </div>
 
-      {/* ===== BOTÓN VOLVER SIN RESULTADOS (ESTILO HONORARIOS) ===== */}
+      {/* Botón Volver sin resultados */}
       {!resultado && (
         <div className="text-center mt-4">
           <Button

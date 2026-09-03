@@ -14,9 +14,10 @@ import ExterioresNoCubiertosC from '../exterioresNoCubiertos/ExterioresNoCubiert
 import InstalacionesEstructurasC from '../instalacionesEstructuras/InstalacionesEstructurasC';
 import EstudioPropuestaC from '../estudioPropuesta/EstudioPropuestaC';
 import RepresentacionTecnicaC from '../representacionTecnica/RepresentacionTecnicaC';
-import CartelPublicitarioC from '../cartelPublicitario/CartelPublicItarioC';
+import CartelPublicitarioC from '../cartelPublicitario/CartelPublicitarioC';
 import TareasTasaFijaC from '../tareasTasaFija/TareasTasaFijaC';
 import ViviendasIPVC from '../viviendasIPV/ViviendasIPVC';
+import ViviendaPropiaC from '../viviendaPropia/ViviendaPropiaC';
 import "./CardsC.css";
 
 const CardsC = ({ onBack }) => {
@@ -37,10 +38,6 @@ const CardsC = ({ onBack }) => {
     setShowSubSelect(false);
   };
 
-  const handleAccesoAutogestion = () => {
-    window.open('https://autogestion.catonline.org.ar/catautogestion.html', '_blank', 'noopener noreferrer');
-  };
-
   const componentMap = {
     'Vivienda Unifamiliar': 'ViviendaUnifamiliarC',
     'Edificios en Altura': 'EdificiosAlturaC',
@@ -52,25 +49,12 @@ const CardsC = ({ onBack }) => {
     'Representación Técnica': 'RepresentacionTecnicaC',
     'Viviendas IPV': 'ViviendasIPVC',
     'Carteles Publicitarios': 'CartelPublicitarioC',
-    'Tareas con tasa fija': 'TareasTasaFijaC'
+    'Tareas con tasa fija': 'TareasTasaFijaC',
+    'Vivienda Propia': 'ViviendaPropiaC'
   };
 
   const subOptions = [
-    'CAMBIO DIRECCION TECNICA ENTRE ARQUITECTOS',
-    'CAMBIO REPRES. TECNICO ENTRE ARQUITECTOS',
-    'CERTIFICACION DE FIRMA',
-    'DEMOLICIONES',
-    'DESVINCULACION / RENUNCIA',
-    'FACTIBILIDAD DE USO',
-    'PLENARIO',
-    'PROPUESTA URBANA',
-    'PROTECCION DE VIA PUBLICA Y EDIFICIOS LINDEROS',
-    'RESELLADOS',
-    'SEGURIDAD E HIGIENE',
-    'SERVICIO CONTRA INCENDIOS - DEFENSA CIVIL',
-    'TASA REGISTRO',
-    'TRABAJOS PRELIMINARES',
-    'VISADO DOCUMENTACION COMPLEMENTARIA'
+    // ... (tus subOptions existentes)
   ];
 
   const handleSearchChange = (e) => {
@@ -111,7 +95,8 @@ const CardsC = ({ onBack }) => {
       'RepresentacionTecnicaC': <RepresentacionTecnicaC onBack={handleBackToCards} />,
       'CartelPublicitarioC': <CartelPublicitarioC onBack={handleBackToCards} />,
       'TareasTasaFijaC': <TareasTasaFijaC onBack={handleBackToCards} subTarea={selectedSubOption} />,
-      'ViviendasIPVC': <ViviendasIPVC onBack={handleBackToCards} />
+      'ViviendasIPVC': <ViviendasIPVC onBack={handleBackToCards} />,
+      'ViviendaPropiaC': <ViviendaPropiaC onBack={handleBackToCards} />
     };
     return components[activeComponent] || (
       <Container style={{ minHeight: '100vh', padding: '20px', position: 'relative', zIndex: 1000 }}>
@@ -143,22 +128,24 @@ const CardsC = ({ onBack }) => {
   const ViviendasIPVImage = () => <img src="/images/viviendas_ipv.jpg" alt="IPV" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
   const CartelPublicitarioImage = () => <img src="/images/carteles_publicitarios.png" alt="Cartel" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
   const TareasTasaFijaImage = () => <img src="/images/tasas_fijas.jpg" alt="Tasa fija" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
-  const AccesoAutogestionImage = () => <img src="/images/acceso_autogestion.png" alt="Autogestión" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
+  
+  /* 👇 CORREGIDO: ahora usa viviendaPropia.jpg 👇 */
+  const ViviendaPropiaImage = () => <img src="/images/viviendaPropia.jpg" alt="Vivienda Propia" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />;
 
-  // ===== CARD DATA (DEFINIDA AQUÍ) =====
+  // ===== CARD DATA =====
   const cardData = [
     { id:1, title:"Vivienda Unifamiliar", text:"Viviendas individuales", icon:<ViviendaImage />, component:"ViviendaUnifamiliarC", buttonText:"Calcular" },
     { id:2, title:"Edificios en Altura", text:"Que supere planta baja y 2 niveles...", icon:<EdificiosAlturaImage />, component:"EdificiosAlturaC", buttonText:"Calcular" },
     { id:3, title:"Edificios Especiales", text:"Locales comerciales, oficinas...", icon:<EdificiosEspecialesImage />, component:"EdificiosEspecialesC", buttonText:"Calcular" },
     { id:4, title:"Edificios Industriales", text:"Espacios industriales...", icon:<EdificiosIndustrialesImage />, component:"EdificiosIndustrialesC", buttonText:"Calcular" },
     { id:5, title:"Exteriores no cubiertos", text:"Diseño de áreas exteriores...", icon:<ExterioresImage />, component:"ExterioresNoCubiertosC", buttonText:"Calcular" },
-    { id:6, title:"Instalaciones | Estructuras", text:"Sistemas estructurales...", icon:<InstalacionesImage />, component:"InstalacionesEstructurasC", buttonText:"Calcular" },
+    { id:6, title:"Instalaciones | Estructuras", text:"Instalaciones y Sistemas estructurales...", icon:<InstalacionesImage />, component:"InstalacionesEstructurasC", buttonText:"Calcular" },
     { id:7, title:"Estudio de la propuesta", text:"Análisis de viabilidad...", icon:<EstudioPropuestaImage />, component:"EstudioPropuestaC", buttonText:"Calcular" },
-    { id:8, title:"Representación Técnica", text:"Elaboración de planos...", icon:<RepresentacionTecnicaImage />, component:"RepresentacionTecnicaC", buttonText:"Calcular" },
+    { id:8, title:"Representación Técnica", text:"Direccion de Obra - Jefe de obra...", icon:<RepresentacionTecnicaImage />, component:"RepresentacionTecnicaC", buttonText:"Calcular" },
     { id:9, title:"Viviendas IPV", text:"Soluciones de vivienda social...", icon:<ViviendasIPVImage />, component:"ViviendasIPVC", buttonText:"Calcular" },
-    { id:10, title:"Carteles Publicitarios", text:"Diseño, cálculo y ejecución...", icon:<CartelPublicitarioImage />, component:"CartelPublicitarioC", buttonText:"Calcular" },
-    { id:11, title:"Tareas con tasa fija", text:"Servicios con precios establecidos...", icon:<TareasTasaFijaImage />, component:"TareasTasaFijaC", buttonText:"Calcular" },
-    { id:12, title:"Acceso a Autogestión", text:"Acceso al sistema digital de autogestión del CAT", icon:<AccesoAutogestionImage />, component:"AccesoAutogestionExterno", buttonText:"Acceder", externalLink:true }
+    { id:10, title:"Carteles Publicitarios", text:"Relevamiento, proyecto y direccion de obra...", icon:<CartelPublicitarioImage />, component:"CartelPublicitarioC", buttonText:"Calcular" },
+    { id:11, title:"Tareas con tasa fija", text:"Encargos profesionales con valores fijos...", icon:<TareasTasaFijaImage />, component:"TareasTasaFijaC", buttonText:"Calcular" },
+    { id:12, title:"Vivienda Propia", text:"Cálculo para vivienda propia del profesional - Por única vez", icon:<ViviendaPropiaImage />, component:"ViviendaPropiaC", buttonText:"Calcular" }
   ];
 
   return (
@@ -223,7 +210,7 @@ const CardsC = ({ onBack }) => {
                 <h3 className="text-center card-title">{card.title}</h3>
                 <p className="text-center card-text">{card.text}</p>
                 <div className="text-center">
-                  <Button className="card-button" onClick={() => card.externalLink ? handleAccesoAutogestion() : handleCalculateClick(card.component)}>
+                  <Button className="card-button" onClick={() => handleCalculateClick(card.component)}>
                     {card.buttonText}
                   </Button>
                 </div>

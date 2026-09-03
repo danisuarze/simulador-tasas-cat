@@ -8,18 +8,26 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
   const VPTR = 1250;
   const TASA_MINIMA = 20 * VPTR; // $25,000
 
-  // Estados
+  // Estados raw (sin formato)
   const [tipoObra, setTipoObra] = useState('nueva');
-  const [m2Edificio, setM2Edificio] = useState('');
-  const [m2Construida, setM2Construida] = useState('');
-  const [m2Ampliacion, setM2Ampliacion] = useState('');
-  const [m2AntecedenteAmpliacion, setM2AntecedenteAmpliacion] = useState('');
-  const [m2AntecedenteConstruida, setM2AntecedenteConstruida] = useState('');
+  const [m2EdificioRaw, setM2EdificioRaw] = useState('');
+  const [m2ConstruidaRaw, setM2ConstruidaRaw] = useState('');
+  const [m2AmpliacionRaw, setM2AmpliacionRaw] = useState('');
+  const [m2AntecedenteAmpliacionRaw, setM2AntecedenteAmpliacionRaw] = useState('');
+  const [m2AntecedenteConstruidaRaw, setM2AntecedenteConstruidaRaw] = useState('');
+  
+  // Estados display (con formato)
+  const [m2EdificioDisplay, setM2EdificioDisplay] = useState('');
+  const [m2ConstruidaDisplay, setM2ConstruidaDisplay] = useState('');
+  const [m2AmpliacionDisplay, setM2AmpliacionDisplay] = useState('');
+  const [m2AntecedenteAmpliacionDisplay, setM2AntecedenteAmpliacionDisplay] = useState('');
+  const [m2AntecedenteConstruidaDisplay, setM2AntecedenteConstruidaDisplay] = useState('');
+
   const [tareaSeleccionada, setTareaSeleccionada] = useState('Anteproyecto');
   const [avanceEdificio, setAvanceEdificio] = useState('');
   const [resultados, setResultados] = useState(null);
 
-  // Efecto para hacer scroll al inicio
+  // Efecto para scroll al inicio
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -32,14 +40,58 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     setResultados(null);
   }, [
     tipoObra,
-    m2Edificio,
-    m2Construida,
-    m2Ampliacion,
-    m2AntecedenteAmpliacion,
-    m2AntecedenteConstruida,
+    m2EdificioRaw,
+    m2ConstruidaRaw,
+    m2AmpliacionRaw,
+    m2AntecedenteAmpliacionRaw,
+    m2AntecedenteConstruidaRaw,
     tareaSeleccionada,
     avanceEdificio
   ]);
+
+  // Formateador de números con separador de miles (punto)
+  const formatNumber = (numStr) => {
+    if (!numStr) return '';
+    const clean = numStr.toString().replace(/[^0-9]/g, '');
+    if (clean === '') return '';
+    return parseInt(clean, 10).toLocaleString('es-AR');
+  };
+
+  // Handlers para cada campo de superficie
+  const handleM2EdificioChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2EdificioRaw(raw);
+    setM2EdificioDisplay(formatNumber(raw));
+  };
+  const handleM2EdificioBlur = () => setM2EdificioDisplay(formatNumber(m2EdificioRaw));
+
+  const handleM2ConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2ConstruidaRaw(raw);
+    setM2ConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2ConstruidaBlur = () => setM2ConstruidaDisplay(formatNumber(m2ConstruidaRaw));
+
+  const handleM2AmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AmpliacionRaw(raw);
+    setM2AmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AmpliacionBlur = () => setM2AmpliacionDisplay(formatNumber(m2AmpliacionRaw));
+
+  const handleM2AntecedenteAmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteAmpliacionRaw(raw);
+    setM2AntecedenteAmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteAmpliacionBlur = () => setM2AntecedenteAmpliacionDisplay(formatNumber(m2AntecedenteAmpliacionRaw));
+
+  const handleM2AntecedenteConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteConstruidaRaw(raw);
+    setM2AntecedenteConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteConstruidaBlur = () => setM2AntecedenteConstruidaDisplay(formatNumber(m2AntecedenteConstruidaRaw));
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -72,15 +124,15 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     return m2 * VPTR * porcentaje;
   };
 
-  // Función para calcular resultados (manteniendo toda la lógica original)
+  // Función para calcular resultados
   const calcularEdificio = () => {
     let m2 = 0;
     let avance = parseFloat(avanceEdificio) || 0;
     
     // Validaciones
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
       if (ampliacion <= 0) {
         setResultados({
           error: "Por favor, ingrese un valor válido para la superficie de ampliación (debe ser mayor a 0)."
@@ -89,7 +141,7 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
       }
       m2 = construida + ampliacion;
     } else {
-      m2 = parseFloat(m2Edificio) || 0;
+      m2 = parseFloat(m2EdificioRaw) || 0;
       if (m2 <= 0) {
         setResultados({
           error: "Por favor, ingrese un valor válido para los metros cuadrados."
@@ -103,15 +155,15 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     
     // Resumen de datos
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       html.push({ label: "Superficie Construida", value: `${construida} m²` });
       html.push({ label: "Superficie Ampliación", value: `${ampliacion} m²` });
       html.push({ label: "Superficie Total", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       html.push({ label: "Metros cuadrados", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else {
@@ -131,7 +183,7 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     // ===== LÓGICA DE CÁLCULO COMPLETA (idéntica al original) =====
     // Para obra construida
     if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       let superficieRelevamiento = m2 - antecedente;
       html.push({ label: "Superficie a Relevar", value: `${m2} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
       
@@ -194,9 +246,9 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
     }
     // Para obra de ampliación
     else if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       let tasaRelevamiento = 0;
       let relevamientoAplicaMinima = false;
@@ -351,13 +403,13 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
               <div className="mb-3" id="m2BasicoField">
                 <label htmlFor="m2Edificio" className="form-label">Metros cuadrados (m²)</label>
                 <input 
-                  type="number" 
+                  type="text" 
                   className="form-control" 
                   id="m2Edificio" 
                   placeholder="Ingrese los m² de construcción" 
-                  min="0"
-                  value={m2Edificio}
-                  onChange={(e) => setM2Edificio(e.target.value)}
+                  value={m2EdificioDisplay}
+                  onChange={handleM2EdificioChange}
+                  onBlur={handleM2EdificioBlur}
                 />
               </div>
             )}
@@ -367,13 +419,13 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
                   <input 
-                    type="number" 
+                    type="text" 
                     className="form-control" 
                     id="m2Construida" 
                     placeholder="Superficie ya construida (puede ser 0)" 
-                    min="0"
-                    value={m2Construida}
-                    onChange={(e) => setM2Construida(e.target.value)}
+                    value={m2ConstruidaDisplay}
+                    onChange={handleM2ConstruidaChange}
+                    onBlur={handleM2ConstruidaBlur}
                   />
                   <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
                 </div>
@@ -381,26 +433,26 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
                   <input 
-                    type="number" 
+                    type="text" 
                     className="form-control" 
                     id="m2Ampliacion" 
                     placeholder="Superficie a ampliar" 
-                    min="0"
-                    value={m2Ampliacion}
-                    onChange={(e) => setM2Ampliacion(e.target.value)}
+                    value={m2AmpliacionDisplay}
+                    onChange={handleM2AmpliacionChange}
+                    onBlur={handleM2AmpliacionBlur}
                   />
                 </div>
                 
                 <div className="mb-3">
                   <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
                   <input 
-                    type="number" 
+                    type="text" 
                     className="form-control" 
                     id="m2AntecedenteAmpliacion" 
                     placeholder="Superficie de antecedente (opcional)" 
-                    min="0"
-                    value={m2AntecedenteAmpliacion}
-                    onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                    value={m2AntecedenteAmpliacionDisplay}
+                    onChange={handleM2AntecedenteAmpliacionChange}
+                    onBlur={handleM2AntecedenteAmpliacionBlur}
                   />
                   <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                 </div>
@@ -412,13 +464,13 @@ const ExterioresNoCubiertosC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
                   <input 
-                    type="number" 
+                    type="text" 
                     className="form-control" 
                     id="m2AntecedenteConstruida" 
                     placeholder="Superficie de antecedente (opcional)" 
-                    min="0"
-                    value={m2AntecedenteConstruida}
-                    onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                    value={m2AntecedenteConstruidaDisplay}
+                    onChange={handleM2AntecedenteConstruidaChange}
+                    onBlur={handleM2AntecedenteConstruidaBlur}
                   />
                   <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                 </div>
