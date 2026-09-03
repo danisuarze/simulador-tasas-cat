@@ -8,16 +8,27 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
   const VPTR = 1250;
   const TASA_MINIMA = 20 * VPTR; // $25,000
 
-  // Estados
+  // Estados crudos (sin formato) para cálculos
   const [tipoObra, setTipoObra] = useState('nueva');
-  const [m2Vivienda, setM2Vivienda] = useState('');
-  const [m2Construida, setM2Construida] = useState('');
-  const [m2Ampliacion, setM2Ampliacion] = useState('');
-  const [m2AntecedenteAmpliacion, setM2AntecedenteAmpliacion] = useState('');
-  const [m2AntecedenteConstruida, setM2AntecedenteConstruida] = useState('');
-  const [montoRefaccion, setMontoRefaccion] = useState('');
-  const [montoRefaccionAmpliacion, setMontoRefaccionAmpliacion] = useState('');
-  const [m2AmpliacionRefaccion, setM2AmpliacionRefaccion] = useState('');
+  const [m2ViviendaRaw, setM2ViviendaRaw] = useState('');
+  const [m2ConstruidaRaw, setM2ConstruidaRaw] = useState('');
+  const [m2AmpliacionRaw, setM2AmpliacionRaw] = useState('');
+  const [m2AntecedenteAmpliacionRaw, setM2AntecedenteAmpliacionRaw] = useState('');
+  const [m2AntecedenteConstruidaRaw, setM2AntecedenteConstruidaRaw] = useState('');
+  const [montoRefaccionRaw, setMontoRefaccionRaw] = useState('');
+  const [montoRefaccionAmpliacionRaw, setMontoRefaccionAmpliacionRaw] = useState('');
+  const [m2AmpliacionRefaccionRaw, setM2AmpliacionRefaccionRaw] = useState('');
+  
+  // Estados display (con formato) para mostrar en los inputs
+  const [m2ViviendaDisplay, setM2ViviendaDisplay] = useState('');
+  const [m2ConstruidaDisplay, setM2ConstruidaDisplay] = useState('');
+  const [m2AmpliacionDisplay, setM2AmpliacionDisplay] = useState('');
+  const [m2AntecedenteAmpliacionDisplay, setM2AntecedenteAmpliacionDisplay] = useState('');
+  const [m2AntecedenteConstruidaDisplay, setM2AntecedenteConstruidaDisplay] = useState('');
+  const [montoRefaccionDisplay, setMontoRefaccionDisplay] = useState('');
+  const [montoRefaccionAmpliacionDisplay, setMontoRefaccionAmpliacionDisplay] = useState('');
+  const [m2AmpliacionRefaccionDisplay, setM2AmpliacionRefaccionDisplay] = useState('');
+
   const [tareaSeleccionada, setTareaSeleccionada] = useState('Anteproyecto');
   const [avanceVivienda, setAvanceVivienda] = useState('');
   const [resultados, setResultados] = useState(null);
@@ -27,17 +38,105 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     setResultados(null);
   }, [
     tipoObra,
-    m2Vivienda,
-    m2Construida,
-    m2Ampliacion,
-    m2AntecedenteAmpliacion,
-    m2AntecedenteConstruida,
-    montoRefaccion,
-    montoRefaccionAmpliacion,
-    m2AmpliacionRefaccion,
+    m2ViviendaRaw,
+    m2ConstruidaRaw,
+    m2AmpliacionRaw,
+    m2AntecedenteAmpliacionRaw,
+    m2AntecedenteConstruidaRaw,
+    montoRefaccionRaw,
+    montoRefaccionAmpliacionRaw,
+    m2AmpliacionRefaccionRaw,
     tareaSeleccionada,
     avanceVivienda
   ]);
+
+  // Función para formatear números con separadores de miles (ej: 1.500.000)
+  const formatNumber = (numStr) => {
+    if (!numStr) return '';
+    const clean = numStr.toString().replace(/[^0-9]/g, '');
+    if (clean === '') return '';
+    return parseInt(clean, 10).toLocaleString('es-AR');
+  };
+
+  // Handlers para Vivienda (campo base)
+  const handleM2ViviendaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2ViviendaRaw(raw);
+    setM2ViviendaDisplay(formatNumber(raw));
+  };
+  const handleM2ViviendaBlur = () => {
+    setM2ViviendaDisplay(formatNumber(m2ViviendaRaw));
+  };
+
+  // Handlers para Construida (ampliacion)
+  const handleM2ConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2ConstruidaRaw(raw);
+    setM2ConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2ConstruidaBlur = () => {
+    setM2ConstruidaDisplay(formatNumber(m2ConstruidaRaw));
+  };
+
+  // Handlers para Ampliacion
+  const handleM2AmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AmpliacionRaw(raw);
+    setM2AmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AmpliacionBlur = () => {
+    setM2AmpliacionDisplay(formatNumber(m2AmpliacionRaw));
+  };
+
+  // Handlers para Antecedente Ampliacion
+  const handleM2AntecedenteAmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteAmpliacionRaw(raw);
+    setM2AntecedenteAmpliacionDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteAmpliacionBlur = () => {
+    setM2AntecedenteAmpliacionDisplay(formatNumber(m2AntecedenteAmpliacionRaw));
+  };
+
+  // Handlers para Antecedente Construida
+  const handleM2AntecedenteConstruidaChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AntecedenteConstruidaRaw(raw);
+    setM2AntecedenteConstruidaDisplay(formatNumber(raw));
+  };
+  const handleM2AntecedenteConstruidaBlur = () => {
+    setM2AntecedenteConstruidaDisplay(formatNumber(m2AntecedenteConstruidaRaw));
+  };
+
+  // Handlers para Monto Refaccion
+  const handleMontoRefaccionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoRefaccionRaw(raw);
+    setMontoRefaccionDisplay(formatNumber(raw));
+  };
+  const handleMontoRefaccionBlur = () => {
+    setMontoRefaccionDisplay(formatNumber(montoRefaccionRaw));
+  };
+
+  // Handlers para Monto Refaccion Ampliacion
+  const handleMontoRefaccionAmpliacionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setMontoRefaccionAmpliacionRaw(raw);
+    setMontoRefaccionAmpliacionDisplay(formatNumber(raw));
+  };
+  const handleMontoRefaccionAmpliacionBlur = () => {
+    setMontoRefaccionAmpliacionDisplay(formatNumber(montoRefaccionAmpliacionRaw));
+  };
+
+  // Handlers para Ampliacion Refaccion
+  const handleM2AmpliacionRefaccionChange = (e) => {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setM2AmpliacionRefaccionRaw(raw);
+    setM2AmpliacionRefaccionDisplay(formatNumber(raw));
+  };
+  const handleM2AmpliacionRefaccionBlur = () => {
+    setM2AmpliacionRefaccionDisplay(formatNumber(m2AmpliacionRefaccionRaw));
+  };
 
   // Función para formatear números como moneda
   const formatoMoneda = (numero) => {
@@ -80,9 +179,9 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     
     // Validaciones según el tipo de obra
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       if (ampliacion <= 0) {
         setResultados({
@@ -100,7 +199,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
       
       m2 = construida + ampliacion;
     } else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       
       if (monto <= 0) {
         setResultados({
@@ -109,8 +208,8 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         return;
       }
     } else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       if (monto <= 0 || ampliacion <= 0) {
         setResultados({
@@ -119,7 +218,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
         return;
       }
     } else {
-      m2 = parseFloat(m2Vivienda) || 0;
+      m2 = parseFloat(m2ViviendaRaw) || 0;
       
       if (m2 <= 0) {
         setResultados({
@@ -134,24 +233,24 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     
     // Mostrar información específica para cada tipo de obra
     if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       html.push({ label: "Superficie Construida", value: `${construida} m²` });
       html.push({ label: "Superficie Ampliación", value: `${ampliacion} m²` });
       html.push({ label: "Superficie Total", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       html.push({ label: "Metros cuadrados", value: `${m2} m²` });
       html.push({ label: "Superficie Antecedente", value: antecedente > 0 ? `${antecedente} m²` : 'No especificada' });
     } else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       html.push({ label: "Monto de Obra", value: formatoMoneda(monto) });
     } else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       html.push({ label: "Monto de Refacción", value: formatoMoneda(monto) });
       html.push({ label: "Superficie de Ampliación", value: `${ampliacion} m²` });
@@ -171,7 +270,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
 
     // Para obra construida
     if (tipoObra === 'construida') {
-      const antecedente = parseFloat(m2AntecedenteConstruida) || 0;
+      const antecedente = parseFloat(m2AntecedenteConstruidaRaw) || 0;
       let superficieRelevamiento = m2 - antecedente;
       
       html.push({ label: "Superficie a Relevar", value: `${m2} m² - ${antecedente} m² = ${superficieRelevamiento} m²` });
@@ -316,9 +415,9 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     }
     // Para obra de ampliación
     else if (tipoObra === 'ampliacion') {
-      const construida = parseFloat(m2Construida) || 0;
-      const ampliacion = parseFloat(m2Ampliacion) || 0;
-      const antecedente = parseFloat(m2AntecedenteAmpliacion) || 0;
+      const construida = parseFloat(m2ConstruidaRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRaw) || 0;
+      const antecedente = parseFloat(m2AntecedenteAmpliacionRaw) || 0;
       
       let tasaRelevamiento = 0;
       let relevamientoAplicaMinima = false;
@@ -514,7 +613,7 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     }
     // Para obra de refacción
     else if (tipoObra === 'refaccion') {
-      const monto = parseFloat(montoRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionRaw) || 0;
       
       let tasaCalculada = monto * 0.01;
       descripcionServicio = "Anteproyecto, Proyecto y Dirección Técnica por monto de obra";
@@ -541,8 +640,8 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
     }
     // Para obra de refacción y ampliación
     else if (tipoObra === 'refaccionAmpliacion') {
-      const monto = parseFloat(montoRefaccionAmpliacion) || 0;
-      const ampliacion = parseFloat(m2AmpliacionRefaccion) || 0;
+      const monto = parseFloat(montoRefaccionAmpliacionRaw) || 0;
+      const ampliacion = parseFloat(m2AmpliacionRefaccionRaw) || 0;
       
       const tasaRefaccionOriginal = monto * 0.01;
       let tasaRefaccion = tasaRefaccionOriginal;
@@ -768,13 +867,13 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
               <div className="mb-3" id="m2BasicoField">
                 <label htmlFor="m2Vivienda" className="form-label">Metros cuadrados (m²)</label>
                 <input 
-                  type="number" 
+                  type="text"
                   className="form-control" 
                   id="m2Vivienda" 
                   placeholder="Ingrese los m² de construcción" 
-                  min="0"
-                  value={m2Vivienda}
-                  onChange={(e) => setM2Vivienda(e.target.value)}
+                  value={m2ViviendaDisplay}
+                  onChange={handleM2ViviendaChange}
+                  onBlur={handleM2ViviendaBlur}
                 />
               </div>
             )}
@@ -784,13 +883,13 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2Construida" className="form-label">Superficie Construida (m²)</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="m2Construida" 
                     placeholder="Superficie ya construida (puede ser 0)" 
-                    min="0"
-                    value={m2Construida}
-                    onChange={(e) => setM2Construida(e.target.value)}
+                    value={m2ConstruidaDisplay}
+                    onChange={handleM2ConstruidaChange}
+                    onBlur={handleM2ConstruidaBlur}
                   />
                   <div className="form-text">Puede ser 0 si no hay construcción existente.</div>
                 </div>
@@ -798,26 +897,26 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2Ampliacion" className="form-label">Superficie de Ampliación (m²)</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="m2Ampliacion" 
                     placeholder="Superficie a ampliar" 
-                    min="0"
-                    value={m2Ampliacion}
-                    onChange={(e) => setM2Ampliacion(e.target.value)}
+                    value={m2AmpliacionDisplay}
+                    onChange={handleM2AmpliacionChange}
+                    onBlur={handleM2AmpliacionBlur}
                   />
                 </div>
                 
                 <div className="mb-3">
                   <label htmlFor="m2AntecedenteAmpliacion" className="form-label">Superficie de Antecedente (m²)</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="m2AntecedenteAmpliacion" 
                     placeholder="Superficie de antecedente (opcional)" 
-                    min="0"
-                    value={m2AntecedenteAmpliacion}
-                    onChange={(e) => setM2AntecedenteAmpliacion(e.target.value)}
+                    value={m2AntecedenteAmpliacionDisplay}
+                    onChange={handleM2AntecedenteAmpliacionChange}
+                    onBlur={handleM2AntecedenteAmpliacionBlur}
                   />
                   <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                 </div>
@@ -829,13 +928,13 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="m2AntecedenteConstruida" className="form-label">Superficie de Antecedente (m²)</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="m2AntecedenteConstruida" 
                     placeholder="Superficie de antecedente (opcional)" 
-                    min="0"
-                    value={m2AntecedenteConstruida}
-                    onChange={(e) => setM2AntecedenteConstruida(e.target.value)}
+                    value={m2AntecedenteConstruidaDisplay}
+                    onChange={handleM2AntecedenteConstruidaChange}
+                    onBlur={handleM2AntecedenteConstruidaBlur}
                   />
                   <div className="form-text">Si no hay antecedente, dejar en blanco o 0.</div>
                 </div>
@@ -847,13 +946,13 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="montoRefaccion" className="form-label">Monto de Obra en $</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="montoRefaccion" 
                     placeholder="Ingrese el monto total de la refacción" 
-                    min="0"
-                    value={montoRefaccion}
-                    onChange={(e) => setMontoRefaccion(e.target.value)}
+                    value={montoRefaccionDisplay}
+                    onChange={handleMontoRefaccionChange}
+                    onBlur={handleMontoRefaccionBlur}
                   />
                 </div>
               </div>
@@ -864,26 +963,26 @@ const ViviendaUnifamiliarC = ({ onBack }) => {
                 <div className="mb-3">
                   <label htmlFor="montoRefaccionAmpliacion" className="form-label">Monto de Refacción en $</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="montoRefaccionAmpliacion" 
                     placeholder="Ingrese el monto total de la refacción" 
-                    min="0"
-                    value={montoRefaccionAmpliacion}
-                    onChange={(e) => setMontoRefaccionAmpliacion(e.target.value)}
+                    value={montoRefaccionAmpliacionDisplay}
+                    onChange={handleMontoRefaccionAmpliacionChange}
+                    onBlur={handleMontoRefaccionAmpliacionBlur}
                   />
                 </div>
                 
                 <div className="mb-3">
                   <label htmlFor="m2AmpliacionRefaccion" className="form-label">Superficie de Ampliación (m²)</label>
                   <input 
-                    type="number" 
+                    type="text"
                     className="form-control" 
                     id="m2AmpliacionRefaccion" 
                     placeholder="Superficie a ampliar" 
-                    min="0"
-                    value={m2AmpliacionRefaccion}
-                    onChange={(e) => setM2AmpliacionRefaccion(e.target.value)}
+                    value={m2AmpliacionRefaccionDisplay}
+                    onChange={handleM2AmpliacionRefaccionChange}
+                    onBlur={handleM2AmpliacionRefaccionBlur}
                   />
                 </div>
               </div>
